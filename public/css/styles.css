@@ -53,10 +53,14 @@
 
 .product-item .inner-image img{
     width: 100%;
+    height: 100%;
 }
 
 .product-item .inner-content{
     padding: 15px;
+    height: 100%;
+    aspect-ratio: 300 / 187;
+    width: 100%;
 }
 
 .product-item .inner-content .inner-price-new{
