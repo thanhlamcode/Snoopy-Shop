@@ -1,8 +1,11 @@
 const express = require("express");
-require("dotenv").config();
+const database = require("./config/database");
 const routes = require("./routes/clients/index-routes");
 const app = express();
+require("dotenv").config();
 const port = process.env.PORT;
+
+database.connect();
 
 app.set("views", "./views");
 app.set("view engine", "pug");
