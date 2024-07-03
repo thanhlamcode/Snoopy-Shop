@@ -1,5 +1,6 @@
 extends ../../layouts/defaults.pug
 include ../../mixins/filterButton.pug
+include ../../mixins/search.pug
 
 block main
   
@@ -11,10 +12,7 @@ block main
         +filterButton(button)
       .col-6
         form#form-search
-          .input-group
-            input.form-control(type="text", placeholder="Nhập từ khóa", name="keyword" value=keyword)
-            .input-group-append
-              button.btn.btn-success(type="submit") Tìm
+          +Search(keyword)
 
   .card.mb-3
   .card-header <h1>Danh sách sản phẩm - số sản phẩm #{products.length}<h1>
