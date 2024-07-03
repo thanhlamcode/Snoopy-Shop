@@ -1,6 +1,7 @@
 extends ../../layouts/defaults.pug
 include ../../mixins/filterButton.pug
 include ../../mixins/search.pug
+include ../../mixins/pagination.pug
 
 block main
   
@@ -44,16 +45,7 @@ block main
               button(class="btn btn-danger btn-sm ml-1") Xóa
 
 
-  nav
-  ul.pagination
-    li.page-item
-      button.page-link.previous-button Trang trước
-    for i in Array.from({ length: pagination.totalPage }, (_, index) => index + 1)
-      li(class=`page-item ${i == pagination.currentPage ? "active" : ""}`)
-        button.page-link.button-pagination #{i}
-
-    li.page-item
-      button.page-link.after-button Kế tiếp
+  +pagination(pagination)
 
 
 

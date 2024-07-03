@@ -1,6 +1,6 @@
 const Product = require("../../models/products.model");
-
 const filterStatus = require("../../helpers/filterStatus");
+const paginationObject = require("../../helpers/pagination");
 
 module.exports.products = async (req, res) => {
   // filter
@@ -23,27 +23,21 @@ module.exports.products = async (req, res) => {
   }
 
   // PAGINATION
-  let pagination = {
-    currentPage: 1,
-    limit: 5,
-  };
-
-  let page = req.query.page;
-  if (page) {
-    pagination.currentPage = parseInt(page);
-  }
-
-  const skip = Math.ceil((pagination.currentPage - 1) * pagination.limit);
-  // console.log(skip);
-
   const totalItem = await Product.countDocuments(find);
-  const totalPage = Math.ceil(totalItem / pagination.limit);
-  pagination.totalPage = totalPage;
-  // console.log(pagination.totalPage);
+  const pagination = paginationObject(
+    {
+      currentPage: 1,
+      limit: 5,
+    },
+    req,
+    totalItem
+  );
 
   // END PAGINATION
 
-  const products = await Product.find(find).limit(pagination.limit).skip(skip);
+  const products = await Product.find(find)
+    .limit(pagination.limit)
+    .skip(pagination.skip);
   res.render("admin/pages/products/index", {
     pageTitle: "Trang Sản phẩm",
     products: products,
