@@ -11,6 +11,7 @@ buttonActive.forEach((button) => {
 
     if (value) {
       currentUrl.searchParams.set("status", value);
+      currentUrl.searchParams.set("page", 1);
     } else {
       currentUrl.searchParams.delete("status");
     }
@@ -42,3 +43,47 @@ formSearch.addEventListener("submit", (e) => {
 });
 
 // END FORM SEARCH
+
+// PAGINATION
+
+const buttonPagination = document.querySelectorAll(".button-pagination");
+console.log(buttonPagination);
+
+buttonPagination.forEach((button) => {
+  button.addEventListener("click", () => {
+    const url = new URL(window.location.href);
+    if (button) {
+      url.searchParams.set("page", button.innerHTML);
+    } else {
+      url.searchParams.delete("page");
+    }
+    window.location.href = url;
+  });
+});
+
+//Pre and After
+
+const preBtn = document.querySelector(".previous-button");
+const aftBtn = document.querySelector(".after-button");
+
+preBtn.addEventListener("click", () => {
+  const url = new URL(window.location.href);
+  const currentPage = parseInt(url.searchParams.get("page"));
+  console.log(currentPage);
+  if (currentPage > 1) {
+    url.searchParams.set("page", currentPage - 1);
+    window.location.href = url;
+  }
+});
+
+aftBtn.addEventListener("click", () => {
+  const url = new URL(window.location.href);
+  const currentPage = parseInt(url.searchParams.get("page"));
+  console.log(currentPage);
+  if (currentPage < buttonPagination.length) {
+    url.searchParams.set("page", currentPage + 1);
+    window.location.href = url;
+  }
+});
+
+// END PAGINATION
