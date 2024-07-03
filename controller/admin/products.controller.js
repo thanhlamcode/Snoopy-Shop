@@ -1,26 +1,10 @@
 const Product = require("../../models/products.model");
 
-// [GET] /admin/products
-module.exports.products = async (req, res) => {
-  console.log(req.query.keyword);
+const filterStatus = require("../../helpers/filterStatus");
 
-  let filter = [
-    {
-      name: "Tất cả",
-      status: "",
-      class: "",
-    },
-    {
-      name: "Hoạt động",
-      status: "active",
-      class: "",
-    },
-    {
-      name: "Dừng hoạt động",
-      status: "unactive",
-      class: "",
-    },
-  ];
+module.exports.products = async (req, res) => {
+  // filter
+  const filter = filterStatus(req);
 
   let find = {
     deleted: false,
@@ -35,15 +19,7 @@ module.exports.products = async (req, res) => {
   if (req.query.keyword) {
     keyword = req.query.keyword;
     const regex = new RegExp(keyword, "i");
-
     find.title = regex;
-  }
-
-  const index = filter.findIndex((item) => item.status === req.query.status);
-  if (req.query.status) {
-    filter[index].class = "active";
-  } else {
-    filter[0].class = "active";
   }
 
   const products = await Product.find(find);

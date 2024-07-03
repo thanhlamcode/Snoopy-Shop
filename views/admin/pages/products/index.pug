@@ -1,4 +1,5 @@
 extends ../../layouts/defaults.pug
+include ../../mixins/filterButton.pug
 
 block main
   
@@ -7,8 +8,7 @@ block main
   .card-body
     .row 
       .col-6
-        each item in button
-          button(class=`btn btn-sm ml-1 btn-outline-success buttonFilter ${item.class}` button_active=`${item.status}`) #{item.name}
+        +filterButton(button)
       .col-6
         form#form-search
           .input-group

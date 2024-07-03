@@ -5,7 +5,7 @@ const buttonActive = document.querySelectorAll(".buttonFilter");
 buttonActive.forEach((button) => {
   button.addEventListener("click", () => {
     const value = button.getAttribute("button_active");
-    console.log(value);
+    // console.log(value);
 
     const currentUrl = new URL(window.location.href);
 
@@ -24,11 +24,11 @@ buttonActive.forEach((button) => {
 // FORM SEARCH
 
 const formSearch = document.querySelector("#form-search");
-console.log(formSearch);
+// console.log(formSearch);
 formSearch.addEventListener("submit", (e) => {
   e.preventDefault();
   const keyword = e.target.elements.keyword.value;
-  console.log(keyword);
+  // console.log(keyword);
 
   const url = new URL(window.location.href);
 
