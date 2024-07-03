@@ -5,11 +5,19 @@ block main
   .card.mb-3
   .card-header Bộ lọc và Tìm kiếm
   .card-body
-    each item in button
-      button(class=`btn btn-sm ml-1 btn-outline-success buttonFilter ${item.class}` button_active=`${item.status}`) #{item.name}
+    .row 
+      .col-6
+        each item in button
+          button(class=`btn btn-sm ml-1 btn-outline-success buttonFilter ${item.class}` button_active=`${item.status}`) #{item.name}
+      .col-6
+        form#form-search
+          .input-group
+            input.form-control(type="text", placeholder="Nhập từ khóa", name="keyword" value=keyword)
+            .input-group-append
+              button.btn.btn-success(type="submit") Tìm
 
   .card.mb-3
-  .card-header <h1>Danh sách sản phẩm<h1>
+  .card-header <h1>Danh sách sản phẩm - số sản phẩm #{products.length}<h1>
   .card-body
     table.table.table-hover.table-sm
       thead
