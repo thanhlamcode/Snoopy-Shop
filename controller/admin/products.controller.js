@@ -2,6 +2,7 @@ const Product = require("../../models/products.model");
 const filterStatus = require("../../helpers/filterStatus");
 const paginationObject = require("../../helpers/pagination");
 
+// [GET /admin/products]
 module.exports.products = async (req, res) => {
   // filter
   const filter = filterStatus(req);
@@ -45,4 +46,15 @@ module.exports.products = async (req, res) => {
     keyword: keyword,
     pagination: pagination,
   });
+};
+
+// []
+module.exports.changeStatus = async (req, res) => {
+  const status = req.params.status;
+  const id = req.params.id;
+
+  await Product.updateOne({ _id: id }, { status: status });
+
+  // res.send(`${status} - ${id}`);
+  res.redirect("back");
 };

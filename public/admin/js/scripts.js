@@ -47,7 +47,7 @@ formSearch.addEventListener("submit", (e) => {
 // PAGINATION
 
 const buttonPagination = document.querySelectorAll(".button-pagination");
-console.log(buttonPagination);
+// console.log(buttonPagination);
 
 buttonPagination.forEach((button) => {
   button.addEventListener("click", () => {
