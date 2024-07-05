@@ -50,3 +50,8 @@
 .pagination{
     justify-content: center;
 }
+
+.img-item{
+    width: 100px;
+    aspect-ratio: 1;
+}

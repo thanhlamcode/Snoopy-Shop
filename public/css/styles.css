@@ -41,7 +41,7 @@
 
 .product-item{
     width: 100%;
-    aspect-ratio: 4/3;
+    aspect-ratio: 4/2;
     font-weight: 700;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     border-radius: 15px;
@@ -49,6 +49,7 @@
 
 .product-item .inner-image {
     width: 100%;
+    aspect-ratio: 4/5;
 }
 
 .product-item .inner-image img{

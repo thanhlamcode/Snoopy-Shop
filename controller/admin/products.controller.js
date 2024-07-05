@@ -63,11 +63,21 @@ module.exports.changeMulti = async (req, res) => {
   const type = req.body.type;
   const ids = req.body.ids.split(",");
 
-  await Product.updateMany(
-    { _id: { $in: ids } }, // Điều kiện: _id nằm trong mảng ids
-    { $set: { status: type } } // Cập nhật type
-  );
-  res.redirect("back");
+  console.log(type);
+
+  if (type == "delete-all") {
+    await Product.updateMany(
+      { _id: { $in: ids } }, // Điều kiện: _id nằm trong mảng ids
+      { $set: { deleted: true } } // Cập nhật type
+    );
+    res.redirect("back");
+  } else {
+    await Product.updateMany(
+      { _id: { $in: ids } }, // Điều kiện: _id nằm trong mảng ids
+      { $set: { status: type } } // Cập nhật type
+    );
+    res.redirect("back");
+  }
 };
 
 // [PATCH] /admin/products/change-status/:status/:id
