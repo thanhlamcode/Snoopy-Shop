@@ -48,13 +48,29 @@ module.exports.products = async (req, res) => {
   });
 };
 
-// []
+// [PATCH] /admin/products/change-status/:status/:id
 module.exports.changeStatus = async (req, res) => {
   const status = req.params.status;
   const id = req.params.id;
 
   await Product.updateOne({ _id: id }, { status: status });
 
-  // res.send(`${status} - ${id}`);
+  res.redirect("back");
+};
+
+// [PATCH] /admin/products/change-multi
+module.exports.changeMulti = async (req, res) => {
+  // console.log(req.body);
+
+  const type = req.body.type;
+  const ids = req.body.ids.split(",");
+
+  // console.log(ids);
+
+  await Product.updateMany(
+    { _id: { $in: ids } }, // Điều kiện: _id nằm trong mảng ids
+    { $set: { status: type } } // Cập nhật type
+  );
+  // res.send("ok");
   res.redirect("back");
 };

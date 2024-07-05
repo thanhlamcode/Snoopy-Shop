@@ -19,3 +19,56 @@ if (buttonChangeStatus.length > 0) {
 }
 
 //END CHANGE STATUS
+
+// CHECKED
+const checkBoxMulti = document.querySelector("[checkbox-multi]");
+const checkAll = checkBoxMulti.querySelector("[name='checkall']");
+const checkItem = checkBoxMulti.querySelectorAll("[name='id']");
+
+checkAll.checked = false;
+
+checkItem.forEach((item) => {
+  item.addEventListener("click", updateCheckAll);
+});
+
+function updateCheckAll() {
+  let allChecked = true;
+  checkItem.forEach((item) => {
+    if (!item.checked) {
+      allChecked = false;
+    }
+  });
+  checkAll.checked = allChecked;
+}
+
+checkAll.addEventListener("click", () => {
+  let isChecked = checkAll.checked;
+  checkItem.forEach((item) => {
+    item.checked = isChecked;
+  });
+});
+
+// END CHECKED
+
+// FORM CHANGE MULTI
+
+const formChangeMulti = document.querySelector(".form-change-multi");
+
+formChangeMulti.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const ids = [];
+  // console.log(e);
+  let checkItem = checkBoxMulti.querySelectorAll("[name='id']");
+  checkItem.forEach((item) => {
+    if (item.checked == true) {
+      ids.push(item.value);
+    }
+  });
+  // console.log(ids);
+  const inputChange = formChangeMulti.querySelector("[name='ids']");
+  inputChange.value = ids.join(",");
+  // console.log(inputChange.value);
+  formChangeMulti.submit();
+});
+
+// END FORM CHANGE MULTI
