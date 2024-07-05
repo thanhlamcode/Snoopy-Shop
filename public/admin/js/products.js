@@ -72,3 +72,20 @@ formChangeMulti.addEventListener("submit", (e) => {
 });
 
 // END FORM CHANGE MULTI
+
+// DELETE HARD
+const buttonDelete = document.querySelectorAll("[button-delete]");
+const formDeleteItem = document.querySelector("#form-delete-item");
+const pathDelete = formDeleteItem.getAttribute("data-path");
+
+buttonDelete.forEach((button) => {
+  button.addEventListener("click", () => {
+    let id = button.getAttribute("id-delete");
+    const action = pathDelete + "/" + id + "?_method=DELETE";
+    console.log(action);
+    formDeleteItem.action = action;
+    formDeleteItem.submit();
+  });
+});
+
+// END DELETE HARD
