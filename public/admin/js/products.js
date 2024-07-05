@@ -80,11 +80,13 @@ const pathDelete = formDeleteItem.getAttribute("data-path");
 
 buttonDelete.forEach((button) => {
   button.addEventListener("click", () => {
-    let id = button.getAttribute("id-delete");
-    const action = pathDelete + "/" + id + "?_method=DELETE";
-    console.log(action);
-    formDeleteItem.action = action;
-    formDeleteItem.submit();
+    if (confirm("Bạn có chắc chắn muốn xóa?")) {
+      let id = button.getAttribute("id-delete");
+      const action = pathDelete + "/" + id + "?_method=DELETE";
+      console.log(action);
+      formDeleteItem.action = action;
+      formDeleteItem.submit();
+    }
   });
 });
 
