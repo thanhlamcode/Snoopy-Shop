@@ -20,9 +20,9 @@ block main
   .card-header <h1>Danh sách sản phẩm đã xóa<h1>
   .card-body
     form(
-      action=path
+      action=`${prefitAdmin}/products/restore-multi?_method=PATCH`
       method=`POST`
-      class=`form-change-multi`
+      class=`form-restore-multi`
       )
       .d-flex.align-items-start
         .form-group

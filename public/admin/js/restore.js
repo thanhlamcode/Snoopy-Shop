@@ -2,7 +2,7 @@
 const formRestore = document.querySelector("#form-restore");
 // console.log(formRestore);
 const buttonRestore = document.querySelectorAll("[id-restore]");
-console.log(buttonRestore);
+// console.log(buttonRestore);
 
 buttonRestore.forEach((button) => {
   button.addEventListener("click", () => {
@@ -16,3 +16,25 @@ buttonRestore.forEach((button) => {
 });
 
 // END RESTORE ONE ITEM
+
+//RESTORE MANY
+const inputRestore = document.querySelector("[name='ids']");
+const formRestoreMulti = document.querySelector(".form-restore-multi");
+const checkBox = document.querySelectorAll("[name='id']");
+console.log(formRestoreMulti);
+const ids = [];
+
+formRestoreMulti.addEventListener("submit", (e) => {
+  e.preventDefault();
+  checkBox.forEach((item) => {
+    if (item.checked == true) {
+      ids.push(item.value);
+    }
+  });
+  inputRestore.value = ids.join(",");
+
+  console.log(inputRestore.value);
+  formRestoreMulti.submit();
+});
+
+// END RESTORE MANY

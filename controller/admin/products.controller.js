@@ -137,3 +137,16 @@ module.exports.restoreProducts = async (req, res) => {
 
   res.redirect("back");
 };
+
+module.exports.restoreMulti = async (req, res) => {
+  // const type = req.body.type;
+  const ids = req.body.ids.split(",");
+  console.log(ids);
+  // res.send("ok");
+
+  await Product.updateMany(
+    { _id: { $in: ids } }, // Điều kiện: _id nằm trong mảng ids
+    { $set: { deleted: false } } // Cập nhật type
+  );
+  res.redirect("back");
+};
