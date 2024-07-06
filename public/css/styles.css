@@ -4,7 +4,7 @@
   }
   
   .header .inner-logo img {
-    max-height: 80px;
+    width: 125px;
     max-width: 100%;
   }
   
@@ -48,8 +48,9 @@
 }
 
 .product-item .inner-image {
-    width: 100%;
+    height: 100%;
     aspect-ratio: 4/5;
+    margin: 0 auto;
 }
 
 .product-item .inner-image img{

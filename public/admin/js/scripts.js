@@ -70,6 +70,9 @@ preBtn.addEventListener("click", () => {
   const url = new URL(window.location.href);
   const currentPage = parseInt(url.searchParams.get("page"));
   console.log(currentPage);
+  if (isNaN(currentPage)) {
+    currentPage = 1;
+  }
   if (currentPage > 1) {
     url.searchParams.set("page", currentPage - 1);
     window.location.href = url;

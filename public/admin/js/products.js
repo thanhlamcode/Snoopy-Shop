@@ -53,22 +53,40 @@ checkAll.addEventListener("click", () => {
 // FORM CHANGE MULTI
 
 const formChangeMulti = document.querySelector(".form-change-multi");
+const type = document.querySelector("[name='type']");
 
 formChangeMulti.addEventListener("submit", (e) => {
   e.preventDefault();
-  const ids = [];
-  // console.log(e);
   let checkItem = checkBoxMulti.querySelectorAll("[name='id']");
+  console.log(type.value);
+  let count = 0;
   checkItem.forEach((item) => {
     if (item.checked == true) {
-      ids.push(item.value);
+      count++;
     }
   });
-  // console.log(ids);
-  const inputChange = formChangeMulti.querySelector("[name='ids']");
-  inputChange.value = ids.join(",");
-  // console.log(inputChange.value);
-  formChangeMulti.submit();
+
+  if (count > 0) {
+    const ids = [];
+    checkItem.forEach((item) => {
+      if (item.checked == true) {
+        if (type.value == "change-position") {
+          const position = item
+            .closest("tr")
+            .querySelector("[name='position']");
+          ids.push(`${item.value}-${position.value}`);
+        } else {
+          ids.push(item.value);
+        }
+      }
+    });
+    const inputChange = formChangeMulti.querySelector("[name='ids']");
+    inputChange.value = ids.join(",");
+
+    formChangeMulti.submit();
+  } else {
+    alert("Vui lòng chọn ít nhất 1 bản ghi");
+  }
 });
 
 // END FORM CHANGE MULTI

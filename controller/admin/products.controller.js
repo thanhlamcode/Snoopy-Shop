@@ -37,6 +37,7 @@ module.exports.products = async (req, res) => {
   // END PAGINATION
 
   const products = await Product.find(find)
+    .sort({ position: "desc" })
     .limit(pagination.limit)
     .skip(pagination.skip);
   res.render("admin/pages/products/index", {
@@ -63,20 +64,38 @@ module.exports.changeMulti = async (req, res) => {
   const type = req.body.type;
   const ids = req.body.ids.split(",");
 
-  console.log(type);
+  // console.log(type);
 
-  if (type == "delete-all") {
-    await Product.updateMany(
-      { _id: { $in: ids } }, // Điều kiện: _id nằm trong mảng ids
-      { $set: { deleted: true } } // Cập nhật type
-    );
-    res.redirect("back");
+  if (ids.length > 0) {
+    if (type == "delete-all") {
+      await Product.updateMany(
+        { _id: { $in: ids } },
+        { $set: { deleted: true } }
+      );
+      res.redirect("back");
+    } else if (type == undefined) {
+      // return;
+      res.redirect("back");
+    } else if (type == "change-position") {
+      // res.send("ok");
+      ids.forEach(async (item, index) => {
+        item = ids[index].split(",");
+        const data = item[0].split("-");
+        // console.log(data[1]);
+        await Product.updateOne(
+          { _id: data[0] },
+          { position: parseInt(data[1]) }
+        );
+      });
+      res.redirect("back");
+    } else {
+      await Product.updateMany(
+        { _id: { $in: ids } },
+        { $set: { status: type } }
+      );
+      res.redirect("back");
+    }
   } else {
-    await Product.updateMany(
-      { _id: { $in: ids } }, // Điều kiện: _id nằm trong mảng ids
-      { $set: { status: type } } // Cập nhật type
-    );
-    res.redirect("back");
   }
 };
 
@@ -129,6 +148,7 @@ module.exports.restore = async (req, res) => {
   // END PAGINATION
 
   const products = await Product.find(find)
+    .sort({ deletedAt: "desc" })
     .limit(pagination.limit)
     .skip(pagination.skip);
   res.render("admin/pages/products/productsRestore", {
@@ -154,9 +174,6 @@ module.exports.restoreMulti = async (req, res) => {
   console.log(ids);
   // res.send("ok");
 
-  await Product.updateMany(
-    { _id: { $in: ids } }, // Điều kiện: _id nằm trong mảng ids
-    { $set: { deleted: false } } // Cập nhật type
-  );
+  await Product.updateMany({ _id: { $in: ids } }, { $set: { deleted: false } });
   res.redirect("back");
 };
