@@ -55,6 +55,7 @@ module.exports.changeStatus = async (req, res) => {
   const id = req.params.id;
 
   await Product.updateOne({ _id: id }, { status: status });
+  req.flash("success", "Cập nhập trạng thái thành công!");
 
   res.redirect("back");
 };
@@ -64,14 +65,13 @@ module.exports.changeMulti = async (req, res) => {
   const type = req.body.type;
   const ids = req.body.ids.split(",");
 
-  // console.log(type);
-
   if (ids.length > 0) {
     if (type == "delete-all") {
       await Product.updateMany(
         { _id: { $in: ids } },
         { $set: { deleted: true } }
       );
+      req.flash("success", `Xóa thành công ${ids.length} sản phẩm !`);
       res.redirect("back");
     } else if (type == undefined) {
       // return;
@@ -87,11 +87,19 @@ module.exports.changeMulti = async (req, res) => {
           { position: parseInt(data[1]) }
         );
       });
+      req.flash(
+        "success",
+        `Thay đổi vị trí thành công ${ids.length} sản phẩm !`
+      );
       res.redirect("back");
     } else {
       await Product.updateMany(
         { _id: { $in: ids } },
         { $set: { status: type } }
+      );
+      req.flash(
+        "success",
+        `Cập nhập trạng thái thành công ${ids.length} sản phẩm !`
       );
       res.redirect("back");
     }
@@ -109,7 +117,7 @@ module.exports.deleteItem = async (req, res) => {
     { _id: id },
     { deleted: true, deletedAt: new Date() }
   );
-
+  req.flash("success", `Xóa sản phẩm thành công !`);
   res.redirect("back");
 };
 
@@ -164,7 +172,7 @@ module.exports.restore = async (req, res) => {
 module.exports.restoreProducts = async (req, res) => {
   const id = req.params.id;
   await Product.updateOne({ _id: id }, { deleted: false });
-
+  req.flash("success", `Khôi phục sản phẩm thành công !`);
   res.redirect("back");
 };
 
@@ -175,5 +183,6 @@ module.exports.restoreMulti = async (req, res) => {
   // res.send("ok");
 
   await Product.updateMany({ _id: { $in: ids } }, { $set: { deleted: false } });
+  req.flash("success", `Khôi phục ${ids.length} sản phẩm thành công !`);
   res.redirect("back");
 };

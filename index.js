@@ -1,5 +1,7 @@
 const express = require("express");
-
+const flash = require("express-flash");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
 const app = express();
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
@@ -12,6 +14,12 @@ const systemConfig = require("./config/systems");
 const port = process.env.PORT;
 
 database.connect();
+
+// FLASH
+app.use(cookieParser("keyboard cat"));
+app.use(session({ cookie: { maxAge: 60000 } }));
+app.use(flash());
+// END FLASH
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));

@@ -3,9 +3,12 @@ include ../../mixins/filterButton.pug
 include ../../mixins/search.pug
 include ../../mixins/pagination.pug
 include ../../mixins/form-change-multi.pug
+include ../../mixins/alert.pug
 
 block main
   
+  +alert-success()
+   
   .card.mb-3
   .card-header Bộ lọc và Tìm kiếm
   .card-body
