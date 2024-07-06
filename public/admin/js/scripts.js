@@ -70,9 +70,6 @@ preBtn.addEventListener("click", () => {
   const url = new URL(window.location.href);
   const currentPage = parseInt(url.searchParams.get("page"));
   console.log(currentPage);
-  if (isNaN(currentPage)) {
-    currentPage = 1;
-  }
   if (currentPage > 1) {
     url.searchParams.set("page", currentPage - 1);
     window.location.href = url;
@@ -82,9 +79,10 @@ preBtn.addEventListener("click", () => {
 aftBtn.addEventListener("click", () => {
   const url = new URL(window.location.href);
   const currentPage = parseInt(url.searchParams.get("page"));
-  console.log(currentPage);
-  if (currentPage < buttonPagination.length) {
-    url.searchParams.set("page", currentPage + 1);
+  const page = isNaN(currentPage) ? 1 : currentPage;
+  console.log(page);
+  if (page < buttonPagination.length) {
+    url.searchParams.set("page", page + 1);
     window.location.href = url;
   }
 });
