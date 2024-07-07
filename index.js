@@ -1,6 +1,11 @@
 const express = require("express");
 const flash = require("express-flash");
 const cookieParser = require("cookie-parser");
+
+const multer = require("multer");
+const storeMuler = require("./helpers/storeMuler");
+const upload = multer({ storage: storeMuler() });
+
 const session = require("express-session");
 const app = express();
 const bodyParser = require("body-parser");
