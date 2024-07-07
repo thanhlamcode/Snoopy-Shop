@@ -22,8 +22,11 @@ block main
   .card.mb-3
   .card-header <h1>Danh sách sản phẩm<h1>
   .card-body
-    +form-change-multi(`${prefitAdmin}/products/change-multi?_method=PATCH`)
-
+    .row 
+      .col-8 
+        +form-change-multi(`${prefitAdmin}/products/change-multi?_method=PATCH`)
+      .col-4
+        a.btn.btn-outline-success(href=`${prefitAdmin}/products/create`) Thêm mới
     table(
       class="table table-hover table-sm"
       checkbox-multi

@@ -1,6 +1,7 @@
 const Product = require("../../models/products.model");
 const filterStatus = require("../../helpers/filterStatus");
 const paginationObject = require("../../helpers/pagination");
+const systemAdmin = require("../../config/systems");
 
 // [GET /admin/products]
 module.exports.products = async (req, res) => {
@@ -185,4 +186,37 @@ module.exports.restoreMulti = async (req, res) => {
   await Product.updateMany({ _id: { $in: ids } }, { $set: { deleted: false } });
   req.flash("success", `Khôi phục ${ids.length} sản phẩm thành công !`);
   res.redirect("back");
+};
+
+module.exports.create = async (req, res) => {
+  const countProducts = await Product.countDocuments();
+  res.render("admin/pages/products/create", {
+    pageTitle: "Trang thêm Sản phẩm",
+    max: countProducts,
+  });
+};
+
+module.exports.createPost = async (req, res) => {
+  try {
+    req.body.price = parseInt(req.body.price);
+    req.body.discountPercentage = parseInt(req.body.discountPercentage);
+    req.body.stock = parseInt(req.body.stock);
+    console.log(req.body);
+
+    const countProducts = await Product.countDocuments();
+
+    if (req.body.position === "") {
+      req.body.position = countProducts + 1;
+    } else {
+      req.body.position = parseInt(req.body.position);
+    }
+
+    const product = new Product(req.body);
+    await product.save();
+
+    res.redirect(`${systemAdmin.prefitAdmin}/products`);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
 };
