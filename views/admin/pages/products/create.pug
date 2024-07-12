@@ -1,6 +1,9 @@
 extends ../../layouts/defaults.pug
+include ../../mixins/alert.pug
 
 block main
+  +alert-error()
+
   h1.mb-4 Thêm mới sản phẩm
   
   form(action=`${prefitAdmin}/products/create`, id="form-create-product", method="POST" enctype="multipart/form-data")
@@ -19,9 +22,11 @@ block main
     div.form-group
       label(for="stock") Số lượng
       input(type="number", class="form-control", id="stock", name="stock", value="0", min="0")
-    div.form-group
+    div(class="form-group" upload-image)
       label(for="thumbnail") Ảnh
-      input(type="file", class="form-control-file", id="thumbnail", name="thumbnail" accept="image/*")
+      input(type="file", upload-image-input class="form-control-file", id="thumbnail", name="thumbnail" accept="image/*")
+      .wrap-image 
+        img(upload-image-preview src="" class="upload-preview")
     div.form-group.form-check.form-check-inline
       input(type="radio", class="form-check-input", id="statusActive", name="status", value="active", checked)
       label(for="statusActive", class="form-check-label") Hoạt động
@@ -35,3 +40,4 @@ block main
       button(type="submit", class="btn btn-primary") Tạo mới
 
   script(src="/admin/js/products.js") 
+  script(src="/admin/js/create.js") 

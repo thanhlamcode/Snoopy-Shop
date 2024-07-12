@@ -5,3 +5,11 @@ mixin alert-success()
         class="alert alert-success"
         show-alert
       ) #{messages.success} <span class= "close-alert">x</span>
+
+mixin alert-error()
+  - if (messages.error)
+    .message.info
+      div(
+        class="alert alert-danger"
+        show-alert
+      ) #{messages.error} <span class= "close-alert">x</span>

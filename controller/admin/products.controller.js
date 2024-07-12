@@ -197,27 +197,34 @@ module.exports.create = async (req, res) => {
 };
 
 module.exports.createPost = async (req, res) => {
-  try {
-    req.body.price = parseInt(req.body.price);
-    req.body.discountPercentage = parseInt(req.body.discountPercentage);
-    req.body.stock = parseInt(req.body.stock);
-
-    const countProducts = await Product.countDocuments();
-
-    if (req.body.position === "") {
-      req.body.position = countProducts + 1;
-    } else {
-      req.body.position = parseInt(req.body.position);
-    }
-
-    req.body.thumbnail = `/upload/${req.file.filename}`;
-
-    const product = new Product(req.body);
-    await product.save();
-
-    res.redirect(`${systemAdmin.prefitAdmin}/products`);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal Server Error");
+  if (!req.body.title) {
+    req.flash("error", `Vui lòng thêm tiêu đề sản phẩm!!`);
+    res.redirect("back");
+    return;
   }
+
+  if (!req.file) {
+    req.flash("error", `Vui lòng thêm hình ảnh sản phẩm!!`);
+    res.redirect("back");
+    return;
+  }
+
+  req.body.price = parseInt(req.body.price);
+  req.body.discountPercentage = parseInt(req.body.discountPercentage);
+  req.body.stock = parseInt(req.body.stock);
+
+  const countProducts = await Product.countDocuments();
+
+  if (req.body.position === "") {
+    req.body.position = countProducts + 1;
+  } else {
+    req.body.position = parseInt(req.body.position);
+  }
+
+  req.body.thumbnail = `/upload/${req.file.filename}`;
+
+  const product = new Product(req.body);
+  await product.save();
+
+  res.redirect(`${systemAdmin.prefitAdmin}/products`);
 };

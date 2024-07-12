@@ -93,3 +93,15 @@
 }
 
 /* END ALERT */
+
+/* UPLOAD PREVIEW */
+#form-create-product .wrap-image {
+  display: flex;
+}
+
+.upload-preview {
+  margin: 10px auto;
+  max-height: 450px;
+}
+
+/* END UPLOAD PREVIEW */
