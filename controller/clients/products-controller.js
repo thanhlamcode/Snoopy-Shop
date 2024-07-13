@@ -12,3 +12,19 @@ module.exports.index = async (req, res) => {
     products: products,
   });
 };
+
+// [GET] /products/detail
+module.exports.detail = async (req, res) => {
+  const slug = req.params.slug;
+  const item = await Product.findOne({
+    slug: slug,
+    status: "active",
+  });
+  const newPrice = Math.round(item.price * (1 - item.discountPercentage / 100));
+  item.newPrice = newPrice;
+  console.log(item);
+  res.render("client/pages/products/detail", {
+    pageTitle: item.title,
+    item: item,
+  });
+};

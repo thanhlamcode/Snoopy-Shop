@@ -1,0 +1,20 @@
+extends ../../layouts/defaults.pug
+  
+block main
+  h1 Trang chi tiết sản phẩm
+
+  .detail
+    .row 
+      .col-4 
+        .inner-image 
+          img(src=item.thumbnail alt=item.title)
+      .col-8 
+        .item__detail 
+          h3 #{item.title}
+          .price
+            .old-price $#{item.price}
+            .new-price $#{item.newPrice}
+            .discount #{item.discountPercentage}% GIẢM
+          .stock Còn lại: <span class="badge badge-warning" >#{item.stock} <span> sản phẩm
+          if(item.description)
+            p.desc #{item.description}

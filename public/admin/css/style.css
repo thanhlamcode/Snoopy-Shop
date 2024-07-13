@@ -131,7 +131,8 @@
 }
 
 .detail .status,
-.detail .position {
+.detail .position,
+.detail .stock {
   font-weight: 600;
   margin: 0;
 }

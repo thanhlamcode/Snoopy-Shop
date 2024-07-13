@@ -13,7 +13,7 @@ block main
               .inner-image
                 img(src=item.thumbnail, alt=item.title)
               .inner-content
-                h3.inner-title #{item.title}
+                a(href=`/products/detail/${item.slug}` class="inner-title") #{item.title}
                 .inner-price-new #{Math.round(item.price * (100 - item.discountPercentage) / 100)}$
                 .inner-price-old #{item.price}$
                 .inner-discount #{item.discountPercentage}%

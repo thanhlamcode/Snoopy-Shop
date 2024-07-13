@@ -1,14 +1,18 @@
 extends ../../layouts/defaults.pug
+include ../../mixins/alert.pug
 
 block main
+  +alert-error()
+  +alert-success()
+
   h1 Trang chi tiết sản phẩm
 
   .detail
     .row 
-      .col-6 
+      .col-4 
         .inner-image 
           img(src=item.thumbnail alt=item.title)
-      .col-6 
+      .col-8 
         .item__detail 
           h3 #{item.title}
           .price
@@ -20,6 +24,7 @@ block main
           else 
             p.status Trạng thái bày bán: <span class="badge badge-danger" >Dừng hoạt động<span>
           .position Vị trí của sản phẩm: <span class="badge badge-success" >#{item.position} <span>
+          .stock Số lượng sản phẩm: <span class="badge badge-warning" >#{item.stock} <span>
           if(item.description)
             p #{item.description}
         a(

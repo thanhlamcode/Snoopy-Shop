@@ -261,7 +261,7 @@ module.exports.editPatch = async (req, res) => {
     console.log(req.body);
     await Product.updateOne({ _id: id }, req.body);
     req.flash("success", `Sửa sản phẩm thành công!!`);
-    res.redirect(`${systemAdmin.prefitAdmin}/products`);
+    res.redirect(`${systemAdmin.prefitAdmin}/products/detail/${id}`);
   } catch (error) {
     req.flash("error", `Sửa sản phẩm thất bại!!`);
     res.redirect(`${systemAdmin.prefitAdmin}/products`);
