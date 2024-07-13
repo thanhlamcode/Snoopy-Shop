@@ -5,11 +5,5 @@ module.exports.createPost = (req, res, next) => {
     return;
   }
 
-  if (!req.file) {
-    req.flash("error", `Vui lòng thêm hình ảnh sản phẩm!!`);
-    res.redirect("back");
-    return;
-  }
-
   next();
 };

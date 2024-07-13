@@ -99,6 +99,10 @@
   display: flex;
 }
 
+.form-edit-product .wrap-image {
+  display: flex;
+}
+
 .upload-preview {
   margin: 10px auto;
   max-height: 450px;

@@ -228,3 +228,42 @@ module.exports.createPost = async (req, res) => {
 
   res.redirect(`${systemAdmin.prefitAdmin}/products`);
 };
+
+module.exports.edit = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const item = await Product.findOne({ _id: id });
+    res.render("admin/pages/products/edit", {
+      pageTitle: "Trang chỉnh sửa Sản phẩm",
+      item: item,
+    });
+  } catch (error) {
+    res.redirect(`${systemAdmin.prefitAdmin}/products`);
+  }
+};
+
+module.exports.editPatch = async (req, res) => {
+  try {
+    const id = req.params.id;
+    console.log(id);
+    const item = await Product.findOne({ _id: id });
+    if (req.file) {
+      req.body.thumbnail = `/upload/${req.file.filename}`;
+    } else {
+      req.body.thumbnail = item.thumbnail;
+    }
+
+    req.body.price = parseInt(req.body.price);
+    req.body.discountPercentage = parseInt(req.body.discountPercentage);
+    req.body.stock = parseInt(req.body.stock);
+    req.body.position = parseInt(req.body.position);
+
+    console.log(req.body);
+    await Product.updateOne({ _id: id }, req.body);
+    req.flash("success", `Sửa sản phẩm thành công!!`);
+    res.redirect(`${systemAdmin.prefitAdmin}/products`);
+  } catch (error) {
+    req.flash("error", `Sửa sản phẩm thất bại!!`);
+    res.redirect(`${systemAdmin.prefitAdmin}/products`);
+  }
+};
