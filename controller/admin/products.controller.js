@@ -267,3 +267,21 @@ module.exports.editPatch = async (req, res) => {
     res.redirect(`${systemAdmin.prefitAdmin}/products`);
   }
 };
+
+module.exports.detail = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const item = await Product.findOne({ _id: id });
+    const newPrice = Math.round(
+      item.price * (1 - item.discountPercentage / 100)
+    );
+    item.newPrice = newPrice;
+    console.log(item);
+    res.render("admin/pages/products/detail", {
+      pageTitle: item.title,
+      item: item,
+    });
+  } catch (error) {
+    res.redirect(`${systemAdmin.prefitAdmin}/products`);
+  }
+};

@@ -1,0 +1,28 @@
+extends ../../layouts/defaults.pug
+
+block main
+  h1 Trang chi tiết sản phẩm
+
+  .detail
+    .row 
+      .col-6 
+        .inner-image 
+          img(src=item.thumbnail alt=item.title)
+      .col-6 
+        .item__detail 
+          h3 #{item.title}
+          .price
+            .old-price $#{item.price}
+            .new-price $#{item.newPrice}
+            .discount #{item.discountPercentage}% GIẢM
+          if(item.status=="active")
+            p.status Trạng thái bày bán: <span class="badge badge-success" >Hoạt động<span>
+          else 
+            p.status Trạng thái bày bán: <span class="badge badge-danger" >Dừng hoạt động<span>
+          .position Vị trí của sản phẩm: <span class="badge badge-success" >#{item.position} <span>
+          if(item.description)
+            p #{item.description}
+        a(
+          class="btn btn-warning btn-sm btn-edit"
+          href=`${prefitAdmin}/products/edit/${item.id}`
+          ) Chỉnh sửa
