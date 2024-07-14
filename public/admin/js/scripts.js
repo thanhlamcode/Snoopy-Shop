@@ -25,22 +25,23 @@ buttonActive.forEach((button) => {
 // FORM SEARCH
 
 const formSearch = document.querySelector("#form-search");
-// console.log(formSearch);
-formSearch.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const keyword = e.target.elements.keyword.value;
-  // console.log(keyword);
+if (formSearch) {
+  formSearch.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const keyword = e.target.elements.keyword.value;
+    // console.log(keyword);
 
-  const url = new URL(window.location.href);
+    const url = new URL(window.location.href);
 
-  if (keyword) {
-    url.searchParams.set("keyword", keyword);
-  } else {
-    url.searchParams.delete("keyword");
-  }
+    if (keyword) {
+      url.searchParams.set("keyword", keyword);
+    } else {
+      url.searchParams.delete("keyword");
+    }
 
-  window.location.href = url;
-});
+    window.location.href = url;
+  });
+}
 
 // END FORM SEARCH
 
@@ -65,26 +66,28 @@ buttonPagination.forEach((button) => {
 
 const preBtn = document.querySelector(".previous-button");
 const aftBtn = document.querySelector(".after-button");
-
-preBtn.addEventListener("click", () => {
-  const url = new URL(window.location.href);
-  const currentPage = parseInt(url.searchParams.get("page"));
-  console.log(currentPage);
-  if (currentPage > 1) {
-    url.searchParams.set("page", currentPage - 1);
-    window.location.href = url;
-  }
-});
-
-aftBtn.addEventListener("click", () => {
-  const url = new URL(window.location.href);
-  const currentPage = parseInt(url.searchParams.get("page"));
-  const page = isNaN(currentPage) ? 1 : currentPage;
-  console.log(page);
-  if (page < buttonPagination.length) {
-    url.searchParams.set("page", page + 1);
-    window.location.href = url;
-  }
-});
+if (preBtn) {
+  preBtn.addEventListener("click", () => {
+    const url = new URL(window.location.href);
+    const currentPage = parseInt(url.searchParams.get("page"));
+    console.log(currentPage);
+    if (currentPage > 1) {
+      url.searchParams.set("page", currentPage - 1);
+      window.location.href = url;
+    }
+  });
+}
+if (aftBtn) {
+  aftBtn.addEventListener("click", () => {
+    const url = new URL(window.location.href);
+    const currentPage = parseInt(url.searchParams.get("page"));
+    const page = isNaN(currentPage) ? 1 : currentPage;
+    console.log(page);
+    if (page < buttonPagination.length) {
+      url.searchParams.set("page", page + 1);
+      window.location.href = url;
+    }
+  });
+}
 
 // END PAGINATION

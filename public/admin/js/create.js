@@ -1,6 +1,6 @@
 // UPLOAD IMAGE
 const uploadImage = document.querySelector("[upload-image]");
-console.log(uploadImage);
+// console.log(uploadImage);
 if (uploadImage) {
   uploadImageInput = document.querySelector("[upload-image-input]");
   uploadImagePreview = document.querySelector("[upload-image-preview]");

@@ -20,6 +20,22 @@ block main
           +Search(keyword)
 
   .card.mb-3
+  .card-header Sắp xếp
+  .card-body
+    .row
+      .col-6
+        div(sort)
+          select.form-control(name="sort" sort-select)
+            option(value="position-desc") Vị trí giảm dần
+            option(value="position-asc") Vị trí tăng dần
+            option(value="price-desc") Giá giảm dần
+            option(value="price-asc") Giá tăng dần
+            option(value="title-asc") Tiêu đề A - Z
+            option(value="title-desc") Tiêu đề Z - A
+      .col-6
+        button.btn.btn-danger(sort-clear) Clear
+
+  .card.mb-3
   .card-header <h1>Danh sách sản phẩm<h1>
   .card-body
     .row 
