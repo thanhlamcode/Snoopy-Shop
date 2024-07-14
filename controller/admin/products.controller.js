@@ -188,6 +188,7 @@ module.exports.restoreMulti = async (req, res) => {
   res.redirect("back");
 };
 
+//[GET] /admin/products/create
 module.exports.create = async (req, res) => {
   const countProducts = await Product.countDocuments();
   res.render("admin/pages/products/create", {
@@ -196,6 +197,7 @@ module.exports.create = async (req, res) => {
   });
 };
 
+//[POST] /admin/products/create
 module.exports.createPost = async (req, res) => {
   if (!req.body.title) {
     req.flash("error", `Vui lòng thêm tiêu đề sản phẩm!!`);
@@ -221,14 +223,13 @@ module.exports.createPost = async (req, res) => {
     req.body.position = parseInt(req.body.position);
   }
 
-  req.body.thumbnail = `/upload/${req.file.filename}`;
-
   const product = new Product(req.body);
   await product.save();
 
   res.redirect(`${systemAdmin.prefitAdmin}/products`);
 };
 
+//[GET] admin/products/edit/:id
 module.exports.edit = async (req, res) => {
   try {
     const id = req.params.id;
@@ -242,16 +243,12 @@ module.exports.edit = async (req, res) => {
   }
 };
 
+//[PATCH] admin/products/edit/:id
 module.exports.editPatch = async (req, res) => {
   try {
     const id = req.params.id;
     console.log(id);
     const item = await Product.findOne({ _id: id });
-    if (req.file) {
-      req.body.thumbnail = `/upload/${req.file.filename}`;
-    } else {
-      req.body.thumbnail = item.thumbnail;
-    }
 
     req.body.price = parseInt(req.body.price);
     req.body.discountPercentage = parseInt(req.body.discountPercentage);
@@ -268,6 +265,7 @@ module.exports.editPatch = async (req, res) => {
   }
 };
 
+//[GET] admin/products/detail/:id
 module.exports.detail = async (req, res) => {
   try {
     const id = req.params.id;
