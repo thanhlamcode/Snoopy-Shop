@@ -26,7 +26,7 @@ block main
           .position Vị trí của sản phẩm: <span class="badge badge-success" >#{item.position} <span>
           .stock Số lượng sản phẩm: <span class="badge badge-warning" >#{item.stock} <span>
           if(item.description)
-            p #{item.description}
+            p !{item.description}
         a(
           class="btn btn-warning btn-sm btn-edit"
           href=`${prefitAdmin}/products/edit/${item.id}`

@@ -1,7 +1,7 @@
 const express = require("express");
+const path = require("path");
 const flash = require("express-flash");
 const cookieParser = require("cookie-parser");
-
 const session = require("express-session");
 const app = express();
 const bodyParser = require("body-parser");
@@ -21,6 +21,13 @@ app.use(cookieParser("keyboard cat"));
 app.use(session({ cookie: { maxAge: 60000 } }));
 app.use(flash());
 // END FLASH
+
+// tinymce
+app.use(
+  "/tinymce",
+  express.static(path.join(__dirname, "node_modules", "tinymce"))
+);
+// END tinymce
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(methodOverride("_method"));
