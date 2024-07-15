@@ -95,11 +95,8 @@
 /* END ALERT */
 
 /* UPLOAD PREVIEW */
-#form-create-product .wrap-image {
-  display: flex;
-}
 
-#form-edit-product .wrap-image {
+.wrap-image {
   display: flex;
 }
 
