@@ -130,3 +130,14 @@ module.exports.changeMulti = async (req, res) => {
   } else {
   }
 };
+
+// [PATCH] /admin/products/change-status/:status/:id
+module.exports.changeStatus = async (req, res) => {
+  const status = req.params.status;
+  const id = req.params.id;
+
+  await ProductCategory.updateOne({ _id: id }, { status: status });
+  req.flash("success", "Cập nhập trạng thái thành công!");
+
+  res.redirect("back");
+};
