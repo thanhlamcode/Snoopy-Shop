@@ -155,3 +155,22 @@ module.exports.deleteItem = async (req, res) => {
   req.flash("success", `Xóa sản phẩm thành công !`);
   res.redirect("back");
 };
+
+//[GET] admin/products/detail/:id
+module.exports.detail = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const item = await ProductCategory.findOne({ _id: id });
+    const newPrice = Math.round(
+      item.price * (1 - item.discountPercentage / 100)
+    );
+    item.newPrice = newPrice;
+    console.log(item);
+    res.render("admin/pages/products-category/detail", {
+      pageTitle: item.title,
+      item: item,
+    });
+  } catch (error) {
+    res.redirect(`${systemAdmin.prefitAdmin}/products-category`);
+  }
+};
