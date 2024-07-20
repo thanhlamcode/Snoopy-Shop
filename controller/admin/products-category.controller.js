@@ -174,3 +174,36 @@ module.exports.detail = async (req, res) => {
     res.redirect(`${systemAdmin.prefitAdmin}/products-category`);
   }
 };
+
+//[GET] admin/products/edit/:id
+module.exports.edit = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const item = await ProductCategory.findOne({ _id: id });
+    res.render("admin/pages/products-category/edit", {
+      pageTitle: "Trang chỉnh sửa Sản phẩm",
+      item: item,
+    });
+  } catch (error) {
+    res.redirect(`${systemAdmin.prefitAdmin}/products-category`);
+  }
+};
+
+//[PATCH] admin/products/edit/:id
+module.exports.editPatch = async (req, res) => {
+  try {
+    const id = req.params.id;
+    console.log(id);
+    const item = await ProductCategory.findOne({ _id: id });
+
+    req.body.position = parseInt(req.body.position);
+
+    console.log(req.body);
+    await ProductCategory.updateOne({ _id: id }, req.body);
+    req.flash("success", `Sửa sản phẩm thành công!!`);
+    res.redirect(`${systemAdmin.prefitAdmin}/products-category/detail/${id}`);
+  } catch (error) {
+    req.flash("error", `Sửa sản phẩm thất bại!!`);
+    res.redirect(`${systemAdmin.prefitAdmin}/products-category`);
+  }
+};

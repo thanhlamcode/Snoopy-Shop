@@ -4,24 +4,15 @@ include ../../mixins/alert.pug
 block main
   +alert-error()
   +alert-success()
-  h1.mb-4 Chỉnh sửa sản phẩm
+  h1.mb-4 Chỉnh sửa danh mục sản phẩm
   
-  form(action=`${prefitAdmin}/products/edit/${item.id}?_method=PATCH`, id="form-edit-product" method="POST" enctype="multipart/form-data")
+  form(action=`${prefitAdmin}/products-category/edit/${item.id}?_method=PATCH`, id="form-edit-product" method="POST" enctype="multipart/form-data")
     div.form-group
       label(for="title") Tiêu đề
       input(type="text" class="form-control" id="title" name="title" required value=item.title)
     div.form-group
       label(for="desc") Mô tả
       textarea(class="form-control", id="desc", name="description", rows="5") #{item.description}
-    div.form-group
-      label(for="price") Giá
-      input(type="number", class="form-control", id="price", name="price" min="0" value=item.price)
-    div.form-group
-      label(for="discount") % Giảm giá
-      input(type="number", class="form-control", id="discount", name="discountPercentage", value=item.discountPercentage, min="0")
-    div.form-group
-      label(for="stock") Số lượng
-      input(type="number", class="form-control", id="stock", name="stock", value=item.stock, min="0")
     div(class="form-group" upload-image)
       label(for="thumbnail") Ảnh
       input(type="file" upload-image-input class="form-control-file", id="thumbnail", name="thumbnail" accept="image/*" value=item.thumbnail)
