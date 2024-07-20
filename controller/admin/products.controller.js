@@ -23,6 +23,7 @@ module.exports.products = async (req, res) => {
     const regex = new RegExp(keyword, "i");
     find.title = regex;
   }
+  //filter
 
   // PAGINATION
   const totalItem = await Product.countDocuments(find);

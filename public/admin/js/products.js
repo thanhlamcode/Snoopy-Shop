@@ -98,9 +98,7 @@ if (formChangeMulti) {
 // DELETE HARD
 const buttonDelete = document.querySelectorAll("[button-delete]");
 const formDeleteItem = document.querySelector("#form-delete-item");
-if (formDeleteItem) {
-  const pathDelete = formDeleteItem.getAttribute("data-path");
-}
+const pathDelete = formDeleteItem.getAttribute("data-path");
 
 if (buttonDelete) {
   buttonDelete.forEach((button) => {

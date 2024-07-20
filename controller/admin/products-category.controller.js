@@ -1,16 +1,36 @@
 const ProductCategory = require("../../models/products-category");
 const systemAdmin = require("../../config/systems");
+const filterStatus = require("../../helpers/filterStatus");
+
 // [GET] /admin/products-category
 module.exports.index = async (req, res) => {
+  // filter
+  const filter = filterStatus(req);
+
   let find = {
     deleted: false,
   };
+
+  if (req.query.status) {
+    find.status = req.query.status;
+  }
+
+  let keyword = "";
+
+  if (req.query.keyword) {
+    keyword = req.query.keyword;
+    const regex = new RegExp(keyword, "i");
+    find.title = regex;
+  }
+  //filter
 
   const record = await ProductCategory.find(find);
 
   res.render("admin/pages/products-category/index", {
     pageTitle: "Trang danh mục sản phẩm",
     record: record,
+    button: filter,
+    keyword: keyword,
   });
 };
 
