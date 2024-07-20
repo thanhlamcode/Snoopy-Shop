@@ -38,7 +38,20 @@ module.exports.index = async (req, res) => {
 
   // END PAGINATION
 
-  const record = await ProductCategory.find(find);
+  // SORT
+  const sort = {};
+
+  if (req.query.sortKey && req.query.sortValue) {
+    sort[req.query.sortKey] = req.query.sortValue;
+  } else {
+    sort.position = "desc";
+  }
+  // END SORT
+
+  const record = await ProductCategory.find(find)
+    .sort(sort)
+    .limit(pagination.limit)
+    .skip(pagination.skip);
 
   res.render("admin/pages/products-category/index", {
     pageTitle: "Trang danh mục sản phẩm",
