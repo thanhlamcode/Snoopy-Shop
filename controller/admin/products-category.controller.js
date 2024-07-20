@@ -55,3 +55,50 @@ module.exports.createPost = async (req, res) => {
   console.log(req.body);
   res.redirect(`${systemAdmin.prefitAdmin}/products-category`);
 };
+
+// [PATCH] /admin/products-category/change-multi
+module.exports.changeMulti = async (req, res) => {
+  const type = req.body.type;
+  const ids = req.body.ids.split(",");
+
+  if (ids.length > 0) {
+    if (type == "delete-all") {
+      await ProductCategory.updateMany(
+        { _id: { $in: ids } },
+        { $set: { deleted: true } }
+      );
+      req.flash("success", `Xóa thành công ${ids.length} sản phẩm !`);
+      res.redirect("back");
+    } else if (type == undefined) {
+      // return;
+      res.redirect("back");
+    } else if (type == "change-position") {
+      // res.send("ok");
+      ids.forEach(async (item, index) => {
+        item = ids[index].split(",");
+        const data = item[0].split("-");
+        // console.log(data[1]);
+        await ProductCategory.updateOne(
+          { _id: data[0] },
+          { position: parseInt(data[1]) }
+        );
+      });
+      req.flash(
+        "success",
+        `Thay đổi vị trí thành công ${ids.length} sản phẩm !`
+      );
+      res.redirect("back");
+    } else {
+      await ProductCategory.updateMany(
+        { _id: { $in: ids } },
+        { $set: { status: type } }
+      );
+      req.flash(
+        "success",
+        `Cập nhập trạng thái thành công ${ids.length} sản phẩm !`
+      );
+      res.redirect("back");
+    }
+  } else {
+  }
+};
