@@ -1,6 +1,7 @@
 const ProductCategory = require("../../models/products-category");
 const systemAdmin = require("../../config/systems");
 const filterStatus = require("../../helpers/filterStatus");
+const paginationObject = require("../../helpers/pagination");
 
 // [GET] /admin/products-category
 module.exports.index = async (req, res) => {
@@ -24,6 +25,19 @@ module.exports.index = async (req, res) => {
   }
   //filter
 
+  // PAGINATION
+  const totalItem = await ProductCategory.countDocuments(find);
+  const pagination = paginationObject(
+    {
+      currentPage: 1,
+      limit: 5,
+    },
+    req,
+    totalItem
+  );
+
+  // END PAGINATION
+
   const record = await ProductCategory.find(find);
 
   res.render("admin/pages/products-category/index", {
@@ -31,6 +45,7 @@ module.exports.index = async (req, res) => {
     record: record,
     button: filter,
     keyword: keyword,
+    pagination: pagination,
   });
 };
 
