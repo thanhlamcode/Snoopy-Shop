@@ -131,7 +131,7 @@ module.exports.changeMulti = async (req, res) => {
   }
 };
 
-// [PATCH] /admin/products/change-status/:status/:id
+// [PATCH] /admin/products-category/change-status/:status/:id
 module.exports.changeStatus = async (req, res) => {
   const status = req.params.status;
   const id = req.params.id;
@@ -139,5 +139,19 @@ module.exports.changeStatus = async (req, res) => {
   await ProductCategory.updateOne({ _id: id }, { status: status });
   req.flash("success", "Cập nhập trạng thái thành công!");
 
+  res.redirect("back");
+};
+
+// [PATCH] /admin/products-category/delete/:id
+module.exports.deleteItem = async (req, res) => {
+  const id = req.params.id;
+  // console.log(id);
+
+  // await ProductCategory.deleteOne({ _id: id });
+  await ProductCategory.updateOne(
+    { _id: id },
+    { deleted: true, deletedAt: new Date() }
+  );
+  req.flash("success", `Xóa sản phẩm thành công !`);
   res.redirect("back");
 };

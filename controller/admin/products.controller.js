@@ -119,7 +119,7 @@ module.exports.changeMulti = async (req, res) => {
   }
 };
 
-// [PATCH] /admin/products/change-status/:status/:id
+// [PATCH] /admin/products/delete/:id
 module.exports.deleteItem = async (req, res) => {
   const id = req.params.id;
   // console.log(id);
@@ -133,7 +133,7 @@ module.exports.deleteItem = async (req, res) => {
   res.redirect("back");
 };
 
-// [GET /admin/products/restore]
+// [GET /admin/products/restore
 module.exports.restore = async (req, res) => {
   // filter
   const filter = filterStatus(req);
