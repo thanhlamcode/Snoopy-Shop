@@ -48,14 +48,35 @@ module.exports.index = async (req, res) => {
   }
   // END SORT
 
-  const record = await ProductCategory.find(find)
+  function createTree(arr, parentId = "") {
+    const tree = [];
+
+    arr.forEach((item) => {
+      if (item.parent_id === parentId) {
+        const newItem = item;
+        const children = createTree(arr, item.id);
+
+        if (children.length > 0) {
+          newItem.children = children;
+        }
+
+        tree.push(newItem);
+      }
+    });
+
+    return tree;
+  }
+
+  const records = await ProductCategory.find(find)
     .sort(sort)
     .limit(pagination.limit)
     .skip(pagination.skip);
 
+  const newRecords = createTree(records);
+
   res.render("admin/pages/products-category/index", {
     pageTitle: "Trang danh mục sản phẩm",
-    record: record,
+    record: newRecords,
     button: filter,
     keyword: keyword,
     pagination: pagination,
@@ -63,9 +84,38 @@ module.exports.index = async (req, res) => {
 };
 
 // [GET] /admin/products-category/create
-module.exports.create = (req, res) => {
+module.exports.create = async (req, res) => {
+  const find = {
+    deleted: false,
+  };
+
+  function createTree(arr, parentId = "") {
+    const tree = [];
+
+    arr.forEach((item) => {
+      if (item.parent_id === parentId) {
+        const newItem = item;
+        const children = createTree(arr, item.id);
+
+        if (children.length > 0) {
+          newItem.children = children;
+        }
+
+        tree.push(newItem);
+      }
+    });
+
+    return tree;
+  }
+
+  const records = await ProductCategory.find(find);
+
+  const newRecords = createTree(records);
+  // console.log(newRecords);
+
   res.render("admin/pages/products-category/create", {
     pageTitle: "Trang thêm mới danh mục sản phẩm",
+    records: newRecords,
   });
 };
 
@@ -179,10 +229,42 @@ module.exports.detail = async (req, res) => {
 module.exports.edit = async (req, res) => {
   try {
     const id = req.params.id;
+
+    const find = {
+      deleted: false,
+    };
+
+    function createTree(arr, parentId = "") {
+      const tree = [];
+
+      arr.forEach((item) => {
+        if (item.parent_id === parentId) {
+          const newItem = item;
+          const children = createTree(arr, item.id);
+
+          if (children.length > 0) {
+            newItem.children = children;
+          }
+
+          tree.push(newItem);
+        }
+      });
+
+      return tree;
+    }
+
+    const records = await ProductCategory.find(find);
+
+    const newRecords = createTree(records);
+
     const item = await ProductCategory.findOne({ _id: id });
+    const itemParent = await ProductCategory.findOne({ _id: item.parent_id });
+
     res.render("admin/pages/products-category/edit", {
       pageTitle: "Trang chỉnh sửa Sản phẩm",
       item: item,
+      itemParent: itemParent,
+      records: newRecords,
     });
   } catch (error) {
     res.redirect(`${systemAdmin.prefitAdmin}/products-category`);
@@ -201,7 +283,7 @@ module.exports.editPatch = async (req, res) => {
     console.log(req.body);
     await ProductCategory.updateOne({ _id: id }, req.body);
     req.flash("success", `Sửa sản phẩm thành công!!`);
-    res.redirect(`${systemAdmin.prefitAdmin}/products-category/detail/${id}`);
+    res.redirect(`${systemAdmin.prefitAdmin}/products-category`);
   } catch (error) {
     req.flash("error", `Sửa sản phẩm thất bại!!`);
     res.redirect(`${systemAdmin.prefitAdmin}/products-category`);
