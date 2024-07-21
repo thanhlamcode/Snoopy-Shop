@@ -14,7 +14,10 @@ block main
     div.form-group
       label(for="parent_id") Danh mục cha
       select(name="parent_id" id="parent_id" class="form-control")
-        option(value=itemParent.id) #{itemParent.title}
+        if itemParent
+          option(value=itemParent._id) #{itemParent.title}
+        else
+          option(value="") -- Chọn danh mục cha --
         if records
           +select-tree(records)
     div.form-group
