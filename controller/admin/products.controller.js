@@ -1,7 +1,9 @@
 const Product = require("../../models/products.model");
+const ProductCategory = require("../../models/products-category");
 const filterStatus = require("../../helpers/filterStatus");
 const paginationObject = require("../../helpers/pagination");
 const systemAdmin = require("../../config/systems");
+const treeHelper = require("../../helpers/createTree");
 
 // [GET /admin/products]
 module.exports.products = async (req, res) => {
@@ -201,10 +203,19 @@ module.exports.restoreMulti = async (req, res) => {
 
 //[GET] /admin/products/create
 module.exports.create = async (req, res) => {
+  const find = {
+    deleted: false,
+  };
+
+  const records = await ProductCategory.find(find);
+
+  const newRecords = treeHelper.tree(records);
+
   const countProducts = await Product.countDocuments();
   res.render("admin/pages/products/create", {
     pageTitle: "Trang thêm Sản phẩm",
     max: countProducts,
+    records: newRecords,
   });
 };
 
