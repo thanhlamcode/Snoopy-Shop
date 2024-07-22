@@ -1,0 +1,21 @@
+extends ../../layouts/defaults.pug
+include ../../mixins/select-tree.pug
+
+block main
+  h1 Thêm mới nhóm quyền
+
+  form(
+    action=`${prefitAdmin}/roles/create` 
+    method="POST" 
+    )
+    div.form-group
+      label(for="title") Tiêu đề
+      input(type="text", class="form-control", id="title", name="title", required)
+    div.form-group
+      label(for="desc") Mô tả
+      textarea(class="form-control", id="desc", name="description", rows="5")
+    div.form-group
+      button(type="submit", class="btn btn-primary") Tạo mới
+
+  script(src="/admin/js/products.js") 
+  script(src="/admin/js/create.js") 
