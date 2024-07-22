@@ -301,16 +301,30 @@ module.exports.detail = async (req, res) => {
   try {
     const id = req.params.id;
     const item = await Product.findOne({ _id: id });
+
+    // Category title
+    let category = {};
+    if (item.product_category_id) {
+      category = await ProductCategory.findOne({
+        _id: item.product_category_id,
+      });
+    }
+
+    console.log(category);
+    // End Category Title
+
     const newPrice = Math.round(
       item.price * (1 - item.discountPercentage / 100)
     );
     item.newPrice = newPrice;
-    console.log(item);
+    // console.log(item);
     res.render("admin/pages/products/detail", {
       pageTitle: item.title,
       item: item,
+      category: category.title,
     });
   } catch (error) {
     res.redirect(`${systemAdmin.prefitAdmin}/products`);
+    console.log(error);
   }
 };

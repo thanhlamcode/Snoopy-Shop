@@ -15,6 +15,8 @@ block main
       .col-8 
         .item__detail 
           h3 #{item.title}
+          if(category)
+            p.position Danh mục sản phẩm <span class="badge badge-success" >#{category} <span>
           .price
             .old-price $#{item.price}
             .new-price $#{item.newPrice}
