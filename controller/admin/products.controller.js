@@ -254,11 +254,20 @@ module.exports.createPost = async (req, res) => {
 //[GET] admin/products/edit/:id
 module.exports.edit = async (req, res) => {
   try {
+    const find = {
+      deleted: false,
+    };
+
+    const records = await ProductCategory.find(find);
+
+    const newRecords = treeHelper.tree(records);
+
     const id = req.params.id;
     const item = await Product.findOne({ _id: id });
     res.render("admin/pages/products/edit", {
       pageTitle: "Trang chỉnh sửa Sản phẩm",
       item: item,
+      records: newRecords,
     });
   } catch (error) {
     res.redirect(`${systemAdmin.prefitAdmin}/products`);
