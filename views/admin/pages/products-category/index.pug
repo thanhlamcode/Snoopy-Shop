@@ -11,7 +11,7 @@ block main
   +alert-success()
    
   .card.mb-3
-  .card-header Bộ lọc và Tìm kiếm
+  .card-header Bộ lọc và Tìm kiếm theo danh mục cha
   .card-body
     .row 
       .col-6
@@ -53,13 +53,13 @@ block main
           th STT
           th Hình ảnh
           th Tiêu đề
-          th Vị trí
+          //- th Vị trí
           th Trạng thái
           th Hành động
       tbody
         +table-tree(record)
         
-  +pagination(pagination)
+  //- +pagination(pagination)
 
   form(
     action="" 

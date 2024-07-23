@@ -8,14 +8,14 @@ mixin table-tree(record, level = 1)
       td
         img(src=item.thumbnail, alt=item.title, width="100px", height="auto" class="img-item")
       td #{prefix} #{item.title}
-      td
-        input(
-          type="number"
-          value=item.position
-          style="width: 60px"
-          min="1"
-          name="position"
-        )
+      //- td
+      //-   input(
+      //-     type="number"
+      //-     value=item.position
+      //-     style="width: 60px"
+      //-     min="1"
+      //-     name="position"
+      //-   )
       td
         if item.status === "active"
           a(
