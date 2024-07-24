@@ -48,7 +48,9 @@ if (checkBoxMulti) {
   const checkAll = checkBoxMulti.querySelector("[name='checkall']");
   const checkItem = checkBoxMulti.querySelectorAll("[name='id']");
 
-  checkAll.checked = false;
+  if (checkAll) {
+    checkAll.checked = false;
+  }
 
   checkItem.forEach((item) => {
     item.addEventListener("click", updateCheckAll);
@@ -64,12 +66,14 @@ if (checkBoxMulti) {
     checkAll.checked = allChecked;
   }
 
-  checkAll.addEventListener("click", () => {
-    let isChecked = checkAll.checked;
-    checkItem.forEach((item) => {
-      item.checked = isChecked;
+  if (checkAll) {
+    checkAll.addEventListener("click", () => {
+      let isChecked = checkAll.checked;
+      checkItem.forEach((item) => {
+        item.checked = isChecked;
+      });
     });
-  });
+  }
 }
 // END CHECKED
 

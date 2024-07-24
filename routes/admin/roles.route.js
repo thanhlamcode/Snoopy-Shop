@@ -11,5 +11,6 @@ router.patch(
   // validate.createPost,
   controller.editPatch
 );
+router.delete("/delete/:id", controller.deleteItem);
 
 module.exports = router;

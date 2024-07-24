@@ -62,12 +62,12 @@ block main
             td #{item.title}
             td !{item.description}
             td
+              //- a(
+              //-   class="btn btn-success btn-sm mr-1"
+              //-   href=`${prefitAdmin}/roles/detail/${item.id}`
+              //-   ) Chi tiết
               a(
-                class="btn btn-success btn-sm mr-1"
-                href=`${prefitAdmin}/roles/detail/${item.id}`
-                ) Chi tiết
-              a(
-                class="btn btn-warning btn-sm"
+                class="btn btn-success btn-sm"
                 href=`${prefitAdmin}/roles/edit/${item.id}`
                 ) Sửa
               button(
@@ -84,12 +84,12 @@ block main
   //-   id="form-change-status"
   //-   data-path=`${prefitAdmin}/products-category/change-status`
   //-   ) 
-  //- form(
-  //-   action="" 
-  //-   method="POST"
-  //-   id="form-delete-item"
-  //-   data-path=`${prefitAdmin}/products-category/delete`
-  //- ) 
+  form(
+    action="" 
+    method="POST"
+    id="form-delete-item"
+    data-path=`${prefitAdmin}/roles/delete`
+  ) 
 
 
   script(src="/admin/js/products.js") 

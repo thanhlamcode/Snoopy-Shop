@@ -58,3 +58,16 @@ module.exports.editPatch = async (req, res) => {
     res.redirect(`${systemAdmin.prefitAdmin}/roles`);
   }
 };
+
+// [DELETE] /admin/roles/delete/:id
+module.exports.deleteItem = async (req, res) => {
+  try {
+    const id = req.params.id;
+    await Role.updateOne({ _id: id }, { deleted: true });
+    req.flash("success", `Xóa nhóm quyền thành công!!`);
+    res.redirect(`${systemAdmin.prefitAdmin}/roles`);
+  } catch (error) {
+    req.flash("error", `Xóa nhóm quyền thất bại!!`);
+    res.redirect(`${systemAdmin.prefitAdmin}/roles`);
+  }
+};
