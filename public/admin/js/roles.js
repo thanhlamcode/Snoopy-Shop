@@ -48,7 +48,6 @@ const checkAll = document.querySelectorAll(".checkall");
 checkAll.forEach((checkAllItem, index) => {
   checkAllItem.addEventListener("change", () => {
     const permissionRows = document.querySelectorAll(`tr[data-name]`);
-    console.log(checkAllItem.checked);
 
     permissionRows.forEach((row) => {
       const checkbox = row.querySelectorAll("input[type='checkbox']");
@@ -63,6 +62,7 @@ checkAll.forEach((checkAllItem, index) => {
       checkbox.forEach((checkboxItem, indexCheck) => {
         const name = checkboxItem.getAttribute("data-name");
         checkboxItem.addEventListener("change", () => {
+          checkAllItem.checked = true;
           if (
             name != "id" &&
             index == indexCheck &&
@@ -75,4 +75,5 @@ checkAll.forEach((checkAllItem, index) => {
     });
   });
 });
+
 //END CHECKALL
