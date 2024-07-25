@@ -1,0 +1,37 @@
+extends ../../layouts/defaults.pug
+include ../../mixins/select-tree.pug
+include ../../mixins/alert.pug
+include ../../mixins/table-permission.pug
+
+block main
+  +alert-error()
+  +alert-success()
+  h1 Phân quyền
+
+  div.text-right
+    button.btn.btn-primary.mb-3(type="submit", button-submit)
+      | Cập nhật
+
+  table.table.table-hover.table-sm(table-permissions)
+    thead
+      tr
+        th Tính năng
+        each item in records 
+          th.text-center #{item.title}
+    tbody
+      tr
+        td(colspan="4")
+          b Danh mục sản phẩm
+      tr(data-name="id" class="d-none")
+        td 
+        each item in records 
+          td
+            input(type="text" value=item.id)
+      +table-permission(records)
+
+  form#form-change-permissions.d-none(method="POST", action=`${prefitAdmin}/roles/permissions?_method=PATCH`)
+    div.form-group
+      input.form-control(type="text", name="permissions")
+
+  script(src="/admin/js/roles.js")
+  script(src="/admin/js/products.js")
