@@ -41,3 +41,38 @@ if (tablePermission) {
 }
 
 // END PERMISSION
+
+//CHECKALL
+const checkAll = document.querySelectorAll(".checkall");
+
+checkAll.forEach((checkAllItem, index) => {
+  checkAllItem.addEventListener("change", () => {
+    const permissionRows = document.querySelectorAll(`tr[data-name]`);
+    console.log(checkAllItem.checked);
+
+    permissionRows.forEach((row) => {
+      const checkbox = row.querySelectorAll("input[type='checkbox']");
+
+      checkbox.forEach((checkboxItem, indexCheck) => {
+        const name = checkboxItem.getAttribute("data-name");
+        if (name != "id" && index == indexCheck) {
+          checkboxItem.checked = checkAllItem.checked;
+        }
+      });
+
+      checkbox.forEach((checkboxItem, indexCheck) => {
+        const name = checkboxItem.getAttribute("data-name");
+        checkboxItem.addEventListener("change", () => {
+          if (
+            name != "id" &&
+            index == indexCheck &&
+            checkboxItem.checked == false
+          ) {
+            checkAllItem.checked = false;
+          }
+        });
+      });
+    });
+  });
+});
+//END CHECKALL
