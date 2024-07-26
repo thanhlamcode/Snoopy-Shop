@@ -4,6 +4,7 @@ const productsRouter = require("./products.route");
 const productsCategoryRouter = require("./products-category.route");
 const roleRouter = require("./roles.route");
 const accountsRouter = require("./accounts.route");
+const authRouter = require("./auth.route");
 
 module.exports = (app) => {
   const PATCH_ADMIN = systemAdmin.prefitAdmin;
@@ -12,4 +13,5 @@ module.exports = (app) => {
   app.use(PATCH_ADMIN + "/products-category", productsCategoryRouter);
   app.use(PATCH_ADMIN + "/roles", roleRouter);
   app.use(PATCH_ADMIN + "/accounts", accountsRouter);
+  app.use(PATCH_ADMIN + "/auth", authRouter);
 };
