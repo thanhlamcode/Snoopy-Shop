@@ -35,6 +35,14 @@ module.exports.loginPost = async (req, res) => {
     return;
   }
 
+  res.cookie("token", user.token);
   req.flash("success", `Đăng nhập thành công !`);
   res.redirect(`${systemAdmin.prefitAdmin}/dashboard`);
+};
+
+// [GET] /admin/auth/logout
+module.exports.logout = (req, res) => {
+  res.clearCookie("token");
+  req.flash("success", `Đăng xuất thành công !`);
+  res.redirect(`${systemAdmin.prefitAdmin}/auth/login`);
 };

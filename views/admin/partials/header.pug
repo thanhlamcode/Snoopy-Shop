@@ -5,4 +5,9 @@ header.header
         .inner-logo
           a(href="/admin/dashboard") ADMIN
       .col-9
-        //- Nội dung của phần header còn lại
+        div.text-right
+          a(
+            href=`${prefitAdmin}/auth/logout`
+            class="btn btn-danger btn-sm"
+          ) Đăng xuất
+
