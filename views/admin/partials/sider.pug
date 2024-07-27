@@ -3,15 +3,21 @@
     ul
       li
         a(href=`${prefitAdmin}/dashboard`) Tổng quan
-      li
-        a(href=`${prefitAdmin}/products-category`) Danh mục sản phẩm
-      li
-        a(href=`${prefitAdmin}/products`) Danh sách sản phẩm
-      li
-        a(href=`${prefitAdmin}/products/restore`) Khôi phục sản phẩm
-      li
-        a(href=`${prefitAdmin}/roles`) Nhóm quyền
-      li
-        a(href=`${prefitAdmin}/roles/permission`) Phân quyền
-      li
-        a(href=`${prefitAdmin}/accounts`) Danh sách tài khoản
+      if(roles.permissions.includes("products-category_view"))
+        li
+          a(href=`${prefitAdmin}/products-category`) Danh mục sản phẩm
+      if(roles.permissions.includes("products_view"))
+        li
+          a(href=`${prefitAdmin}/products`) Danh sách sản phẩm
+      if(roles.permissions.includes("restore_view"))
+        li
+          a(href=`${prefitAdmin}/products/restore`) Khôi phục sản phẩm
+      if(roles.permissions.includes("roles_view"))
+        li
+          a(href=`${prefitAdmin}/roles`) Nhóm quyền
+      if(roles.permissions.includes("permission_view"))
+        li
+          a(href=`${prefitAdmin}/roles/permission`) Phân quyền
+      if(roles.permissions.includes("accounts_view"))
+        li
+          a(href=`${prefitAdmin}/accounts`) Danh sách tài khoản

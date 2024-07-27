@@ -41,7 +41,7 @@ mixin table-permission(records)
   //- Sản phẩm
   tr
     td(colspan="4")
-      b Sản phẩm
+      b Danh sách sản phẩm
   tr(data-name="products_view")
     td Xem
     each item in records 
@@ -79,6 +79,31 @@ mixin table-permission(records)
         td.text-center
           input(type="checkbox" checked=false)
   //- end Sản phẩm
+
+  //- Khôi phục sản phẩm
+  tr
+    td(colspan="4")
+      b Khôi phục sản phẩm
+  tr(data-name="restore_view")
+    td Xem
+    each item in records 
+      if (item.permissions.includes("restore_view"))
+        td.text-center
+          input(type="checkbox" checked=true)
+      else 
+        td.text-center
+          input(type="checkbox" checked=false)
+  tr(data-name="restore_products")
+    td Khôi phục sản phẩm
+    each item in records 
+      if (item.permissions.includes("restore_products"))
+        td.text-center
+          input(type="checkbox" checked=true)
+      else 
+        td.text-center
+          input(type="checkbox" checked=false)
+  //- Khôi phục sản phẩm
+
 
   //- Phân quyền
   tr
@@ -120,13 +145,71 @@ mixin table-permission(records)
       else 
         td.text-center
           input(type="checkbox" checked=false)
-  tr(data-name="roles_roles")
-    td Phân quyền
+
+  //- end nhóm quyền
+  //- Phân quyền
+  tr
+    td(colspan="4")
+      b Phân quyền
+  tr(data-name="permission_view")
+    td Xem
     each item in records 
-      if (item.permissions.includes("roles_roles"))
+      if (item.permissions.includes("permission_view"))
         td.text-center
           input(type="checkbox" checked=true)
       else 
         td.text-center
           input(type="checkbox" checked=false)
-  //- end Nhóm quyền
+  tr(data-name="permission_edit")
+    td Chỉnh sửa
+    each item in records 
+      if (item.permissions.includes("permission_edit"))
+        td.text-center
+          input(type="checkbox" checked=true)
+      else 
+        td.text-center
+          input(type="checkbox" checked=false)
+  //- Phân quyền
+
+
+  //- Danh sách tài khoản
+  tr
+    td(colspan="4")
+      b Danh sách tài khoản
+  tr(data-name="accounts_view")
+    td Xem
+    each item in records 
+      if (item.permissions.includes("accounts_view"))
+        td.text-center
+          input(type="checkbox" checked=true)
+      else 
+        td.text-center
+          input(type="checkbox" checked=false)
+  tr(data-name="accounts_create")
+    td Thêm mới
+    each item in records 
+      if (item.permissions.includes("accounts_create"))
+        td.text-center
+          input(type="checkbox" checked=true)
+      else 
+        td.text-center
+          input(type="checkbox" checked=false)
+  tr(data-name="accounts_edit")
+    td Chỉnh sửa
+    each item in records 
+      if (item.permissions.includes("accounts_edit"))
+        td.text-center
+          input(type="checkbox" checked=true)
+      else 
+        td.text-center
+          input(type="checkbox" checked=false)
+  tr(data-name="accounts_delete")
+    td Xóa
+    each item in records 
+      if (item.permissions.includes("accounts_delete"))
+        td.text-center
+          input(type="checkbox" checked=true)
+      else 
+        td.text-center
+          input(type="checkbox" checked=false)
+  //- Phân quyền
