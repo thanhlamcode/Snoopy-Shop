@@ -9,9 +9,10 @@ block main
     +alert-success()
     h1 Phân quyền
 
-    div.text-right
-      button.btn.btn-primary.mb-3(type="submit", button-submit)
-        | Cập nhật
+    if(roles.permissions.includes("permission_edit"))
+      div.text-right
+        button.btn.btn-primary.mb-3(type="submit", button-submit)
+          | Cập nhật
 
     table.table.table-hover.table-sm(table-permissions)
       thead
