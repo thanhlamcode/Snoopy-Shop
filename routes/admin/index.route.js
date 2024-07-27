@@ -5,13 +5,30 @@ const productsCategoryRouter = require("./products-category.route");
 const roleRouter = require("./roles.route");
 const accountsRouter = require("./accounts.route");
 const authRouter = require("./auth.route");
+const authMiddleware = require("../../middleware/admin/require.middleware");
 
 module.exports = (app) => {
   const PATCH_ADMIN = systemAdmin.prefitAdmin;
-  app.use(PATCH_ADMIN + "/dashboard", dashboardRouter);
-  app.use(PATCH_ADMIN + "/products", productsRouter);
-  app.use(PATCH_ADMIN + "/products-category", productsCategoryRouter);
-  app.use(PATCH_ADMIN + "/roles", roleRouter);
-  app.use(PATCH_ADMIN + "/accounts", accountsRouter);
+  app.use(
+    PATCH_ADMIN + "/dashboard",
+    authMiddleware.requireAuth,
+    dashboardRouter
+  );
+  app.use(
+    PATCH_ADMIN + "/products",
+    authMiddleware.requireAuth,
+    productsRouter
+  );
+  app.use(
+    PATCH_ADMIN + "/products-category",
+    authMiddleware.requireAuth,
+    productsCategoryRouter
+  );
+  app.use(PATCH_ADMIN + "/roles", authMiddleware.requireAuth, roleRouter);
+  app.use(
+    PATCH_ADMIN + "/accounts",
+    authMiddleware.requireAuth,
+    accountsRouter
+  );
   app.use(PATCH_ADMIN + "/auth", authRouter);
 };
