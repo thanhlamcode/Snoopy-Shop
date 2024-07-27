@@ -40,10 +40,12 @@ block main
     
     .card-body
       .row 
-        .col-8 
-          +form-change-multi(`${prefitAdmin}/products/change-multi?_method=PATCH`)
-        .col-4
-          a.btn.btn-outline-success(href=`${prefitAdmin}/products/create`) Thêm mới
+        if(roles.permissions.includes("products_edit"))
+          .col-8 
+            +form-change-multi(`${prefitAdmin}/products/change-multi?_method=PATCH`)
+        if(roles.permissions.includes("products_create"))
+          .col-4
+            a.btn.btn-outline-success(href=`${prefitAdmin}/products/create`) Thêm mới
       table(
         class="table table-hover table-sm"
         checkbox-multi
@@ -99,15 +101,17 @@ block main
                   class="btn btn-success btn-sm mr-1"
                   href=`${prefitAdmin}/products/detail/${item.id}`
                   ) Chi tiết
-                a(
-                  class="btn btn-warning btn-sm"
-                  href=`${prefitAdmin}/products/edit/${item.id}`
-                  ) Sửa
-                button(
-                  class="btn btn-danger btn-sm ml-1"
-                  button-delete
-                  id-delete=item.id
-                  ) Xóa
+                if(roles.permissions.includes("products_edit"))
+                  a(
+                    class="btn btn-warning btn-sm"
+                    href=`${prefitAdmin}/products/edit/${item.id}`
+                    ) Sửa
+                if(roles.permissions.includes("products_delete"))
+                  button(
+                    class="btn btn-danger btn-sm ml-1"
+                    button-delete
+                    id-delete=item.id
+                    ) Xóa
 
 
     +pagination(pagination)
