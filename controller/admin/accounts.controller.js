@@ -33,7 +33,7 @@ module.exports.create = async (req, res) => {
 
   res.render("admin/pages/accounts/create", {
     pageTitle: "Tạo tài khoản",
-    roles: roles,
+    roleCreateAccount: roles,
   });
 };
 
@@ -83,7 +83,7 @@ module.exports.edit = async (req, res) => {
     res.render("admin/pages/accounts/edit", {
       pageTitle: "Trang chỉnh sửa Tài khoản",
       item: records[0],
-      roles: roles,
+      roleCreateAccount: roles,
     });
   } catch (error) {
     res.redirect(`${systemAdmin.prefitAdmin}/accounts`);

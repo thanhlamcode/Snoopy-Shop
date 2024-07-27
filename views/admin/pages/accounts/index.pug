@@ -13,11 +13,12 @@ block main
     .card-header <h1>Danh sách tài khoản<h1>
     
     .card-body
-      .row 
-        .col-8 
-          h4 Thêm mới Tài khoản:
-        .col-4
-          a.btn.btn-outline-success(href=`${prefitAdmin}/accounts/create`) Thêm mới
+      if(roles.permissions.includes("accounts_create"))
+        .row 
+          .col-8 
+            h4 Thêm mới Tài khoản:
+          .col-4
+            a.btn.btn-outline-success(href=`${prefitAdmin}/accounts/create`) Thêm mới
 
     table(class="table table-hover table-sm")
       thead
@@ -57,21 +58,19 @@ block main
                   data-status="inactive"
                 ) Dừng hoạt động
             td
-              a(
-                class="btn btn-secondary btn-sm"
-                href=`${prefitAdmin}/accounts/detail/${item.id}`
-              ) Chi tiết
-              a(
-                class="btn btn-warning btn-sm ml-1"
-                href=`${prefitAdmin}/accounts/edit/${item.id}`
-              ) Sửa
-              button(
-                class="btn btn-danger btn-sm ml-1"
-                type="button"
-              ) Xóa
+              if(roles.permissions.includes("accounts_edit"))
+                a(
+                  class="btn btn-warning btn-sm ml-1"
+                  href=`${prefitAdmin}/accounts/edit/${item.id}`
+                ) Sửa
+              if(roles.permissions.includes("accounts_delete"))
+                button(
+                  class="btn btn-danger btn-sm ml-1"
+                  type="button"
+                ) Xóa
 
 
     script(src="/admin/js/create.js") 
     script(src="/admin/js/products.js")  
   else 
-    h1 Bạn không có quyền xem mục này
+    h1 Bạn không có quyền truy cập trang này
