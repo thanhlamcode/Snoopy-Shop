@@ -7,15 +7,16 @@ include ../../mixins/alert.pug
 include ../../mixins/table-tree.pug
 
 block main
-  if(roles.permissions.includes("accounts_view"))
+  if(roles.permissions.includes("roles_view"))
     .card-header <h1>Nhóm quyền<h1>
     +alert-success()  
     .card-body
-      .row 
-        .col-8 
-          h4 Thêm mới Nhóm Quyền:
-        .col-4
-          a.btn.btn-outline-success(href=`${prefitAdmin}/roles/create`) Thêm mới
+      if(roles.permissions.includes("roles_create"))
+        .row 
+          .col-8 
+            h4 Thêm mới Nhóm Quyền:
+          .col-4
+            a.btn.btn-outline-success(href=`${prefitAdmin}/roles/create`) Thêm mới
 
     .card
     .card-header Danh sách
@@ -37,28 +38,22 @@ block main
               td #{item.title}
               td !{item.description}
               td
-                //- a(
-                //-   class="btn btn-success btn-sm mr-1"
-                //-   href=`${prefitAdmin}/roles/detail/${item.id}`
-                //-   ) Chi tiết
-                a(
-                  class="btn btn-success btn-sm"
-                  href=`${prefitAdmin}/roles/edit/${item.id}`
-                  ) Sửa
-                button(
-                  class="btn btn-danger btn-sm ml-1"
-                  button-delete
-                  id-delete=item.id
-                  ) Xóa
-          
-    //- +pagination(pagination)
-
-    //- form(
-    //-   action="" 
-    //-   method="POST"
-    //-   id="form-change-status"
-    //-   data-path=`${prefitAdmin}/products-category/change-status`
-    //-   ) 
+                if(roles.permissions.includes("roles_edit") || roles.permissions.includes("roles_delete"))
+                  if(roles.permissions.includes("roles_edit"))
+                    a(
+                      class="btn btn-success btn-sm"
+                      href=`${prefitAdmin}/roles/edit/${item.id}`
+                      ) Sửa
+                  if(roles.permissions.includes("roles_delete"))
+                    button(
+                      class="btn btn-danger btn-sm ml-1"
+                      button-delete
+                      id-delete=item.id
+                      ) Xóa
+                else
+                  a(
+                    class="btn btn-success btn-sm"
+                    ) Bạn không có quyền nào
     form(
       action="" 
       method="POST"
