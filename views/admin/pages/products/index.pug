@@ -60,6 +60,7 @@ block main
             th Giá
             th Vị trí
             th Trạng thái
+            th Người tạo
             th Hành động
         tbody
           each item, index in products
@@ -96,6 +97,11 @@ block main
                     button-change-status
                     class="badge badge-danger"
                   ) Dừng hoạt động
+              td
+                if(item.creator)
+                  div 
+                    p #{item.creator}
+                    p #{moment(item.createBy.createAt).format('DD/MM/YYYY, hh:mm:ss a')}
               td
                 a(
                   class="btn btn-success btn-sm mr-1"

@@ -16,12 +16,25 @@ const productSchema = new mongoose.Schema(
     thumbnail: String,
     status: String,
     position: Number,
+    createBy: {
+      account_id: String,
+      createAt: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+    deletedBy: {
+      account_id: String,
+      deletedAt: {
+        type: Date,
+        default: Date,
+      },
+    },
     slug: { type: String, slug: "title", unique: true },
     deleted: {
       type: Boolean,
       default: false,
     },
-    deletedAt: Date,
   },
   {
     timestamps: true,

@@ -1,5 +1,6 @@
 const Product = require("../../models/products.model");
 const ProductCategory = require("../../models/products-category");
+const Accounts = require("../../models/accounts.model");
 const filterStatus = require("../../helpers/filterStatus");
 const paginationObject = require("../../helpers/pagination");
 const systemAdmin = require("../../config/systems");
@@ -54,6 +55,16 @@ module.exports.products = async (req, res) => {
     .sort(sort)
     .limit(pagination.limit)
     .skip(pagination.skip);
+
+  for (const product of products) {
+    const creator = await Accounts.findOne({
+      _id: product.createBy.account_id,
+    });
+    if (creator) {
+      product.creator = creator.fullName;
+    }
+  }
+
   res.render("admin/pages/products/index", {
     pageTitle: "Trang Sản phẩm",
     products: products,
@@ -83,7 +94,15 @@ module.exports.changeMulti = async (req, res) => {
     if (type == "delete-all") {
       await Product.updateMany(
         { _id: { $in: ids } },
-        { $set: { deleted: true } }
+        {
+          $set: {
+            deleted: true,
+            deletedBy: {
+              account_id: res.locals.user.id,
+              deletedAt: new Date(),
+            },
+          },
+        }
       );
       req.flash("success", `Xóa thành công ${ids.length} sản phẩm !`);
       res.redirect("back");
@@ -124,18 +143,21 @@ module.exports.changeMulti = async (req, res) => {
 // [PATCH] /admin/products/delete/:id
 module.exports.deleteItem = async (req, res) => {
   const id = req.params.id;
-  // console.log(id);
-
-  // await Product.deleteOne({ _id: id });
   await Product.updateOne(
     { _id: id },
-    { deleted: true, deletedAt: new Date() }
+    {
+      deleted: true,
+      deletedBy: {
+        account_id: res.locals.user.id,
+        deletedAt: new Date(),
+      },
+    }
   );
   req.flash("success", `Xóa sản phẩm thành công !`);
   res.redirect("back");
 };
 
-// [GET /admin/products/restore
+// [GET] /admin/products/restore
 module.exports.restore = async (req, res) => {
   // filter
   const filter = filterStatus(req);
@@ -170,9 +192,19 @@ module.exports.restore = async (req, res) => {
   // END PAGINATION
 
   const products = await Product.find(find)
-    .sort({ deletedAt: "desc" })
+    .sort({ "deletedBy.deletedAt": -1 })
     .limit(pagination.limit)
     .skip(pagination.skip);
+
+  for (const product of products) {
+    const deletor = await Accounts.findOne({
+      _id: product.deletedBy.account_id,
+    });
+    if (deletor) {
+      product.deletor = deletor.fullName;
+    }
+  }
+
   res.render("admin/pages/products/productsRestore", {
     pageTitle: "Trang Khôi phục sản phẩm",
     products: products,
@@ -208,7 +240,6 @@ module.exports.create = async (req, res) => {
   };
 
   const records = await ProductCategory.find(find);
-
   const newRecords = treeHelper.tree(records);
 
   const countProducts = await Product.countDocuments();
@@ -244,6 +275,10 @@ module.exports.createPost = async (req, res) => {
   } else {
     req.body.position = parseInt(req.body.position);
   }
+
+  req.body.createBy = {
+    account_id: res.locals.user.id,
+  };
 
   const product = new Product(req.body);
   await product.save();

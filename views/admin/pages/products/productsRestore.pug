@@ -46,6 +46,7 @@ block main
             th Tiêu đề
             th Giá
             th Trạng thái
+            th Người xóa
             if(roles.permissions.includes("restore_products"))
               th Hành động
         tbody
@@ -75,6 +76,11 @@ block main
                     button-change-status
                     class="badge badge-danger"
                   ) Dừng hoạt động
+              td 
+                if(item.deletor)
+                  div
+                    p #{item.deletor}
+                    p #{moment(item.deletedBy.deletedAt).format('DD/MM/YYYY, hh:mm:ss a')}
               if(roles.permissions.includes("restore_products"))
                 td
                   button(class="btn btn-warning btn-sm" id-restore=item.id) Khôi phục sản phẩm

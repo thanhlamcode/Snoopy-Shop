@@ -7,6 +7,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
 require("dotenv").config();
+const moment = require("moment");
 
 const database = require("./config/database");
 const routes = require("./routes/clients/index-routes");
@@ -42,6 +43,7 @@ routeAdmin(app);
 
 // App Local Varialble -  Tạo ra biến toàn cục - file pug nào cũng dùng được
 app.locals.prefitAdmin = systemConfig.prefitAdmin;
+app.locals.moment = moment;
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
