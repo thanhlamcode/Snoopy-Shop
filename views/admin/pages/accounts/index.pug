@@ -65,10 +65,17 @@ block main
                 ) Sửa
               if(roles.permissions.includes("accounts_delete"))
                 button(
+                  button-delete
+                  id-delete=item.id
                   class="btn btn-danger btn-sm ml-1"
-                  type="button"
                 ) Xóa
 
+    form(
+      action="" 
+      method="POST"
+      id="form-delete-item"
+      data-path=`${prefitAdmin}/accounts/delete`
+    ) 
 
     script(src="/admin/js/create.js") 
     script(src="/admin/js/products.js")  

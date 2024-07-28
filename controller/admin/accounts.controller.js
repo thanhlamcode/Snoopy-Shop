@@ -120,3 +120,18 @@ module.exports.editPatch = async (req, res) => {
     res.redirect(`${systemAdmin.prefitAdmin}/accounts`);
   }
 };
+
+//[DELETE] admin/accounts/delete/:id
+module.exports.deleteItem = async (req, res) => {
+  try {
+    const id = req.params.id;
+    console.log(id);
+
+    await Accounts.updateOne({ _id: id }, { deleted: true });
+    req.flash("success", `Xóa tài khoản thành công!`);
+    res.redirect("back");
+  } catch (error) {
+    req.flash("error", `Xóa tài khoản thất bại!!`);
+    res.redirect(`${systemAdmin.prefitAdmin}/accounts`);
+  }
+};
