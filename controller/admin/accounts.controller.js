@@ -135,3 +135,18 @@ module.exports.deleteItem = async (req, res) => {
     res.redirect(`${systemAdmin.prefitAdmin}/accounts`);
   }
 };
+
+//[PATCH] admin/accounts/change-status/:status/:id
+module.exports.changeStatus = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const status = req.params.status;
+
+    await Accounts.updateOne({ _id: id }, { status: status });
+    req.flash("success", `Thay đổi trạng thái thành công!`);
+    res.redirect("back");
+  } catch (error) {
+    req.flash("error", `Thay đổi trạng thái thất bại!!`);
+    res.redirect(`${systemAdmin.prefitAdmin}/accounts`);
+  }
+};

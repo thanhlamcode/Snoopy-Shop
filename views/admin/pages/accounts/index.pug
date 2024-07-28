@@ -47,15 +47,19 @@ block main
             td
               if item.status === "active"
                 a(
-                  href="javascript:;"
-                  class="badge badge-success"
-                  data-status="active"
+                href="javascript:" 
+                data-status=item.status
+                data-id=item.id 
+                button-change-status
+                class="badge badge-success"
                 ) Hoạt động
               else
                 a(
-                  href="javascript:;"
-                  class="badge badge-secondary"
-                  data-status="inactive"
+                  href="javascript:" 
+                  data-status=item.status
+                  data-id=item.id 
+                  button-change-status
+                  class="badge badge-danger"
                 ) Dừng hoạt động
             td
               if(roles.permissions.includes("accounts_edit"))
@@ -76,8 +80,13 @@ block main
       id="form-delete-item"
       data-path=`${prefitAdmin}/accounts/delete`
     ) 
+    form(
+      action="" 
+      method="POST"
+      id="form-change-status"
+      data-path=`${prefitAdmin}/accounts/change-status`
+      ) 
 
-    script(src="/admin/js/create.js") 
-    script(src="/admin/js/products.js")  
+    script(src="/admin/js/create.js")   
   else 
     h1 Bạn không có quyền truy cập trang này
