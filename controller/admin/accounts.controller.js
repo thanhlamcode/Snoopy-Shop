@@ -142,7 +142,19 @@ module.exports.deleteItem = async (req, res) => {
     const id = req.params.id;
     console.log(id);
 
-    await Accounts.updateOne({ _id: id }, { deleted: true });
+    const deletor = await Accounts.findOne({ _id: res.locals.user.id });
+    console.log(deletor.id);
+
+    await Accounts.updateOne(
+      { _id: id },
+      {
+        deleted: true,
+        deletedBy: {
+          account_id: res.locals.user.id,
+          deletedAt: Date.now(),
+        },
+      }
+    );
     req.flash("success", `Xóa tài khoản thành công!`);
     res.redirect("back");
   } catch (error) {
