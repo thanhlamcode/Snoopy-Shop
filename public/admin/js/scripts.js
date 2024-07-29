@@ -1,3 +1,26 @@
+// BACK TO TOP
+const btn = document.getElementById("button");
+
+// Thêm sự kiện cuộn cho cửa sổ
+window.addEventListener("scroll", function () {
+  if (window.scrollY > 300) {
+    btn.classList.add("show");
+  } else {
+    btn.classList.remove("show");
+  }
+});
+
+// Thêm sự kiện nhấp chuột cho nút
+btn.addEventListener("click", function (e) {
+  e.preventDefault();
+  // Tạo hiệu ứng cuộn mượt mà về đầu trang
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+});
+// END BACK TO TOP
+
 // FILTER PRODUCT
 
 const buttonActive = document.querySelectorAll(".buttonFilter");
