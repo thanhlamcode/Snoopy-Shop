@@ -6,6 +6,7 @@ header.header
           a(href="/admin/dashboard") ADMIN
       .col-9
         div.text-right
+          a.btn.btn-primary.btn-sm.mr-2(href=`${prefitAdmin}/my-account`) #{user.fullName}
           a(
             href=`${prefitAdmin}/auth/logout`
             class="btn btn-danger btn-sm"

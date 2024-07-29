@@ -13,25 +13,26 @@ block main
         .inner-image 
           img(src=item.thumbnail alt=item.title)
       .col-8 
-        .item__detail 
-          h3 #{item.title}
-          if(category)
-            p.position Danh mục sản phẩm <span class="badge badge-success" >#{category} <span>
-          .price
-            .old-price $#{item.price}
-            .new-price $#{item.newPrice}
-            .discount #{item.discountPercentage}% GIẢM
-          if(item.status=="active")
-            p.status Trạng thái bày bán: <span class="badge badge-success" >Hoạt động<span>
-          else 
-            p.status Trạng thái bày bán: <span class="badge badge-danger" >Dừng hoạt động<span>
-          .position Vị trí của sản phẩm: <span class="badge badge-success" >#{item.position} <span>
-          .stock Số lượng sản phẩm: <span class="badge badge-warning" >#{item.stock} <span>
-          if(item.description)
-            p !{item.description}
-        a(
-          class="btn btn-warning btn-sm btn-edit"
-          href=`${prefitAdmin}/products/edit/${item.id}`
-          ) Chỉnh sửa
+        div.wrap
+          .item__detail 
+            h3 #{item.title}
+            if(category)
+              p.position Danh mục sản phẩm <span class="badge badge-success" >#{category} <span>
+            .price
+              .old-price $#{item.price}
+              .new-price $#{item.newPrice}
+              .discount #{item.discountPercentage}% GIẢM
+            if(item.status=="active")
+              p.status Trạng thái bày bán: <span class="badge badge-success" >Hoạt động<span>
+            else 
+              p.status Trạng thái bày bán: <span class="badge badge-danger" >Dừng hoạt động<span>
+            .position Vị trí của sản phẩm: <span class="badge badge-success" >#{item.position} <span>
+            .stock Số lượng sản phẩm: <span class="badge badge-warning" >#{item.stock} <span>
+            if(item.description)
+              p !{item.description}
+          a(
+            class="btn btn-warning btn-sm btn-edit mt-2"
+            href=`${prefitAdmin}/products/edit/${item.id}`
+            ) Chỉnh sửa
 
   script(src="/admin/js/products.js") 

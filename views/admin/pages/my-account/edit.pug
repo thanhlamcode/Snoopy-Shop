@@ -1,0 +1,33 @@
+extends ../../layouts/defaults.pug
+include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
+
+block main
+  +alert-error()
+  +alert-success()
+  h1.mb-4 Chỉnh sửa tài khoản
+
+  form(action=`${prefitAdmin}/my-account/edit?_method=PATCH` method="POST" enctype="multipart/form-data")
+    div.form-group
+      label(for="fullName") Họ tên*
+      input(type="text", class="form-control" id="fullName" name="fullName" value=user.fullName required )
+    div.form-group
+      label(for="email") Email*
+      input(type="email", class="form-control", id="email", name="email", required value=user.email)
+    div.form-group
+      label(for="password") Mật khẩu mới
+      input(type="password", class="form-control", id="password", name="password")
+    div.form-group
+      label(for="phone") Số điện thoại*
+      input(type="text", class="form-control", id="phone", name="phone", required value=user.phone)
+    div(class="form-group" upload-image)
+      label(for="thumbnail") Avatar
+      input(type="file", upload-image-input class="form-control-file", id="thumbnail", name="thumbnail" accept="image/*")
+      .wrap-image 
+        img(upload-image-preview src=user.thumbnail class="upload-preview")
+    div.form-group
+      button(type="submit", class="btn btn-primary") Cập nhập
+
+  script(src="/admin/js/products.js") 
+  script(src="/admin/js/edit.js")
+  script(src="/admin/js/create.js")

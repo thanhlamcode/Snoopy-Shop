@@ -1,0 +1,32 @@
+extends ../../layouts/defaults.pug
+include ../../mixins/alert.pug
+
+block main
+  +alert-error()
+  +alert-success()
+
+  h1 Trang thông tin cá nhân
+
+  .detail
+    .row 
+      .col-4 
+        .inner-image 
+          img(src=user.thumbnail alt=user.fullName)
+      .col-8 
+        div.wrap
+          .item__detail 
+            h3 Thông tin cá nhân
+            p <b> Họ tên: </b> #{user.fullName}
+            p <b> Số điện thoại: </b> #{user.phone}
+            if(user.status=="active")
+              p <b> Trạng thái tài khoản: </b><span class="badge badge-success" >Hoạt động<span>
+            else 
+              p <b> Trạng thái tài khoản:</b> <span class="badge badge-danger" >Dừng hoạt động<span>
+            p <b>Phân quyền:</b> #{roles.title}
+            p <b>Email:</b> #{user.email}
+          a(
+            class="btn btn-warning btn-sm btn-edit mt-2"
+            href=`${prefitAdmin}/my-account/edit`
+            ) Chỉnh sửa
+
+  script(src="/admin/js/products.js") 

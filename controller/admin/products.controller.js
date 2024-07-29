@@ -424,6 +424,7 @@ module.exports.historyEdit = async (req, res) => {
 
     // Log updatedBy để kiểm tra kết quả
     console.log(updatedBy);
+    updatedBy.slice(-10);
 
     res.render("admin/pages/products/historyEdit", {
       pageTitle: item.title,
