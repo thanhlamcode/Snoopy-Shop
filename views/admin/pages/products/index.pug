@@ -120,6 +120,11 @@ block main
                     button-delete
                     id-delete=item.id
                     ) Xóa
+                if(item.updatedBy.account_id)
+                  a(
+                    class="btn btn-info btn-sm"
+                    href=`${prefitAdmin}/products/historyEdit/${item.id}`
+                    ) Lịch sử chỉnh sửa
 
 
     +pagination(pagination)

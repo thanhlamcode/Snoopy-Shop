@@ -65,6 +65,8 @@ module.exports.products = async (req, res) => {
     }
   }
 
+  console.log(products);
+
   res.render("admin/pages/products/index", {
     pageTitle: "Trang Sản phẩm",
     products: products,
@@ -79,7 +81,15 @@ module.exports.changeStatus = async (req, res) => {
   const status = req.params.status;
   const id = req.params.id;
 
-  await Product.updateOne({ _id: id }, { status: status });
+  const updatedBy = {
+    account_id: res.locals.user.id,
+    updatedAt: new Date(),
+  };
+
+  await Product.updateOne(
+    { _id: id },
+    { status: status, $push: { updatedBy: updatedBy } }
+  );
   req.flash("success", "Cập nhập trạng thái thành công!");
 
   res.redirect("back");
@@ -89,6 +99,11 @@ module.exports.changeStatus = async (req, res) => {
 module.exports.changeMulti = async (req, res) => {
   const type = req.body.type;
   const ids = req.body.ids.split(",");
+
+  const updatedBy = {
+    account_id: res.locals.user.id,
+    updatedAt: new Date(),
+  };
 
   if (ids.length > 0) {
     if (type == "delete-all") {
@@ -114,10 +129,9 @@ module.exports.changeMulti = async (req, res) => {
       ids.forEach(async (item, index) => {
         item = ids[index].split(",");
         const data = item[0].split("-");
-        // console.log(data[1]);
         await Product.updateOne(
           { _id: data[0] },
-          { position: parseInt(data[1]) }
+          { position: parseInt(data[1]), $push: { updatedBy: updatedBy } }
         );
       });
       req.flash(
@@ -128,7 +142,7 @@ module.exports.changeMulti = async (req, res) => {
     } else {
       await Product.updateMany(
         { _id: { $in: ids } },
-        { $set: { status: type } }
+        { $set: { status: type }, $push: { updatedBy: updatedBy } }
       );
       req.flash(
         "success",
@@ -322,7 +336,19 @@ module.exports.editPatch = async (req, res) => {
     req.body.position = parseInt(req.body.position);
 
     console.log(req.body);
-    await Product.updateOne({ _id: id }, req.body);
+
+    const updatedBy = {
+      account_id: res.locals.user.id,
+      updatedAt: new Date(),
+    };
+
+    await Product.updateOne(
+      { _id: id },
+      {
+        ...req.body,
+        $push: { updatedBy: updatedBy },
+      }
+    );
     req.flash("success", `Sửa sản phẩm thành công!!`);
     res.redirect(`${systemAdmin.prefitAdmin}/products/detail/${id}`);
   } catch (error) {
@@ -357,6 +383,53 @@ module.exports.detail = async (req, res) => {
       pageTitle: item.title,
       item: item,
       category: category.title,
+    });
+  } catch (error) {
+    res.redirect(`${systemAdmin.prefitAdmin}/products`);
+    console.log(error);
+  }
+};
+
+//[GET] admin/products/historyEdit/:id
+module.exports.historyEdit = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const item = await Product.findOne({ _id: id });
+
+    // Category title
+    let category = {};
+    if (item.product_category_id) {
+      category = await ProductCategory.findOne({
+        _id: item.product_category_id,
+      });
+    }
+
+    const newPrice = Math.round(
+      item.price * (1 - item.discountPercentage / 100)
+    );
+    item.newPrice = newPrice;
+
+    const account_id = item.updatedBy.account_id;
+    const updatedAt = item.updatedBy.updatedAt;
+
+    let updatedBy = [];
+    for (const id of account_id) {
+      const account = await Accounts.findOne({ _id: id });
+      updatedBy.push({ fullName: account.fullName, avatar: account.thumbnail });
+    }
+
+    updatedAt.forEach((item, index) => {
+      updatedBy[index].updatedAt = item;
+    });
+
+    // Log updatedBy để kiểm tra kết quả
+    console.log(updatedBy);
+
+    res.render("admin/pages/products/historyEdit", {
+      pageTitle: item.title,
+      item: item,
+      category: category.title,
+      updatedBy: updatedBy.reverse(),
     });
   } catch (error) {
     res.redirect(`${systemAdmin.prefitAdmin}/products`);

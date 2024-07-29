@@ -1,0 +1,60 @@
+extends ../../layouts/defaults.pug
+include ../../mixins/alert.pug
+include ../../mixins/formatTime.pug
+
+block main
+  +alert-error()
+  +alert-success()
+
+  h1 Trang Lịch sử sửa sản phẩm
+
+  .detail
+    .row 
+      .col-3 
+        .inner-image 
+          img(src=item.thumbnail alt=item.title)
+      .col-8
+        .item__detail 
+          h3 #{item.title}
+          if(category)
+            p.position Danh mục sản phẩm <span class="badge badge-success" >#{category} <span>
+          .price
+            .old-price $#{item.price}
+            .new-price $#{item.newPrice}
+            .discount #{item.discountPercentage}% GIẢM
+          if(item.status=="active")
+            p.status Trạng thái bày bán: <span class="badge badge-success" >Hoạt động<span>
+          else 
+            p.status Trạng thái bày bán: <span class="badge badge-danger" >Dừng hoạt động<span>
+          .position Vị trí của sản phẩm: <span class="badge badge-success" >#{item.position} <span>
+          .stock Số lượng sản phẩm: <span class="badge badge-warning" >#{item.stock} <span>
+          if(item.description)
+            p !{item.description}
+        a(
+          class="btn btn-warning btn-sm btn-edit"
+          href=`${prefitAdmin}/products/edit/${item.id}`
+          ) Chỉnh sửa
+      br
+      .col-12 
+        table(
+          class="table table-hover table-sm"
+          checkbox-multi
+        )
+          thead
+            tr
+              th STT
+              th Avatar
+              th Người sửa
+              th Thời gian
+          tbody
+            each item, index in updatedBy
+              tr
+                td #{index + 1}
+                td
+                  img(src=item.avatar, alt=item.title, width="100px", height="auto" class="img-item")
+                td #{item.fullName}
+                td 
+                  +UpdateTime(item.updatedAt)
+             
+
+  script(src="/admin/js/products.js") 
