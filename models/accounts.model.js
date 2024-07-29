@@ -10,6 +10,13 @@ const accountSchema = new mongoose.Schema(
       type: String,
       default: generate.generateRandomString(20),
     },
+    createBy: {
+      account_id: String,
+      createAt: {
+        type: Date,
+        default: Date.now,
+      },
+    },
     phone: String,
     thumbnail: String,
     role_id: String,

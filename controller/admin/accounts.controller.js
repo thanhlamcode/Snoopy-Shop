@@ -19,7 +19,15 @@ module.exports.index = async (req, res) => {
     record.role = role;
   }
 
-  console.log(records);
+  for (item of records) {
+    console.log(item.createBy.account_id);
+    if (item.createBy.account_id) {
+      const creator = await Accounts.findOne({ _id: item.createBy.account_id });
+      if (creator) {
+        item.creatorName = creator.fullName;
+      }
+    }
+  }
 
   res.render("admin/pages/accounts/index", {
     pageTitle: "Danh sách tài khoản",
@@ -50,6 +58,13 @@ module.exports.createPost = async (req, res) => {
     req.flash("error", `Email ${req.body.email} đã tồn tại`);
     res.redirect(`back`);
   } else {
+    const creator = await Accounts.findOne({ _id: res.locals.user.id });
+    console.log(creator.id);
+
+    req.body.createBy = {
+      account_id: creator.id,
+    };
+
     const records = new Accounts(req.body);
     await records.save();
     req.flash("success", `Tạo tài khoản thành công !`);
