@@ -1,4 +1,5 @@
 const ProductCategory = require("../../models/products-category");
+const Accounts = require("../../models/accounts.model");
 const systemAdmin = require("../../config/systems");
 const filterStatus = require("../../helpers/filterStatus");
 const paginationObject = require("../../helpers/pagination");
@@ -50,10 +51,18 @@ module.exports.index = async (req, res) => {
   // END SORT
 
   const records = await ProductCategory.find(find).sort(sort);
-  // .limit(pagination.limit)
-  // .skip(pagination.skip);
 
   const newRecords = treeHelper.tree(records);
+
+  for (item of newRecords) {
+    console.log(item.createBy.account_id);
+    if (item.createBy.account_id) {
+      const creator = await Accounts.findOne({ _id: item.createBy.account_id });
+      if (creator) {
+        item.fullName = creator.fullName;
+      }
+    }
+  }
 
   res.render("admin/pages/products-category/index", {
     pageTitle: "Trang danh mục sản phẩm",
@@ -90,6 +99,13 @@ module.exports.createPost = async (req, res) => {
     req.body.position = parseInt(req.body.position);
   }
 
+  const creator = await Accounts.findOne({ _id: res.locals.user.id });
+  console.log(creator.id);
+
+  req.body.createBy = {
+    account_id: creator.id,
+  };
+  console.log(req.body);
   const record = new ProductCategory(req.body);
   await record.save();
   console.log(req.body);

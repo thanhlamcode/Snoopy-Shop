@@ -1,3 +1,5 @@
+include ./formatTime.pug
+
 mixin table-tree(record, level = 1)
   each item, index in record
     - const prefix = Array(level).join("-- ")
@@ -35,6 +37,11 @@ mixin table-tree(record, level = 1)
             span(
               class="badge badge-danger"
             ) Dừng hoạt động
+      td 
+        if(item.fullName)
+          div 
+            p #{item.fullName}
+            +CreateTime(item)
       td
         a(
           class="btn btn-success btn-sm mr-1"

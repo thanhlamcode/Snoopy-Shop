@@ -9,6 +9,13 @@ const productCategorySchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    createBy: {
+      account_id: String,
+      createAt: {
+        type: Date,
+        default: Date.now,
+      },
+    },
     description: String,
     thumbnail: String,
     status: String,
