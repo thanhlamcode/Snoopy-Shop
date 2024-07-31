@@ -213,3 +213,45 @@ mixin table-permission(records)
         td.text-center
           input(type="checkbox" checked=false)
   //- Phân quyền
+
+   //- Danh sách tài khoản
+  tr
+    td(colspan="4")
+      b Danh sách bài viết
+  tr(data-name="blog_view")
+    td Xem
+    each item in records 
+      if (item.permissions.includes("blog_view"))
+        td.text-center
+          input(type="checkbox" checked=true)
+      else 
+        td.text-center
+          input(type="checkbox" checked=false)
+  tr(data-name="blog_create")
+    td Thêm mới
+    each item in records 
+      if (item.permissions.includes("blog_create"))
+        td.text-center
+          input(type="checkbox" checked=true)
+      else 
+        td.text-center
+          input(type="checkbox" checked=false)
+  tr(data-name="blog_edit")
+    td Chỉnh sửa
+    each item in records 
+      if (item.permissions.includes("blog_edit"))
+        td.text-center
+          input(type="checkbox" checked=true)
+      else 
+        td.text-center
+          input(type="checkbox" checked=false)
+  tr(data-name="blog_delete")
+    td Xóa
+    each item in records 
+      if (item.permissions.includes("blog_delete"))
+        td.text-center
+          input(type="checkbox" checked=true)
+      else 
+        td.text-center
+          input(type="checkbox" checked=false)
+    //- end danh sách bài viết

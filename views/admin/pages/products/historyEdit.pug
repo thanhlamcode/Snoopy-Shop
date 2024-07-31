@@ -51,8 +51,8 @@ block main
               tr
                 td #{index + 1}
                 td
-                  img(src=item.avatar, alt=item.title, width="100px", height="auto" class="img-item")
-                td #{item.fullName}
+                  img(src=item.updater.thumbnail, alt=item.updater.title, width="100px", height="auto" class="img-item")
+                td #{item.updater.fullName}
                 td 
                   +UpdateTime(item.updatedAt)
              

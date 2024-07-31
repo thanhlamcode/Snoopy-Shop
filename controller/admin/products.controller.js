@@ -65,7 +65,7 @@ module.exports.products = async (req, res) => {
     }
   }
 
-  console.log(products);
+  // console.log(products);
 
   res.render("admin/pages/products/index", {
     pageTitle: "Trang Sản phẩm",
@@ -403,24 +403,19 @@ module.exports.historyEdit = async (req, res) => {
         _id: item.product_category_id,
       });
     }
+    //end category
 
     const newPrice = Math.round(
       item.price * (1 - item.discountPercentage / 100)
     );
     item.newPrice = newPrice;
 
-    const account_id = item.updatedBy.account_id;
-    const updatedAt = item.updatedBy.updatedAt;
-
-    let updatedBy = [];
-    for (const id of account_id) {
-      const account = await Accounts.findOne({ _id: id });
-      updatedBy.push({ fullName: account.fullName, avatar: account.thumbnail });
+    // console.log(item);
+    const updatedBy = item.updatedBy;
+    for (const updateItem of updatedBy) {
+      const updater = await Accounts.findOne({ _id: updateItem.account_id });
+      updateItem.updater = updater;
     }
-
-    updatedAt.forEach((item, index) => {
-      updatedBy[index].updatedAt = item;
-    });
 
     // Log updatedBy để kiểm tra kết quả
     console.log(updatedBy);
