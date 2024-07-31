@@ -1,0 +1,41 @@
+extends ../../layouts/defaults.pug
+include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
+
+block main
+  if(roles.permissions.includes("blog_create"))
+    +alert-error()
+
+    h1.mb-4 Chỉnh sửa bài viết
+    
+    form(action=`${prefitAdmin}/blog/edit/${item.id}?_method=PATCH` method="POST" enctype="multipart/form-data")
+      div.form-group
+        label(for="title") Tiêu đề
+        input(type="text", class="form-control", id="title", name="title", required value=item.title)
+      div.form-group
+        label(for="short-desc") Mô tả ngắn
+        input(class="form-control", id="short-desc", name="shortDescription", rows="5" value=item.shortDescription)
+      div.form-group
+        label(for="desc") Mô tả chi tiết
+        textarea(class="form-control", id="desc", name="description", rows="5" ) #{item.description}
+      div(class="form-group" upload-image)
+        label(for="thumbnail") Ảnh
+        input(type="file", upload-image-input class="form-control-file", id="thumbnail", name="thumbnail" accept="image/*")
+        .wrap-image 
+          img(upload-image-preview src=item.thumbnail class="upload-preview")
+      div.form-group.form-check.form-check-inline
+        input(type="radio", class="form-check-input", id="statusActive", name="status", value="active", checked=item.status === "active")
+        label(for="statusActive", class="form-check-label") Hoạt động
+      div.form-group.form-check.form-check-inline
+        input(type="radio", class="form-check-input", id="statusInActive", name="status", value="unactive", checked=item.status === "unactive")
+        label(for="statusInActive", class="form-check-label") Dừng hoạt động
+      div.form-group
+        label(for="position") Vị trí
+        input(type="number", class="form-control", id="position", name="position", min="0" max=max placeholder="Tự động tăng" value=item.position)
+      div.form-group
+        button(type="submit", class="btn btn-primary") Cập nhập
+
+    script(src="/admin/js/products.js") 
+    script(src="/admin/js/create.js") 
+  else 
+    h1 Bạn không có quyền xem mục này

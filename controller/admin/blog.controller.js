@@ -131,3 +131,121 @@ module.exports.changeStatus = async (req, res) => {
 
   res.redirect("back");
 };
+
+// [PATCH] /admin/blog/change-multi
+module.exports.changeMulti = async (req, res) => {
+  const type = req.body.type;
+  const ids = req.body.ids.split(",");
+
+  const updatedBy = {
+    account_id: res.locals.user.id,
+    updatedAt: new Date(),
+  };
+
+  if (ids.length > 0) {
+    if (type == "delete-all") {
+      await Blog.updateMany(
+        { _id: { $in: ids } },
+        {
+          $set: {
+            deleted: true,
+            deletedBy: {
+              account_id: res.locals.user.id,
+              deletedAt: new Date(),
+            },
+          },
+        }
+      );
+      req.flash("success", `Xóa thành công ${ids.length} sản phẩm !`);
+      res.redirect("back");
+    } else if (type == undefined) {
+      // return;
+      res.redirect("back");
+    } else if (type == "change-position") {
+      // res.send("ok");
+      ids.forEach(async (item, index) => {
+        item = ids[index].split(",");
+        const data = item[0].split("-");
+        await Blog.updateOne(
+          { _id: data[0] },
+          { position: parseInt(data[1]), $push: { updatedBy: updatedBy } }
+        );
+      });
+      req.flash(
+        "success",
+        `Thay đổi vị trí thành công ${ids.length} sản phẩm !`
+      );
+      res.redirect("back");
+    } else {
+      await Blog.updateMany(
+        { _id: { $in: ids } },
+        { $set: { status: type }, $push: { updatedBy: updatedBy } }
+      );
+      req.flash(
+        "success",
+        `Cập nhập trạng thái thành công ${ids.length} sản phẩm !`
+      );
+      res.redirect("back");
+    }
+  }
+};
+
+//[GET] admin/blog/edit/:id
+module.exports.edit = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const item = await Blog.findOne({ _id: id });
+
+    res.render("admin/pages/blog/edit", {
+      pageTitle: item.title,
+      item: item,
+    });
+  } catch (error) {
+    res.redirect(`${systemAdmin.prefitAdmin}/blog`);
+    console.log(error);
+  }
+};
+
+//[PATCH] admin/products/edit/:id
+module.exports.editPatch = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    req.body.position = parseInt(req.body.position);
+
+    console.log(req.body);
+
+    const updatedBy = {
+      account_id: res.locals.user.id,
+      updatedAt: new Date(),
+    };
+
+    await Blog.updateOne(
+      { _id: id },
+      {
+        ...req.body,
+        $push: { updatedBy: updatedBy },
+      }
+    );
+    req.flash("success", `Sửa bài viết thành công!!`);
+    res.redirect(`${systemAdmin.prefitAdmin}/blog`);
+  } catch (error) {
+    req.flash("error", `Sửa bài viết thất bại!!`);
+    res.redirect(`${systemAdmin.prefitAdmin}/blog`);
+  }
+};
+
+//[GET] admin/products/detail/:id
+module.exports.detail = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const item = await Blog.findOne({ _id: id });
+    res.render("admin/pages/blog/detail", {
+      pageTitle: item.title,
+      item: item,
+    });
+  } catch (error) {
+    res.redirect(`${systemAdmin.prefitAdmin}/blog`);
+    console.log(error);
+  }
+};
