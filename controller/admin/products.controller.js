@@ -236,11 +236,10 @@ module.exports.restoreProducts = async (req, res) => {
   res.redirect("back");
 };
 
+// [PATCH] /admin/products/restoreMulti
 module.exports.restoreMulti = async (req, res) => {
-  // const type = req.body.type;
   const ids = req.body.ids.split(",");
   console.log(ids);
-  // res.send("ok");
 
   await Product.updateMany({ _id: { $in: ids } }, { $set: { deleted: false } });
   req.flash("success", `Khôi phục ${ids.length} sản phẩm thành công !`);
