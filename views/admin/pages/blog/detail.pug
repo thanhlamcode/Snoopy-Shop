@@ -18,10 +18,10 @@ block main
             h3 #{item.title}
             p <b>Mô tả ngắn: </b> #{item.shortDescription}
             if(item.status=="active")
-              p.status Trạng thái bày bán: <span class="badge badge-success" >Hoạt động<span>
+              p.status Trạng thái: <span class="badge badge-success" >Hoạt động<span>
             else 
-              p.status Trạng thái bày bán: <span class="badge badge-danger" >Dừng hoạt động<span>
-            .position Vị trí của sản phẩm: <span class="badge badge-success" >#{item.position} <span>
+              p.status Trạng thái: <span class="badge badge-danger" >Dừng hoạt động<span>
+            .position Vị trí của bài viết: <span class="badge badge-success" >#{item.position} <span>
             if(item.description)
               p !{item.description}
           a(

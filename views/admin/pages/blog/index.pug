@@ -118,7 +118,7 @@ block main
                     button-delete
                     id-delete=item.id
                     ) Xóa
-                if(item.updatedBy.account_id)
+                if(item.updatedBy.length>0)
                   a(
                     class="btn btn-info btn-sm mt-2 ml-1"
                     href=`${prefitAdmin}/blog/historyEdit/${item.id}`

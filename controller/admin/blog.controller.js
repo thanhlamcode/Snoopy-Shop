@@ -342,3 +342,30 @@ module.exports.restoreMulti = async (req, res) => {
   req.flash("success", `Khôi phục ${ids.length} bài viết thành công !`);
   res.redirect("back");
 };
+
+//[GET] admin/blog/historyEdit/:id
+module.exports.historyEdit = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const item = await Blog.findOne({ _id: id });
+
+    const updatedBy = item.updatedBy;
+    for (const updateItem of updatedBy) {
+      const updater = await Accounts.findOne({ _id: updateItem.account_id });
+      updateItem.updater = updater;
+    }
+
+    // Log updatedBy để kiểm tra kết quả
+    console.log(updatedBy);
+    updatedBy.slice(-10);
+
+    res.render("admin/pages/blog/historyEdit", {
+      pageTitle: item.title,
+      item: item,
+      updatedBy: updatedBy.reverse(),
+    });
+  } catch (error) {
+    res.redirect(`${systemAdmin.prefitAdmin}/products`);
+    console.log(error);
+  }
+};

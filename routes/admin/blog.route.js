@@ -27,5 +27,6 @@ router.delete("/delete/:id", controller.deleteItem);
 router.get("/restore", controller.restore);
 router.patch("/restore/:id", controller.restoreBlog);
 router.patch("/restore-multi", controller.restoreMulti);
+router.get("/historyEdit/:id", controller.historyEdit);
 
 module.exports = router;
