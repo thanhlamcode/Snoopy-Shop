@@ -24,5 +24,8 @@ router.patch(
 );
 router.get("/detail/:id", controller.detail);
 router.delete("/delete/:id", controller.deleteItem);
+router.get("/restore", controller.restore);
+router.patch("/restore/:id", controller.restoreBlog);
+router.patch("/restore-multi", controller.restoreMulti);
 
 module.exports = router;

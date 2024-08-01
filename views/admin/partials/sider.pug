@@ -9,12 +9,15 @@
       if(roles.permissions.includes("products_view"))
         li
           a(href=`${prefitAdmin}/products`) Danh sách sản phẩm
+      if(roles.permissions.includes("restore_view"))
+        li
+          a(href=`${prefitAdmin}/products/restore`) Khôi phục sản phẩm
       if(roles.permissions.includes("blog_view"))
         li
           a(href=`${prefitAdmin}/blog`) Danh sách bài viết
       if(roles.permissions.includes("restore_view"))
         li
-          a(href=`${prefitAdmin}/products/restore`) Khôi phục sản phẩm
+          a(href=`${prefitAdmin}/blog/restore`) Khôi phục bài viết
       if(roles.permissions.includes("roles_view"))
         li
           a(href=`${prefitAdmin}/roles`) Nhóm quyền

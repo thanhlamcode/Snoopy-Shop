@@ -255,3 +255,27 @@ mixin table-permission(records)
         td.text-center
           input(type="checkbox" checked=false)
     //- end danh sách bài viết
+
+  //- Khôi phục bài viết
+  tr
+    td(colspan="4")
+      b Khôi phục bài viết
+  tr(data-name="restore_blog_view")
+    td Xem
+    each item in records 
+      if (item.permissions.includes("restore_blog_view"))
+        td.text-center
+          input(type="checkbox" checked=true)
+      else 
+        td.text-center
+          input(type="checkbox" checked=false)
+  tr(data-name="restore_blog")
+    td Khôi phục bài viết
+    each item in records 
+      if (item.permissions.includes("restore_blog"))
+        td.text-center
+          input(type="checkbox" checked=true)
+      else 
+        td.text-center
+          input(type="checkbox" checked=false)
+  //- Khôi phục sản phẩm

@@ -266,3 +266,79 @@ module.exports.deleteItem = async (req, res) => {
   req.flash("success", `Xóa bài viết thành công !`);
   res.redirect("back");
 };
+
+// [GET] /admin/blog/restore
+module.exports.restore = async (req, res) => {
+  // filter
+  const filter = filterStatus(req);
+
+  let find = {
+    deleted: true,
+  };
+
+  if (req.query.status) {
+    find.status = req.query.status;
+  }
+
+  let keyword = "";
+
+  if (req.query.keyword) {
+    keyword = req.query.keyword;
+    const regex = new RegExp(keyword, "i");
+    find.title = regex;
+  }
+  //end filter
+
+  // PAGINATION
+  const totalItem = await Blog.countDocuments(find);
+  const pagination = paginationObject(
+    {
+      currentPage: 1,
+      limit: 5,
+    },
+    req,
+    totalItem
+  );
+
+  // END PAGINATION
+
+  const blogs = await Blog.find(find)
+    .sort({ "deletedBy.deletedAt": -1 })
+    .limit(pagination.limit)
+    .skip(pagination.skip);
+
+  for (const blog of blogs) {
+    const deletor = await Accounts.findOne({
+      _id: blog.deletedBy.account_id,
+    });
+    if (deletor) {
+      blog.deletor = deletor.fullName;
+    }
+  }
+
+  res.render("admin/pages/blog/restore", {
+    pageTitle: "Trang Khôi phục Bài viết",
+    blogs: blogs,
+    button: filter,
+    keyword: keyword,
+    pagination: pagination,
+  });
+};
+
+// [PATCH] /admin/blog/restore/:id
+module.exports.restoreBlog = async (req, res) => {
+  const id = req.params.id;
+  await Blog.updateOne({ _id: id }, { deleted: false });
+  req.flash("success", `Khôi phục bài viết thành công !`);
+  res.redirect("back");
+};
+
+// [PATCH] /admin/blog/restoreMulti
+module.exports.restoreMulti = async (req, res) => {
+  const ids = req.body.ids.split(",");
+  console.log(ids);
+
+  await Blog.updateMany({ _id: { $in: ids } }, { $set: { deleted: false } });
+  req.flash("success", `Khôi phục ${ids.length} bài viết thành công !`);
+  res.redirect("back");
+};
