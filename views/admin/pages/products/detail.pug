@@ -22,6 +22,8 @@ block main
               .old-price $#{item.price}
               .new-price $#{item.newPrice}
               .discount #{item.discountPercentage}% GIẢM
+            if(item.featured==1)
+              p(class="badge badge-warning").position Sản phẩm nổi bật
             if(item.status=="active")
               p.status Trạng thái bày bán: <span class="badge badge-success" >Hoạt động<span>
             else 

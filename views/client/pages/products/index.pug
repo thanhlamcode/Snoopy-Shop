@@ -12,6 +12,8 @@ block main
             .product-item
               .inner-image
                 img(src=item.thumbnail, alt=item.title)
+                if(item.featured=="1")
+                  .inner-featured Nổi bật
               .inner-content
                 a(href=`/products/detail/${item.slug}` class="inner-title") #{item.title}
                 .inner-price-new #{Math.round(item.price * (100 - item.discountPercentage) / 100)}$
