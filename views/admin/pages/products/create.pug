@@ -18,6 +18,12 @@ block main
           option(value="") -- Chọn danh mục sản phẩm
           if records
             +select-tree(records)
+      div.form-group.form-check.form-check-inline
+        input(type="radio", class="form-check-input", id="featured", name="featured", value="1", )
+        label(for="featured", class="form-check-label") Nổi bật
+      div.form-group.form-check.form-check-inline
+        input(type="radio", class="form-check-input", id="featured", name="featured", value="0" checked)
+        label(for="featured", class="form-check-label") Không
       div.form-group
         label(for="desc") Mô tả
         textarea(class="form-control", id="desc", name="description", rows="5")
