@@ -32,10 +32,10 @@ block main
         each role in roleCreateAccount
           option(value=role.id selected=(role.id==item.role_id)) #{role.title}
     div.form-group.form-check.form-check-inline
-      input(type="radio", class="form-check-input", id="statusActive", name="status", value="active", checked)
+      input(type="radio", class="form-check-input", id="statusActive", name="status", value="active", checked=item.status === "active")
       label(for="statusActive", class="form-check-label") Hoạt động
     div.form-group.form-check.form-check-inline
-      input(type="radio", class="form-check-input", id="statusInActive", name="status", value="inactive")
+      input(type="radio", class="form-check-input", id="statusInActive", name="status", value="inactive" checked=item.status === "unactive")
       label(for="statusInActive", class="form-check-label") Dừng hoạt động
     div.form-group
       button(type="submit", class="btn btn-primary") Tạo mới

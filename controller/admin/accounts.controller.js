@@ -47,28 +47,34 @@ module.exports.create = async (req, res) => {
 
 // [POST] /admin/accounts/create
 module.exports.createPost = async (req, res) => {
-  const exitEmail = await Accounts.find({
-    deleted: false,
-    email: req.body.email,
-  });
-  req.body.password = md5(req.body.password);
+  const permission = res.locals.roles.permissions;
 
-  if (exitEmail.length > 0) {
-    console.log("Email tồn tại");
-    req.flash("error", `Email ${req.body.email} đã tồn tại`);
-    res.redirect(`back`);
+  if (permission.includes("accounts_create")) {
+    const exitEmail = await Accounts.find({
+      deleted: false,
+      email: req.body.email,
+    });
+    req.body.password = md5(req.body.password);
+
+    if (exitEmail.length > 0) {
+      console.log("Email tồn tại");
+      req.flash("error", `Email ${req.body.email} đã tồn tại`);
+      res.redirect(`back`);
+    } else {
+      const creator = await Accounts.findOne({ _id: res.locals.user.id });
+      console.log(creator.id);
+
+      req.body.createBy = {
+        account_id: creator.id,
+      };
+
+      const records = new Accounts(req.body);
+      await records.save();
+      req.flash("success", `Tạo tài khoản thành công !`);
+      res.redirect(`${systemAdmin.prefitAdmin}/accounts`);
+    }
   } else {
-    const creator = await Accounts.findOne({ _id: res.locals.user.id });
-    console.log(creator.id);
-
-    req.body.createBy = {
-      account_id: creator.id,
-    };
-
-    const records = new Accounts(req.body);
-    await records.save();
-    req.flash("success", `Tạo tài khoản thành công !`);
-    res.redirect(`${systemAdmin.prefitAdmin}/accounts`);
+    return;
   }
 };
 
@@ -107,73 +113,88 @@ module.exports.edit = async (req, res) => {
 
 //[PATCH] admin/accounts/edit/:id
 module.exports.editPatch = async (req, res) => {
-  try {
-    const id = req.params.id;
-    const exitEmail = await Accounts.find({
-      _id: { $ne: id },
-      deleted: false,
-      email: req.body.email,
-    });
+  const permission = res.locals.roles.permissions;
+  if (permission.includes("accounts_edit")) {
+    try {
+      const id = req.params.id;
+      const exitEmail = await Accounts.find({
+        _id: { $ne: id },
+        deleted: false,
+        email: req.body.email,
+      });
 
-    if (exitEmail.length > 0) {
-      console.log("Email tồn tại");
-      req.flash("error", `Email ${req.body.email} đã tồn tại`);
-      res.redirect(`back`);
-    } else {
-      if (req.body.password) {
-        req.body.password = md5(req.body.password);
+      if (exitEmail.length > 0) {
+        console.log("Email tồn tại");
+        req.flash("error", `Email ${req.body.email} đã tồn tại`);
+        res.redirect(`back`);
       } else {
-        delete req.body.password;
-      }
+        if (req.body.password) {
+          req.body.password = md5(req.body.password);
+        } else {
+          delete req.body.password;
+        }
 
-      await Accounts.updateOne({ _id: id }, req.body);
-      req.flash("success", `Sửa tài khoản thành công!!`);
+        await Accounts.updateOne({ _id: id }, req.body);
+        req.flash("success", `Sửa tài khoản thành công!!`);
+        res.redirect(`${systemAdmin.prefitAdmin}/accounts`);
+      }
+    } catch (error) {
+      req.flash("error", `Sửa tài khoản thất bại!!`);
       res.redirect(`${systemAdmin.prefitAdmin}/accounts`);
     }
-  } catch (error) {
-    req.flash("error", `Sửa tài khoản thất bại!!`);
-    res.redirect(`${systemAdmin.prefitAdmin}/accounts`);
+  } else {
+    return;
   }
 };
 
 //[DELETE] admin/accounts/delete/:id
 module.exports.deleteItem = async (req, res) => {
-  try {
-    const id = req.params.id;
-    console.log(id);
+  const permission = res.locals.roles.permissions;
+  if (permission.includes("accounts_delete")) {
+    try {
+      const id = req.params.id;
+      console.log(id);
 
-    const deletor = await Accounts.findOne({ _id: res.locals.user.id });
-    console.log(deletor.id);
+      const deletor = await Accounts.findOne({ _id: res.locals.user.id });
+      console.log(deletor.id);
 
-    await Accounts.updateOne(
-      { _id: id },
-      {
-        deleted: true,
-        deletedBy: {
-          account_id: res.locals.user.id,
-          deletedAt: Date.now(),
-        },
-      }
-    );
-    req.flash("success", `Xóa tài khoản thành công!`);
-    res.redirect("back");
-  } catch (error) {
-    req.flash("error", `Xóa tài khoản thất bại!!`);
-    res.redirect(`${systemAdmin.prefitAdmin}/accounts`);
+      await Accounts.updateOne(
+        { _id: id },
+        {
+          deleted: true,
+          deletedBy: {
+            account_id: res.locals.user.id,
+            deletedAt: Date.now(),
+          },
+        }
+      );
+      req.flash("success", `Xóa tài khoản thành công!`);
+      res.redirect("back");
+    } catch (error) {
+      req.flash("error", `Xóa tài khoản thất bại!!`);
+      res.redirect(`${systemAdmin.prefitAdmin}/accounts`);
+    }
+  } else {
+    return;
   }
 };
 
 //[PATCH] admin/accounts/change-status/:status/:id
 module.exports.changeStatus = async (req, res) => {
-  try {
-    const id = req.params.id;
-    const status = req.params.status;
+  const permission = res.locals.roles.permissions;
+  if (permission.includes("accounts_edit")) {
+    try {
+      const id = req.params.id;
+      const status = req.params.status;
 
-    await Accounts.updateOne({ _id: id }, { status: status });
-    req.flash("success", `Thay đổi trạng thái thành công!`);
-    res.redirect("back");
-  } catch (error) {
-    req.flash("error", `Thay đổi trạng thái thất bại!!`);
-    res.redirect(`${systemAdmin.prefitAdmin}/accounts`);
+      await Accounts.updateOne({ _id: id }, { status: status });
+      req.flash("success", `Thay đổi trạng thái thành công!`);
+      res.redirect("back");
+    } catch (error) {
+      req.flash("error", `Thay đổi trạng thái thất bại!!`);
+      res.redirect(`${systemAdmin.prefitAdmin}/accounts`);
+    }
+  } else {
+    return;
   }
 };
