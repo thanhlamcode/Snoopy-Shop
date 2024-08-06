@@ -1,4 +1,6 @@
 const Product = require("../../models/products.model");
+const ProductCategory = require("../../models/products-category");
+const productCategoryHelper = require("../../helpers/products-category");
 
 // [GET] /products
 module.exports.index = async (req, res) => {
@@ -26,5 +28,33 @@ module.exports.detail = async (req, res) => {
   res.render("client/pages/products/detail", {
     pageTitle: item.title,
     item: item,
+  });
+};
+
+// [GET] /products/:category
+module.exports.category = async (req, res) => {
+  const slugCategory = req.params.category;
+
+  const productCategory = await ProductCategory.findOne({
+    slug: slugCategory,
+    deleted: false,
+    status: "active",
+  });
+
+  const list = await productCategoryHelper.getSubCategory(productCategory.id);
+
+  const listIdCategory = list.map((item) => item.id);
+
+  console.log(listIdCategory);
+
+  const products = await Product.find({
+    product_category_id: { $in: [productCategory.id, ...listIdCategory] },
+    deleted: false,
+    status: "active",
+  }).sort({ position: "desc" });
+
+  res.render("client/pages/products/category", {
+    pageTitle: productCategory.title,
+    products: products,
   });
 };

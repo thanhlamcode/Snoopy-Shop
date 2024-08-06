@@ -5,6 +5,7 @@ module.exports.category = async (req, res, next) => {
   try {
     const find = {
       deleted: false,
+      status: "active",
     };
 
     const records = await ProductCategory.find(find);
