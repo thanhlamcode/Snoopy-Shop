@@ -101,6 +101,19 @@
   width: 100%;
   transition: all 1s ease;
   margin-top: 20px;
+  position: relative;
+}
+
+.detail .inner-image .inner-featured {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: green;
+  color: white;
+  padding: 3px 6px;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 8px;
 }
 
 .detail .inner-image:hover {

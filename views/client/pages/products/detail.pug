@@ -8,6 +8,8 @@ block main
       .col-4 
         .inner-image 
           img(src=item.thumbnail alt=item.title)
+          if(item.featured=="1")
+            .inner-featured Nổi bật
       .col-8 
         .item__detail 
           h3 #{item.title}
