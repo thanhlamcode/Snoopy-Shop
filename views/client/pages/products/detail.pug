@@ -1,7 +1,7 @@
 extends ../../layouts/defaults.pug
   
 block main
-  h1 Trang chi tiết sản phẩm
+  h1.detail-title Trang chi tiết sản phẩm
 
   .detail
     .row 
@@ -13,10 +13,29 @@ block main
       .col-8 
         .item__detail 
           h3 #{item.title}
+          if(item.productCategory)
+            .header-item 
+              img(src="https://salt.tikicdn.com/ts/upload/d7/56/04/b93b8c666e13f49971483596ef14800f.png" class="chinh-hang" alt="Chính hãng")
+              div.category
+                | Danh mục sản phẩm: 
+                a(href=`/products/${item.productCategory.slug}`) #{item.productCategory.title}
           .price
             .old-price $#{item.price}
             .new-price $#{item.newPrice}
             .discount #{item.discountPercentage}% GIẢM
           .stock Còn lại: <span class="badge badge-warning" >#{item.stock} <span> sản phẩm
+          form(action=`/cart/add/${item.id}`, method="POST")
+            input.form-control.mb-2(
+              type="number"
+              name="quantity"
+              value="1"
+              min="1"
+              max=item.stock
+            )
+            button.btn.btn-success.btn-block(type="submit")
+              | Thêm vào giỏ hàng
+      .col-12
+        .description
           if(item.description)
             p.desc !{item.description}
+          

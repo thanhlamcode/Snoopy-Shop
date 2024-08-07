@@ -24,7 +24,16 @@ module.exports.detail = async (req, res) => {
   });
   const newPrice = Math.round(item.price * (1 - item.discountPercentage / 100));
   item.newPrice = newPrice;
-  console.log(item);
+
+  if (item.product_category_id) {
+    const productCategory = await ProductCategory.findOne({
+      deleted: false,
+      status: "active",
+      _id: item.product_category_id,
+    });
+    item.productCategory = productCategory;
+  }
+
   res.render("client/pages/products/detail", {
     pageTitle: item.title,
     item: item,

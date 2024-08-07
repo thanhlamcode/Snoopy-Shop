@@ -97,11 +97,19 @@
 /* END PRODUCT */
 
 /* DETAIL */
+
+.detail-title {
+  text-align: center;
+  color: #28a745;
+  margin: 20px 0;
+}
+
 .detail .inner-image {
   width: 100%;
   transition: all 1s ease;
   margin-top: 20px;
   position: relative;
+  margin-left: 30px;
 }
 
 .detail .inner-image .inner-featured {
@@ -131,6 +139,23 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.detail .item__detail form {
+  margin: 10px 0;
+}
+
+.detail .item__detail .header-item {
+  display: flex;
+  align-items: center;
+}
+
+.detail .item__detail .header-item .chinh-hang {
+  width: 90px;
+  height: 20px;
+  margin-right: 10px;
 }
 
 .detail .status,
@@ -178,6 +203,10 @@
 .detail .desc {
   font-size: 20px;
   margin-top: 10px;
+}
+
+.detail .description {
+  padding: 30px;
 }
 /* END DETAIL */
 
