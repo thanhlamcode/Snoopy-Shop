@@ -8,11 +8,10 @@ module.exports.cart = async (req, res, next) => {
 
       const expires = 1000 * 60 * 60 * 24 * 365;
 
-      res.cookies("cartId", cart, { expires: new Date(Date.now() + expires) });
-
-      // console.log(req.cookies.cartId);
+      res.cookie("cartId", cart.id, {
+        expires: new Date(Date.now() + expires),
+      });
     } else {
-      // console.log(req.cookies.cartId);
     }
 
     next();
