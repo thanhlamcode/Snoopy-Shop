@@ -22,6 +22,10 @@
   margin-left: 20px;
 }
 
+.header .form-search {
+  margin-top: 20px;
+}
+
 /* End Header */
 
 /* Footer */
@@ -208,6 +212,22 @@
 .detail .description {
   padding: 30px;
 }
+
+.detail .sum,
+.detail .result {
+  font-weight: 600;
+}
+
+.detail .sum {
+  font-size: 16px;
+}
+
+.detail .result {
+  font-size: 30px;
+  margin-left: 20px;
+  color: #0157e0;
+}
+
 /* END DETAIL */
 
 /* sub-menu */

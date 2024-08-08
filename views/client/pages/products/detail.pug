@@ -32,6 +32,8 @@ block main
               min="1"
               max=item.stock
             )
+            .sum Tạm tính:
+            .result $#{item.newPrice}
             button.btn.btn-success.btn-block(type="submit")
               | Thêm vào giỏ hàng
       .col-12
