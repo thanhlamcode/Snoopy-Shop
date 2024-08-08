@@ -28,7 +28,7 @@ block main
             input.form-control.mb-2(
               type="number"
               name="quantity"
-              value="1"
+              value=(item.stock==0?0:1)
               min="1"
               max=item.stock
             )
