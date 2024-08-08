@@ -38,6 +38,6 @@ module.exports.addPost = async (req, res) => {
       }
     );
   }
-  console.log(products);
+  // console.log(products);
   res.redirect("back");
 };
