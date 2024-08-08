@@ -33,9 +33,15 @@ block main
               max=item.stock
             )
             .sum Tạm tính:
-            .result $#{item.newPrice}
-            button.btn.btn-success.btn-block(type="submit")
-              | Thêm vào giỏ hàng
+            if(item.stock==0)
+              .result $0
+            else
+              .result $#{item.newPrice}
+            if(item.stock==0)
+              h3 KHO KHÔNG CÒN HÀNG
+            else
+              button.btn.btn-success.btn-block(type="submit")
+                | Thêm vào giỏ hàng
       .col-12
         .description
           if(item.description)
