@@ -12,7 +12,7 @@ module.exports.index = async (req, res) => {
   const blogCategory = await BlogCategory.find({
     deleted: false,
     status: "active",
-  }).ort({ position: "desc" });
+  }).sort({ position: "desc" });
 
   res.render("client/pages/blog/index", {
     pageTitle: "Trang bài viết",
