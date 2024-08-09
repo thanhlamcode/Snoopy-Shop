@@ -11,15 +11,15 @@ block main
     .card-header <h1>Danh mục bài viết<h1>
     +alert-success()
     
-    //- .card.mb-3
-    //- .card-header Bộ lọc và Tìm kiếm theo danh mục cha
-    //- .card-body
-    //-   .row 
-    //-     .col-6
-    //-       +filterButton(button)
-    //-     .col-6
-    //-       form#form-search
-    //-         +Search(keyword)
+    .card.mb-3
+    .card-header Bộ lọc và Tìm kiếm theo danh mục cha
+    .card-body
+      .row 
+        .col-6
+          +filterButton(button)
+        .col-6
+          form#form-search
+            +Search(keyword)
 
     .card.mb-3
     .card-header Sắp xếp
@@ -39,41 +39,41 @@ block main
     
     .card-body
       .row 
-        //- .col-8 
-        //-   if(roles.permissions.includes("blog-category_edit"))
-        //-     +form-change-multi(`${prefitAdmin}/blog-category/change-multi?_method=PATCH`)
+        .col-8 
+          if(roles.permissions.includes("blog-category_edit"))
+            +form-change-multi(`${prefitAdmin}/blog-category/change-multi?_method=PATCH`)
         .col-4
           if(roles.permissions.includes("blog-category_create"))
             a.btn.btn-outline-success(href=`${prefitAdmin}/blog-category/create`) Thêm mới
-    //-   table(
-    //-     class="table table-hover table-sm"
-    //-     checkbox-multi
-    //-   )
-    //-     thead
-    //-       tr
-    //-         th 
-    //-           input(type="checkbox" name="checkall")
-    //-         th STT
-    //-         th Hình ảnh
-    //-         th Tiêu đề
-    //-         th Trạng thái
-    //-         th Người tạo
-    //-         th Hành động
-    //-     tbody
-    //-       +table-tree(record)
+      table(
+        class="table table-hover table-sm"
+        checkbox-multi
+      )
+        thead
+          tr
+            th 
+              input(type="checkbox" name="checkall")
+            th STT
+            th Hình ảnh
+            th Tiêu đề
+            th Trạng thái
+            th Người tạo
+            th Hành động
+        tbody
+          +table-tree(record)
           
-    //- form(
-    //-   action="" 
-    //-   method="POST"
-    //-   id="form-change-status"
-    //-   data-path=`${prefitAdmin}/blog-category/change-status`
-    //-   ) 
-    //- form(
-    //-   action="" 
-    //-   method="POST"
-    //-   id="form-delete-item"
-    //-   data-path=`${prefitAdmin}/blog-category/delete`
-    //- ) 
+    form(
+      action="" 
+      method="POST"
+      id="form-change-status"
+      data-path=`${prefitAdmin}/blog-category/change-status`
+      ) 
+    form(
+      action="" 
+      method="POST"
+      id="form-delete-item"
+      data-path=`${prefitAdmin}/blog-category/delete`
+    ) 
 
 
     script(src="/admin/js/products.js") 

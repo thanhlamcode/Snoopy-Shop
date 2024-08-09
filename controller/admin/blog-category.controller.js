@@ -1,4 +1,4 @@
-const BlogCategory = require("../../models/products-category");
+const BlogCategory = require("../../models/blog-category.model");
 const Accounts = require("../../models/accounts.model");
 const systemAdmin = require("../../config/systems");
 const filterStatus = require("../../helpers/filterStatus");
@@ -82,17 +82,16 @@ module.exports.create = async (req, res) => {
   const records = await BlogCategory.find(find);
 
   const newRecords = treeHelper.tree(records);
-  // console.log(newRecords);
 
-  res.render("admin/pages/products-category/create", {
+  res.render("admin/pages/blog-category/create", {
     pageTitle: "Trang thêm mới danh mục bài viết",
     records: newRecords,
   });
 };
 
-// [POST] /admin/products-category/create
+// [POST] /admin/blog-category/create
 module.exports.createPost = async (req, res) => {
-  const countProducts = await ProductCategory.countDocuments();
+  const countProducts = await BlogCategory.countDocuments();
   if (req.body.position === "") {
     req.body.position = countProducts + 1;
   } else {
@@ -106,10 +105,10 @@ module.exports.createPost = async (req, res) => {
     account_id: creator.id,
   };
   console.log(req.body);
-  const record = new ProductCategory(req.body);
+  const record = new BlogCategory(req.body);
   await record.save();
   console.log(req.body);
-  res.redirect(`${systemAdmin.prefitAdmin}/products-category`);
+  res.redirect(`${systemAdmin.prefitAdmin}/blog-category`);
 };
 
 // [PATCH] /admin/products-category/change-multi
