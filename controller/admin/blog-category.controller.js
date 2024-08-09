@@ -195,7 +195,7 @@ module.exports.detail = async (req, res) => {
   }
 };
 
-//[GET] admin/products-category/edit/:id
+//[GET] admin/blog-category/edit/:id
 module.exports.edit = async (req, res) => {
   try {
     const id = req.params.id;
@@ -204,24 +204,24 @@ module.exports.edit = async (req, res) => {
       deleted: false,
     };
 
-    const records = await ProductCategory.find(find);
+    const records = await BlogCategory.find(find);
 
     const newRecords = treeHelper.tree(records);
 
-    const item = await ProductCategory.findOne({ _id: id });
+    const item = await BlogCategory.findOne({ _id: id });
     let itemParent = null;
     if (item.parent_id && item.parent_id !== "") {
-      itemParent = await ProductCategory.findOne({ _id: item.parent_id });
+      itemParent = await BlogCategory.findOne({ _id: item.parent_id });
     }
 
-    res.render("admin/pages/products-category/edit", {
-      pageTitle: "Trang chỉnh sửa Sản phẩm",
+    res.render("admin/pages/blog-category/edit", {
+      pageTitle: "Trang chỉnh sửa DM Bài Viết",
       item: item,
       itemParent: itemParent,
       records: newRecords,
     });
   } catch (error) {
-    res.redirect(`${systemAdmin.prefitAdmin}/products-category`);
+    res.redirect(`${systemAdmin.prefitAdmin}/blog-category`);
   }
 };
 
