@@ -169,7 +169,7 @@ module.exports.changeStatus = async (req, res) => {
   res.redirect("back");
 };
 
-// [PATCH] /admin/products-category/delete/:id
+// [PATCH] /admin/blog-category/delete/:id
 module.exports.deleteItem = async (req, res) => {
   const id = req.params.id;
 
@@ -181,22 +181,17 @@ module.exports.deleteItem = async (req, res) => {
   res.redirect("back");
 };
 
-//[GET] admin/products-category/detail/:id
+//[GET] admin/blog-category/detail/:id
 module.exports.detail = async (req, res) => {
   try {
     const id = req.params.id;
-    const item = await ProductCategory.findOne({ _id: id });
-    const newPrice = Math.round(
-      item.price * (1 - item.discountPercentage / 100)
-    );
-    item.newPrice = newPrice;
-    console.log(item);
-    res.render("admin/pages/products-category/detail", {
+    const item = await BlogCategory.findOne({ _id: id });
+    res.render("admin/pages/blog-category/detail", {
       pageTitle: item.title,
       item: item,
     });
   } catch (error) {
-    res.redirect(`${systemAdmin.prefitAdmin}/products-category`);
+    res.redirect(`${systemAdmin.prefitAdmin}/blog-category`);
   }
 };
 

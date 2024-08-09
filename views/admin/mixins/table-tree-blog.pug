@@ -1,0 +1,62 @@
+include ./formatTime.pug
+
+mixin table-tree(record, level = 1)
+  each item, index in record
+    - const prefix = Array(level).join("-- ")
+    tr
+      td
+        input(type="checkbox" name="id" value=item.id)
+      td #{item.index}
+      td
+        img(src=item.thumbnail, alt=item.title, width="100px", height="auto" class="img-item")
+      td #{prefix} #{item.title}
+      td
+        if(roles.permissions.includes("blog-category_edit"))
+          if item.status === "active"
+            a(
+            href="javascript:" 
+            data-status=item.status
+            data-id=item.id 
+            button-change-status
+            class="badge badge-success"
+            ) Hoạt động
+          else
+            a(
+              href="javascript:" 
+              data-status=item.status
+              data-id=item.id 
+              button-change-status
+              class="badge badge-danger"
+            ) Dừng hoạt động
+        else 
+          if item.status === "active"
+            span(
+            class="badge badge-success"
+            ) Hoạt động
+          else
+            span(
+              class="badge badge-danger"
+            ) Dừng hoạt động
+      td 
+        if(item.fullName)
+          div 
+            p #{item.fullName}
+            +CreateTime(item)
+      td
+        a(
+          class="btn btn-success btn-sm mr-1"
+          href=`${prefitAdmin}/blog-category/detail/${item.id}`
+          ) Chi tiết
+        if(roles.permissions.includes("blog-category_edit"))
+          a(
+            class="btn btn-warning btn-sm"
+            href=`${prefitAdmin}/blog-category/edit/${item.id}`
+            ) Sửa
+        if(roles.permissions.includes("blog-category_delete"))
+          button(
+            class="btn btn-danger btn-sm ml-1"
+            button-delete
+            id-delete=item.id
+            ) Xóa
+    if item.children && item.children.length > 0
+      +table-tree(item.children, level + 1)

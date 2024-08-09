@@ -1,0 +1,30 @@
+extends ../../layouts/defaults.pug
+include ../../mixins/alert.pug
+
+block main
+  +alert-error()
+  +alert-success()
+
+  h1 Trang chi tiết danh mục bài viết
+
+  .detail
+    .row 
+      .col-4 
+        .inner-image 
+          img(src=item.thumbnail alt=item.title)
+      .col-8 
+        .item__detail 
+          h3 #{item.title}
+          if(item.status=="active")
+            p.status Trạng thái: <span class="badge badge-success" >Hoạt động<span>
+          else 
+            p.status Trạng thái: <span class="badge badge-danger" >Dừng hoạt động<span>
+          .position Vị trí của danh mục bài viết: <span class="badge badge-success" >#{item.position} <span>
+          if(item.description)
+            p !{item.description}
+        a(
+          class="btn btn-warning btn-sm btn-edit"
+          href=`${prefitAdmin}/blog-category/edit/${item.id}`
+          ) Chỉnh sửa
+
+  script(src="/admin/js/products.js") 
