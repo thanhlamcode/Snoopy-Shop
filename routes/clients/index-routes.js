@@ -8,6 +8,7 @@ const cartMiddleware = require("../../middleware/client/cart.middleware");
 
 module.exports = (app) => {
   app.use(categoryMiddleware.category);
+  app.use(categoryMiddleware.blogCategory);
 
   app.use(cartMiddleware.cart);
 

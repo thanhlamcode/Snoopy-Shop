@@ -33,7 +33,9 @@ header.header
                   -const pathProduct= "/products"
                   a(href=pathProduct) Sản phẩm
                     +sub-menu(layout, pathProduct)
-                li
-                  a(href="/blog") Bài viết
+                li.sub-menu
+                  -const pathBlog= "/blog"
+                  a(href=pathBlog) Bài viết
+                    +sub-menu(layoutBlog, pathBlog)
                 li 
                   a(href="/cart") Giỏ hàng (#{totalQuantity ? (totalQuantity) : 0})
