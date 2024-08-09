@@ -214,7 +214,49 @@ mixin table-permission(records)
           input(type="checkbox" checked=false)
   //- Phân quyền
 
-   //- Danh sách tài khoản
+    //-  Danh mục bài viết
+  tr
+    td(colspan="4")
+      b Danh mục bài viết
+  tr(data-name="blog-category_view")
+    td Xem
+    each item in records 
+      if (item.permissions.includes("blog-category_view"))
+        td.text-center
+          input(type="checkbox" checked=true)
+      else 
+        td.text-center
+          input(type="checkbox" checked=false)
+  tr(data-name="blog-category_create")
+    td Thêm mới
+    each item in records 
+      if (item.permissions.includes("blog-category_create"))
+        td.text-center
+          input(type="checkbox" checked=true)
+      else 
+        td.text-center
+          input(type="checkbox" checked=false)
+  tr(data-name="blog-category_edit")
+    td Chỉnh sửa
+    each item in records 
+      if (item.permissions.includes("blog-category_edit"))
+        td.text-center
+          input(type="checkbox" checked=true)
+      else 
+        td.text-center
+          input(type="checkbox" checked=false)
+  tr(data-name="blog-category_delete")
+    td Xóa
+    each item in records 
+      if (item.permissions.includes("blog-category_delete"))
+        td.text-center
+          input(type="checkbox" checked=true)
+      else 
+        td.text-center
+          input(type="checkbox" checked=false)
+  //-  End danh mục sản phẩm
+
+   //- Danh sách bài viết
   tr
     td(colspan="4")
       b Danh sách bài viết

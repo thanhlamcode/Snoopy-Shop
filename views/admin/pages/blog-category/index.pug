@@ -1,0 +1,85 @@
+extends ../../layouts/defaults.pug
+include ../../mixins/filterButton.pug
+include ../../mixins/search.pug
+include ../../mixins/pagination.pug
+include ../../mixins/form-change-multi.pug
+include ../../mixins/alert.pug
+include ../../mixins/table-tree.pug
+
+block main
+  if(roles.permissions.includes("blog-category_view"))
+    .card-header <h1>Danh mục bài viết<h1>
+    +alert-success()
+    
+    //- .card.mb-3
+    //- .card-header Bộ lọc và Tìm kiếm theo danh mục cha
+    //- .card-body
+    //-   .row 
+    //-     .col-6
+    //-       +filterButton(button)
+    //-     .col-6
+    //-       form#form-search
+    //-         +Search(keyword)
+
+    .card.mb-3
+    .card-header Sắp xếp
+    .card-body
+      .row
+        .col-6
+          div(sort)
+            select.form-control(name="sort" sort-select)
+              option(value="position-desc") Vị trí giảm dần
+              option(value="position-asc") Vị trí tăng dần
+              option(value="title-asc") Tiêu đề A - Z
+              option(value="title-desc") Tiêu đề Z - A
+        .col-6
+          button.btn.btn-danger(sort-clear) Clear
+
+    .card.mb-3
+    
+    .card-body
+      .row 
+        //- .col-8 
+        //-   if(roles.permissions.includes("blog-category_edit"))
+        //-     +form-change-multi(`${prefitAdmin}/blog-category/change-multi?_method=PATCH`)
+        .col-4
+          if(roles.permissions.includes("blog-category_create"))
+            a.btn.btn-outline-success(href=`${prefitAdmin}/blog-category/create`) Thêm mới
+    //-   table(
+    //-     class="table table-hover table-sm"
+    //-     checkbox-multi
+    //-   )
+    //-     thead
+    //-       tr
+    //-         th 
+    //-           input(type="checkbox" name="checkall")
+    //-         th STT
+    //-         th Hình ảnh
+    //-         th Tiêu đề
+    //-         th Trạng thái
+    //-         th Người tạo
+    //-         th Hành động
+    //-     tbody
+    //-       +table-tree(record)
+          
+    //- form(
+    //-   action="" 
+    //-   method="POST"
+    //-   id="form-change-status"
+    //-   data-path=`${prefitAdmin}/blog-category/change-status`
+    //-   ) 
+    //- form(
+    //-   action="" 
+    //-   method="POST"
+    //-   id="form-delete-item"
+    //-   data-path=`${prefitAdmin}/blog-category/delete`
+    //- ) 
+
+
+    script(src="/admin/js/products.js") 
+  else 
+    h1 Bạn không có quyền xem mục này
+
+
+
+    

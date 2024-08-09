@@ -2,6 +2,7 @@ const systemAdmin = require("../../config/systems");
 const dashboardRouter = require("./dashboard.route");
 const productsRouter = require("./products.route");
 const productsCategoryRouter = require("./products-category.route");
+const blogCategoryRouter = require("./blog-category.route");
 const roleRouter = require("./roles.route");
 const accountsRouter = require("./accounts.route");
 const myaccountRouter = require("./my-account.route");
@@ -25,6 +26,11 @@ module.exports = (app) => {
     PATCH_ADMIN + "/products-category",
     authMiddleware.requireAuth,
     productsCategoryRouter
+  );
+  app.use(
+    PATCH_ADMIN + "/blog-category",
+    authMiddleware.requireAuth,
+    blogCategoryRouter
   );
   app.use(PATCH_ADMIN + "/roles", authMiddleware.requireAuth, roleRouter);
   app.use(
