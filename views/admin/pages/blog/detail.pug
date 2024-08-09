@@ -22,11 +22,14 @@ block main
             else 
               p.status Trạng thái: <span class="badge badge-danger" >Dừng hoạt động<span>
             .position Vị trí của bài viết: <span class="badge badge-success" >#{item.position} <span>
-            if(item.description)
-              p !{item.description}
+            
           a(
             class="btn btn-warning btn-sm btn-edit mt-2"
             href=`${prefitAdmin}/blog/edit/${item.id}`
             ) Chỉnh sửa
+      .col-12 
+        if(item.description)
+          p !{item.description}
+      
 
   script(src="/admin/js/products.js") 

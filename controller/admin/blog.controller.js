@@ -1,8 +1,10 @@
 const Accounts = require("../../models/accounts.model");
 const Blog = require("../../models/blog.model");
+const BlogCategory = require("../../models/blog-category.model");
 const filterStatus = require("../../helpers/filterStatus");
 const paginationObject = require("../../helpers/pagination");
 const systemAdmin = require("../../config/systems");
+const treeHelper = require("../../helpers/createTree");
 
 // [GET] /admin/blog
 module.exports.index = async (req, res) => {
@@ -78,10 +80,14 @@ module.exports.create = async (req, res) => {
     deleted: false,
   };
 
+  const records = await BlogCategory.find(find);
+  const newRecords = treeHelper.tree(records);
+
   const countBlog = await Blog.countDocuments();
   res.render("admin/pages/blog/create", {
     pageTitle: "Trang thêm Bài viết",
     max: countBlog,
+    records: newRecords,
   });
 };
 
@@ -193,12 +199,19 @@ module.exports.changeMulti = async (req, res) => {
 //[GET] admin/blog/edit/:id
 module.exports.edit = async (req, res) => {
   try {
+    const find = {
+      deleted: false,
+    };
     const id = req.params.id;
     const item = await Blog.findOne({ _id: id });
+    const records = await BlogCategory.find(find);
+
+    const newRecords = treeHelper.tree(records);
 
     res.render("admin/pages/blog/edit", {
       pageTitle: item.title,
       item: item,
+      records: newRecords,
     });
   } catch (error) {
     res.redirect(`${systemAdmin.prefitAdmin}/blog`);
@@ -206,7 +219,7 @@ module.exports.edit = async (req, res) => {
   }
 };
 
-//[PATCH] admin/products/edit/:id
+//[PATCH] admin/blog/edit/:id
 module.exports.editPatch = async (req, res) => {
   try {
     const id = req.params.id;
@@ -235,7 +248,7 @@ module.exports.editPatch = async (req, res) => {
   }
 };
 
-//[GET] admin/products/detail/:id
+//[GET] admin/blog/detail/:id
 module.exports.detail = async (req, res) => {
   try {
     const id = req.params.id;
@@ -365,7 +378,7 @@ module.exports.historyEdit = async (req, res) => {
       updatedBy: updatedBy.reverse(),
     });
   } catch (error) {
-    res.redirect(`${systemAdmin.prefitAdmin}/products`);
+    res.redirect(`${systemAdmin.prefitAdmin}/blog`);
     console.log(error);
   }
 };

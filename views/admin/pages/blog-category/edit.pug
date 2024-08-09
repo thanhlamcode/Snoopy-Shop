@@ -21,6 +21,7 @@ block main
             option(value="") -- Chọn danh mục cha --
           if records
             +select-tree(records)
+          option(value="") -- Chọn danh mục cha --
       div.form-group
         label(for="desc") Mô tả
         textarea(class="form-control", id="desc", name="description", rows="5") #{item.description}

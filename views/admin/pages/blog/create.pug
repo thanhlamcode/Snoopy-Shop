@@ -13,6 +13,12 @@ block main
         label(for="title") Tiêu đề
         input(type="text", class="form-control", id="title", name="title", required)
       div.form-group
+        label(for="product_category_id") Danh mục
+        select(name="product_category_id" id="product_category_id" class="form-control")
+          option(value="") -- Chọn danh mục bài viết
+          if records
+            +select-tree(records)
+      div.form-group
         label(for="short-desc") Mô tả ngắn
         input(class="form-control", id="short-desc", name="shortDescription", rows="5")
       div.form-group
