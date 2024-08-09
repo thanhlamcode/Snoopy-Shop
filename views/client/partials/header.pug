@@ -6,7 +6,7 @@ header.header
           .col-3.inner-logo
             a(href='/')
               img(src='/images/logo.jpg', alt='Logo')
-          .col-5
+          .col-4
             .form-search
               form(
                 action="/search"
@@ -24,7 +24,7 @@ header.header
                     type="submit"
                     class="btn btn-primary"
                   ) Tim
-          .col-4
+          .col-5
             .inner-menu
               ul
                 li
@@ -33,5 +33,7 @@ header.header
                   -const pathProduct= "/products"
                   a(href=pathProduct) Sản phẩm
                     +sub-menu(layout, pathProduct)
+                li
+                  a(href="/blog") Bài viết
                 li 
                   a(href="/cart") Giỏ hàng (#{totalQuantity ? (totalQuantity) : 0})

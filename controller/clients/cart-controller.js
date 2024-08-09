@@ -38,6 +38,7 @@ module.exports.addPost = async (req, res) => {
       }
     );
   }
-  // console.log(products);
+
+  req.flash("success", `Thêm ${quantity} sản phẩm vào giỏ hàng thành công !`);
   res.redirect("back");
 };
