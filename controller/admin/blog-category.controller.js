@@ -225,21 +225,21 @@ module.exports.edit = async (req, res) => {
   }
 };
 
-//[PATCH] admin/products-category/edit/:id
+//[PATCH] admin/blog-category/edit/:id
 module.exports.editPatch = async (req, res) => {
   try {
     const id = req.params.id;
     console.log(id);
-    const item = await ProductCategory.findOne({ _id: id });
+    const item = await BlogCategory.findOne({ _id: id });
 
     req.body.position = parseInt(req.body.position);
 
     console.log(req.body);
-    await ProductCategory.updateOne({ _id: id }, req.body);
+    await BlogCategory.updateOne({ _id: id }, req.body);
     req.flash("success", `Sửa sản phẩm thành công!!`);
-    res.redirect(`${systemAdmin.prefitAdmin}/products-category`);
+    res.redirect(`${systemAdmin.prefitAdmin}/blog-category`);
   } catch (error) {
     req.flash("error", `Sửa sản phẩm thất bại!!`);
-    res.redirect(`${systemAdmin.prefitAdmin}/products-category`);
+    res.redirect(`${systemAdmin.prefitAdmin}/blog-category`);
   }
 };
