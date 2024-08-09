@@ -111,18 +111,18 @@ module.exports.createPost = async (req, res) => {
   res.redirect(`${systemAdmin.prefitAdmin}/blog-category`);
 };
 
-// [PATCH] /admin/products-category/change-multi
+// [PATCH] /admin/blog-category/change-multi
 module.exports.changeMulti = async (req, res) => {
   const type = req.body.type;
   const ids = req.body.ids.split(",");
 
   if (ids.length > 0) {
     if (type == "delete-all") {
-      await ProductCategory.updateMany(
+      await BlogCategory.updateMany(
         { _id: { $in: ids } },
         { $set: { deleted: true } }
       );
-      req.flash("success", `Xóa thành công ${ids.length} sản phẩm !`);
+      req.flash("success", `Xóa thành công ${ids.length} danh mục bài viết !`);
       res.redirect("back");
     } else if (type == undefined) {
       // return;
@@ -133,24 +133,24 @@ module.exports.changeMulti = async (req, res) => {
         item = ids[index].split(",");
         const data = item[0].split("-");
         // console.log(data[1]);
-        await ProductCategory.updateOne(
+        await BlogCategory.updateOne(
           { _id: data[0] },
           { position: parseInt(data[1]) }
         );
       });
       req.flash(
         "success",
-        `Thay đổi vị trí thành công ${ids.length} sản phẩm !`
+        `Thay đổi vị trí thành công ${ids.length} danh mục bài viết !`
       );
       res.redirect("back");
     } else {
-      await ProductCategory.updateMany(
+      await BlogCategory.updateMany(
         { _id: { $in: ids } },
         { $set: { status: type } }
       );
       req.flash(
         "success",
-        `Cập nhập trạng thái thành công ${ids.length} sản phẩm !`
+        `Cập nhập trạng thái thành công ${ids.length} danh mục bài viết !`
       );
       res.redirect("back");
     }
