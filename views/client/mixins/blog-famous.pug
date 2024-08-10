@@ -1,74 +1,19 @@
-mixin blog-famous()
+mixin blog-famous(products)
   .wrapper
     .item-bg
     .news-slider
       .news-slider__wrp.swiper-wrapper
-        .news-slider__item.swiper-slide
-          a.news__item(href='#')
-            .news-date
-              span.news-date__title 24
-              span.news-date__txt May
-            .news__title
-              | Lorem Ipsum Dolor Sit Amed
-            p.news__txt
-              | Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s...
-            .news__img
-              img(src='https://res.cloudinary.com/muhammederdem/image/upload/q_60/v1537132205/news-slider/item-2.webp' alt='news')
-        .news-slider__item.swiper-slide
-          a.news__item(href='#')
-            .news-date
-              span.news-date__title 25
-              span.news-date__txt May
-            .news__title
-              | Lorem Ipsum Dolor Sit Amed
-            p.news__txt
-              | Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s...
-            .news__img
-              img(src='https://res.cloudinary.com/muhammederdem/image/upload/q_60/v1537132205/news-slider/item-3.webp' alt='news')
-        .news-slider__item.swiper-slide
-          a.news__item(href='#')
-            .news-date
-              span.news-date__title 26
-              span.news-date__txt May
-            .news__title
-              | Lorem Ipsum Dolor Sit Amed
-            p.news__txt
-              | Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s...
-            .news__img
-              img(src='https://res.cloudinary.com/muhammederdem/image/upload/q_60/v1537132205/news-slider/item-4.webp' alt='news')
-        .news-slider__item.swiper-slide
-          a.news__item(href='#')
-            .news-date
-              span.news-date__title 27
-              span.news-date__txt May
-            .news__title
-              | Lorem Ipsum Dolor Sit Amed
-            p.news__txt
-              | Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s...
-            .news__img
-              img(src='https://res.cloudinary.com/muhammederdem/image/upload/q_60/v1537132205/news-slider/item-2.webp' alt='news')
-        .news-slider__item.swiper-slide
-          a.news__item(href='#')
-            .news-date
-              span.news-date__title 28
-              span.news-date__txt May
-            .news__title
-              | Lorem Ipsum Dolor Sit Amed
-            p.news__txt
-              | Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s...
-            .news__img
-              img(src='https://res.cloudinary.com/muhammederdem/image/upload/q_60/v1537132205/news-slider/item-5.webp' alt='news')
-        .news-slider__item.swiper-slide
-          a.news__item(href='#')
-            .news-date
-              span.news-date__title 29
-              span.news-date__txt May
-            .news__title
-              | Lorem Ipsum Dolor Sit Amed
-            p.news__txt
-              | Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s...
-            .news__img
-              img(src='https://res.cloudinary.com/muhammederdem/image/upload/q_60/v1537132205/news-slider/item-4.webp' alt='news')
+        each item in products
+          .news-slider__item.swiper-slide
+            a.news__item(href=`/products/detail/${item.slug}`)
+              .news-date
+                span.news-date__title #{item.newPrice}$
+                span.news-date__txt #{item.price}$
+              .news__title
+                | #{item.title}
+              //- p.news__txt !{item.description.substring(0, 20)}...
+              .news__img
+                img(src=item.thumbnail alt=item.title)
       .news-slider__ctr
         .news-slider__arrows
           button.news-slider__arrow.news-slider-prev

@@ -58,11 +58,11 @@ a:hover {
   transition: all 0.3s;
   left: -30px;
 }
-.item-bg.active {
+/* .item-bg.active {
   left: 0;
   top: 0;
   opacity: 1;
-}
+} */
 .news-slider {
   z-index: 2;
   max-width: 1300px;
@@ -87,7 +87,7 @@ a:hover {
   z-index: 2;
 }
 .news-slider__item {
-  width: 400px;
+  width: calc(100% / 3);
   flex-shrink: 0;
 }
 @media screen and (max-width: 992px) {

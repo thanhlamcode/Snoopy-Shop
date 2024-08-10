@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
     centeredSlides: true,
     keyboard: true,
     spaceBetween: 0,
-    slidesPerView: "auto",
+    slidesPerView: "3",
     speed: 300,
     coverflowEffect: {
       rotate: 0,
