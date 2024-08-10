@@ -232,7 +232,7 @@ module.exports.editPatch = async (req, res) => {
       account_id: res.locals.user.id,
       updatedAt: new Date(),
     };
-
+    console.log(req.body);
     await Blog.updateOne(
       { _id: id },
       {
@@ -253,9 +253,19 @@ module.exports.detail = async (req, res) => {
   try {
     const id = req.params.id;
     const item = await Blog.findOne({ _id: id });
+    // Category title
+    let category = {};
+    if (item.blog_category_id) {
+      category = await BlogCategory.findOne({
+        _id: item.blog_category_id,
+      });
+    }
+    //end category
+
     res.render("admin/pages/blog/detail", {
       pageTitle: item.title,
       item: item,
+      category: category.title,
     });
   } catch (error) {
     res.redirect(`${systemAdmin.prefitAdmin}/blog`);

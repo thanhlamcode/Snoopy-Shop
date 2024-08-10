@@ -9,6 +9,10 @@ const blogSchema = new mongoose.Schema(
     shortDescription: String,
     thumbnail: String,
     status: String,
+    blog_category_id: {
+      type: String,
+      default: "",
+    },
     position: Number,
     createBy: {
       account_id: String,

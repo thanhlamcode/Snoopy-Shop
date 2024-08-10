@@ -28,10 +28,10 @@ module.exports.index = async (req, res) => {
   });
 };
 
-// [GET] /products/detail/:slug
+// [GET] /blog/detail/:slug
 module.exports.detail = async (req, res) => {
   const slug = req.params.slug;
-  const item = await Product.findOne({
+  const item = await Blog.findOne({
     slug: slug,
     status: "active",
   });
@@ -39,7 +39,7 @@ module.exports.detail = async (req, res) => {
   item.newPrice = newPrice;
 
   if (item.product_category_id) {
-    const productCategory = await ProductCategory.findOne({
+    const productCategory = await BlogCategory.findOne({
       deleted: false,
       status: "active",
       _id: item.product_category_id,
@@ -47,7 +47,7 @@ module.exports.detail = async (req, res) => {
     item.productCategory = productCategory;
   }
 
-  res.render("client/pages/products/detail", {
+  res.render("client/pages/blog/detail", {
     pageTitle: item.title,
     item: item,
   });

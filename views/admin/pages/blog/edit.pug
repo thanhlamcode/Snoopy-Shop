@@ -13,11 +13,11 @@ block main
         label(for="title") Tiêu đề
         input(type="text", class="form-control", id="title", name="title", required value=item.title)
       div.form-group
-        label(for="product_category_id") Danh mục
-        select(name="product_category_id" id="product_category_id" class="form-control")
+        label(for="blog_category_id") Danh mục
+        select(name="blog_category_id" id="blog_category_id" class="form-control")
           option(value="") -- Chọn danh mục sản phẩm
           if records
-            +select-tree-edit(records, 1, item.product_category_id)
+            +select-tree-edit(records, 1, item.blog_category_id)
       div.form-group
         label(for="short-desc") Mô tả ngắn
         input(class="form-control", id="short-desc", name="shortDescription", rows="5" value=item.shortDescription)

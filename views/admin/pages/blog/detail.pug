@@ -16,6 +16,8 @@ block main
         div.wrap
           .item__detail 
             h3 #{item.title}
+            if(category)
+              p.position Danh mục bài viết <span class="badge badge-success" >#{category} <span>
             p <b>Mô tả ngắn: </b> #{item.shortDescription}
             if(item.status=="active")
               p.status Trạng thái: <span class="badge badge-success" >Hoạt động<span>
