@@ -2,10 +2,37 @@ extends ../../layouts/defaults.pug
 include ../../mixins/box-head.pug
 include ../../mixins/products-grid.pug
 include ../../mixins/blog-famous.pug
+include ../../mixins/formatTime.pug
 
 block main
-  .container.my-3
-    .row
-      .col-12
-      h3.text-center Không tìm thấy sản phẩm nào
-    //- +blog-famous()
+  .blog
+    .container.my-3
+      .row
+        .col-4 
+          .blog-new
+            h3 BÀI VIẾT MỚI 
+            each item in blogNew
+              .blog-item
+                a(href=`/blog/${item.slug}`)
+                  .inner-image 
+                    img(src=item.thumbnail alt=item.title)
+                .wrap-content
+                  a(title=item.title href=`/blog/${item.slug}`) #{item.title}
+                  +FormatDate(item.createBy.createAt)
+        .col-8
+          .row 
+            each item in blog 
+              .col-6
+                .blog-item-main
+                  a(href=`/blog/${item.slug}`)
+                    .inner-image-main
+                      img(src=item.thumbnail alt=item.title)
+                  .content
+                    .wrap-content-main
+                      a(title=item.title href=`/blog/${item.slug}`) #{item.title}
+                      .calender 
+                        i(class="fa-solid fa-calendar-days")
+                        +FormatDate(item.createBy.createAt)
+                    .short-desc 
+                      p !{item.description}
+                  

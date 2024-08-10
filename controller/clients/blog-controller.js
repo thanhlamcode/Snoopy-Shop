@@ -9,15 +9,22 @@ module.exports.index = async (req, res) => {
     status: "active",
   }).sort({ position: "desc" });
 
-  const blogCategory = await BlogCategory.find({
+  const blogNew = await Blog.find({
     deleted: false,
     status: "active",
-  }).sort({ position: "desc" });
+  })
+    .sort({ position: "desc" })
+    .limit(6);
+
+  // console.log(blogNew);
+  blogNew.forEach((item) => {
+    console.log(item.createBy.createAt);
+  });
 
   res.render("client/pages/blog/index", {
     pageTitle: "Trang bài viết",
     blog: blog,
-    blogCategory: blogCategory,
+    blogNew: blogNew,
   });
 };
 
