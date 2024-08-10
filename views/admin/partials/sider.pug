@@ -1,32 +1,96 @@
-.sider
-  .inner-menu
-    ul
+//- .sider
+//-   .inner-menu
+//-     ul
+//-       li
+//-         a(href=`${prefitAdmin}/dashboard`) Tổng quan
+//-       if(roles.permissions.includes("products-category_view"))
+//-         li
+//-           a(href=`${prefitAdmin}/products-category`) Danh mục sản phẩm
+//-       if(roles.permissions.includes("products_view"))
+//-         li
+//-           a(href=`${prefitAdmin}/products`) Danh sách sản phẩm
+//-       if(roles.permissions.includes("restore_view"))
+//-         li
+//-           a(href=`${prefitAdmin}/products/restore`) Khôi phục sản phẩm
+//-       if(roles.permissions.includes("products-category_view"))
+//-         li
+//-           a(href=`${prefitAdmin}/blog-category`) Danh mục bài viết
+//-       if(roles.permissions.includes("blog_view"))
+//-         li
+//-           a(href=`${prefitAdmin}/blog`) Danh sách bài viết
+//-       if(roles.permissions.includes("restore_view"))
+//-         li
+//-           a(href=`${prefitAdmin}/blog/restore`) Khôi phục bài viết
+//-       if(roles.permissions.includes("roles_view"))
+//-         li
+//-           a(href=`${prefitAdmin}/roles`) Nhóm quyền
+//-       if(roles.permissions.includes("permission_view"))
+//-         li
+//-           a(href=`${prefitAdmin}/roles/permission`) Phân quyền
+//-       if(roles.permissions.includes("accounts_view"))
+//-         li
+//-           a(href=`${prefitAdmin}/accounts`) Danh sách tài khoản
+
+
+
+nav.main-menu
+  ul
+    li
+      a(href=`${prefitAdmin}/dashboard`)
+        i.fa.fa-home.fa-2x
+        span.nav-text
+          | Trang Tổng Quan
+    if(roles.permissions.includes("products-category_view"))
+      li.has-subnav
+        a(href=`${prefitAdmin}/products-category`)
+          i.fa.fa-2x.fa-solid.fa-cart-plus
+          span.nav-text
+            | Danh mục sản phẩm
+    if(roles.permissions.includes("products_view"))
+      li.has-subnav
+        a(href=`${prefitAdmin}/products`)
+          i(class="fa-solid fa-cart-shopping fa-2x fa")
+          span.nav-text
+            | Danh sách sản phẩm
+    if(roles.permissions.includes("restore_view"))
+      li.has-subnav
+        a(href=`${prefitAdmin}/products/restore`)
+          i.fa.fa-2x.fa-solid.fa-recycle
+          span.nav-text
+            | Khôi phục sản phẩm
+    if(roles.permissions.includes("blog-category_view"))
       li
-        a(href=`${prefitAdmin}/dashboard`) Tổng quan
-      if(roles.permissions.includes("products-category_view"))
-        li
-          a(href=`${prefitAdmin}/products-category`) Danh mục sản phẩm
-      if(roles.permissions.includes("products_view"))
-        li
-          a(href=`${prefitAdmin}/products`) Danh sách sản phẩm
-      if(roles.permissions.includes("restore_view"))
-        li
-          a(href=`${prefitAdmin}/products/restore`) Khôi phục sản phẩm
-      if(roles.permissions.includes("products-category_view"))
-        li
-          a(href=`${prefitAdmin}/blog-category`) Danh mục bài viết
-      if(roles.permissions.includes("blog_view"))
-        li
-          a(href=`${prefitAdmin}/blog`) Danh sách bài viết
-      if(roles.permissions.includes("restore_view"))
-        li
-          a(href=`${prefitAdmin}/blog/restore`) Khôi phục bài viết
-      if(roles.permissions.includes("roles_view"))
-        li
-          a(href=`${prefitAdmin}/roles`) Nhóm quyền
-      if(roles.permissions.includes("permission_view"))
-        li
-          a(href=`${prefitAdmin}/roles/permission`) Phân quyền
-      if(roles.permissions.includes("accounts_view"))
-        li
-          a(href=`${prefitAdmin}/accounts`) Danh sách tài khoản
+        a(href=`${prefitAdmin}/blog-category`)
+          i.fa.fa-film.fa-2x.fa-regular.fa-newspaper
+          span.nav-text
+            | Danh mục bài viết
+    if(roles.permissions.includes("blog_view"))
+      li
+        a(href=`${prefitAdmin}/blog`)
+          i.fa.fa-2x.fa-solid.fa-newspaper
+          span.nav-text
+            | Danh sách bài viết
+    if(roles.permissions.includes("restore_view"))
+      li
+        a(href=`${prefitAdmin}/blog/restore`)
+          i.fa.fa-2x.fa-solid.fa-recycle
+          span.nav-text
+            | Khôi phục bài viết
+    if(roles.permissions.includes("roles_view"))
+      li
+        a(href=`${prefitAdmin}/roles`)
+          i.fa.fa-2x.fa-solid.fa-people-line
+          span.nav-text
+            | Nhóm quyền
+    if(roles.permissions.includes("permission_view"))
+      li
+        a(href=`${prefitAdmin}/roles/permission`)
+          i.fa.fa-cogs.fa-2x
+          span.nav-text
+            | Phân quyền
+    if(roles.permissions.includes("accounts_view"))
+      li
+        a(href=`${prefitAdmin}/accounts`)
+          i.fa.fa-2x.fa-solid.fa-user-group
+          span.nav-text
+            | Danh sách tài khoản
