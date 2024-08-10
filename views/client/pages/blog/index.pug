@@ -1,9 +1,11 @@
 extends ../../layouts/defaults.pug
 include ../../mixins/box-head.pug
 include ../../mixins/products-grid.pug
+include ../../mixins/blog-famous.pug
 
 block main
   .container.my-3
     .row
       .col-12
       h3.text-center Không tìm thấy sản phẩm nào
+    +blog-famous()
