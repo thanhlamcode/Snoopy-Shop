@@ -75,8 +75,16 @@ module.exports.category = async (req, res) => {
     status: "active",
   }).sort({ position: "desc" });
 
+  const blogNew = await Blog.find({
+    deleted: false,
+    status: "active",
+  })
+    .sort({ position: "desc" })
+    .limit(6);
+
   res.render("client/pages/blog/category", {
     pageTitle: blogCategory.title,
     blogs: blogs,
+    blogNew: blogNew,
   });
 };
