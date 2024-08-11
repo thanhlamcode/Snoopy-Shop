@@ -56,6 +56,28 @@ if (tableCart) {
       fullPrice.innerHTML = `Tổng đơn hàng: ${sum}$`;
     });
   });
+
+  const buttonSubmit = document.querySelector(".cart button[type='submit']");
+  const formUpdate = document.querySelector("#form-update-quantity");
+  console.log(buttonSubmit);
+
+  buttonSubmit.addEventListener("click", (e) => {
+    e.preventDefault();
+    let result = [];
+
+    inputQuantity.forEach((item) => {
+      result.push({
+        product_id: item.getAttribute("product_id"),
+        quantity: item.value,
+      });
+
+      const input = formUpdate.querySelector("input");
+
+      input.value = JSON.stringify(result);
+
+      formUpdate.submit();
+    });
+  });
 }
 
 // END UPDATE PRICE

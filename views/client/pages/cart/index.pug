@@ -35,7 +35,7 @@ block main
                     value=item.quantity
                     min="1"
                     max=item.productInfo.stock
-                    item-id=item.product_id
+                    product_id=item.product_id
                     style="width: 60px"
                   )
                 td(totalPrice) #{item.totalPrice}$
@@ -46,4 +46,11 @@ block main
                   ) Xóa
         h3(fullPrice).text-right Tổng đơn hàng: #{fullPrice}$
     .text-right.mt-3
-      a(href="/checkout" class="btn btn-success") THANH TOÁN
+       form(
+        action="/order" 
+        method="POST"
+        id="form-update-quantity"
+        data-path=`order`
+        ) 
+        input(type="text" class="d-none" name="info")
+        button(type="submit" class="btn btn-success") THANH TOÁN
