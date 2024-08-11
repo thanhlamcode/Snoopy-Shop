@@ -3,8 +3,6 @@ include ../../mixins/box-head.pug
 include ../../mixins/alert.pug
 
 block main
-  +alert-success()
-  +alert-error()
   .container.my-3
     .row
       .col-12
@@ -42,7 +40,7 @@ block main
                 td #{item.totalPrice}$
                 td
                   a(
-                    href="/cart/delete/:id"
+                    href=`/cart/delete/${item.product_id}`
                     class="btn btn-danger"
                   ) Xóa
         h3.text-right Tổng đơn hàng: #{fullPrice}$
