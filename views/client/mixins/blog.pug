@@ -1,0 +1,27 @@
+mixin blog-new(blogNew)
+  .blog-new
+    h3 BÀI VIẾT MỚI 
+    each item in blogNew
+      .blog-item
+        a(href=`/blog/detail/${item.slug}`)
+          .inner-image 
+            img(src=item.thumbnail alt=item.title)
+        .wrap-content
+          a(title=item.title href=`/blog/detail/${item.slug}`) #{item.title}
+          +FormatDate(item.createBy.createAt)
+
+mixin blog-main(blog)
+  each item in blog 
+    .col-6
+      .blog-item-main
+        a(href=`/blog/detail/${item.slug}`)
+          .inner-image-main
+            img(src=item.thumbnail alt=item.title)
+        .content
+          .wrap-content-main
+            a(title=item.title href=`/blog/detail/${item.slug}`) #{item.title}
+            .calender 
+              i(class="fa-solid fa-calendar-days")
+              +FormatDate(item.createBy.createAt)
+          .short-desc 
+            p !{item.description}

@@ -448,4 +448,14 @@
   font-size: 14px;
 }
 
+.blog .description {
+  overflow: hidden;
+}
+
+.blog .title {
+  color: #c2000c;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
 /* END BLOG */

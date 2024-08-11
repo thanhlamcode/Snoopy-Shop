@@ -11,7 +11,10 @@ block main
       .row
         .col-4 
           +blog-new(blogNew)
-        .col-8
-          .row 
-            +blog-main(blog)
-                  
+        .col-8 
+          h2.title #{item.title}
+          .calender 
+            i(class="fa-solid fa-calendar-days")
+            +FormatDate(item.createBy.createAt)
+          .description 
+            p !{item.description}

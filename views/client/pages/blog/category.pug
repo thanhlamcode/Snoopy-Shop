@@ -1,0 +1,26 @@
+extends ../../layouts/defaults.pug
+include ../../mixins/box-head.pug
+
+block main
+  .container.my-3
+    .row
+      .col-12
+        +box-head(pageTitle)
+    if(blogs.length>0)
+      .row
+        each item in blogs
+          .col-4.mb-3
+            .product-item
+              .inner-image
+                a(href=`/blog/detail/${item.slug}`)
+                  img(src=item.thumbnail, alt=item.title)
+                if(item.featured=="1")
+                  .inner-featured Nổi bật
+              .inner-content
+                a(href=`/blog/detail/${item.slug}` class="inner-title") #{item.title}
+                //- .inner-price-new #{Math.round(item.price * (100 - item.discountPercentage) / 100)}$
+                //- .inner-price-old #{item.price}$
+                //- .inner-discount #{item.discountPercentage}%
+    else 
+      h3.text-center Không tìm thấy sản phẩm nào!
+

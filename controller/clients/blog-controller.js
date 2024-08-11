@@ -16,11 +16,6 @@ module.exports.index = async (req, res) => {
     .sort({ position: "desc" })
     .limit(6);
 
-  // console.log(blogNew);
-  blogNew.forEach((item) => {
-    console.log(item.createBy.createAt);
-  });
-
   res.render("client/pages/blog/index", {
     pageTitle: "Trang bài viết",
     blog: blog,
@@ -35,21 +30,26 @@ module.exports.detail = async (req, res) => {
     slug: slug,
     status: "active",
   });
-  const newPrice = Math.round(item.price * (1 - item.discountPercentage / 100));
-  item.newPrice = newPrice;
+  const blogNew = await Blog.find({
+    deleted: false,
+    status: "active",
+  })
+    .sort({ position: "desc" })
+    .limit(6);
 
-  if (item.product_category_id) {
-    const productCategory = await BlogCategory.findOne({
+  if (item.blog_category_id) {
+    const blogCategory = await BlogCategory.findOne({
       deleted: false,
       status: "active",
-      _id: item.product_category_id,
+      _id: item.blog_category_id,
     });
-    item.productCategory = productCategory;
+    item.blogCategory = blogCategory;
   }
 
   res.render("client/pages/blog/detail", {
     pageTitle: item.title,
     item: item,
+    blogNew: blogNew,
   });
 };
 
@@ -57,26 +57,26 @@ module.exports.detail = async (req, res) => {
 module.exports.category = async (req, res) => {
   const slugCategory = req.params.category;
 
-  const productCategory = await ProductCategory.findOne({
+  const blogCategory = await BlogCategory.findOne({
     slug: slugCategory,
     deleted: false,
     status: "active",
   });
 
-  const list = await productCategoryHelper.getSubCategory(productCategory.id);
+  const list = await productCategoryHelper.getSubBlogCategory(blogCategory.id);
 
   const listIdCategory = list.map((item) => item.id);
 
   console.log(listIdCategory);
 
-  const products = await Product.find({
-    product_category_id: { $in: [productCategory.id, ...listIdCategory] },
+  const blogs = await Blog.find({
+    blog_category_id: { $in: [blogCategory.id, ...listIdCategory] },
     deleted: false,
     status: "active",
   }).sort({ position: "desc" });
 
-  res.render("client/pages/products/category", {
-    pageTitle: productCategory.title,
-    products: products,
+  res.render("client/pages/blog/category", {
+    pageTitle: blogCategory.title,
+    blogs: blogs,
   });
 };
