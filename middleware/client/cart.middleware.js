@@ -19,7 +19,7 @@ module.exports.cart = async (req, res, next) => {
         (total, product) => total + product.quantity,
         0
       );
-      console.log(`Total Quantity: ${totalQuantity}`);
+      // console.log(`Total Quantity: ${totalQuantity}`);
 
       res.locals.totalQuantity = totalQuantity;
     }
