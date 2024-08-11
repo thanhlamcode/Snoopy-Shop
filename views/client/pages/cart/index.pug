@@ -3,7 +3,7 @@ include ../../mixins/box-head.pug
 include ../../mixins/alert.pug
 
 block main
-  .container.my-3
+  .container.my-3.cart
     .row
       .col-12
         +box-head("Giỏ hàng")
@@ -27,22 +27,23 @@ block main
                   img(src=item.productInfo.thumbnail, alt=item.productInfo.title width="80px")
                 td
                   a(href=`/products/detail/${item.productInfo.slug}`) #{item.productInfo.title}
-                td #{item.newPrice}$
+                td(newPrice=item.newPrice) #{item.newPrice}$
                 td
                   input(
                     type="number"
                     name="quantity"
                     value=item.quantity
                     min="1"
+                    max=item.productInfo.stock
                     item-id=item.product_id
                     style="width: 60px"
                   )
-                td #{item.totalPrice}$
+                td(totalPrice) #{item.totalPrice}$
                 td
                   a(
                     href=`/cart/delete/${item.product_id}`
                     class="btn btn-danger"
                   ) Xóa
-        h3.text-right Tổng đơn hàng: #{fullPrice}$
+        h3(fullPrice).text-right Tổng đơn hàng: #{fullPrice}$
     .text-right.mt-3
       a(href="/checkout" class="btn btn-success") THANH TOÁN

@@ -12,7 +12,7 @@ module.exports.index = async (req, res) => {
     for (const item of cart.products) {
       const productInfo = await Products.findOne({
         _id: item.product_id,
-      }).select("thumbnail title price discountPercentage slug");
+      }).select("thumbnail title price discountPercentage slug stock");
       item.productInfo = productInfo;
 
       const newPrice = Math.round(
