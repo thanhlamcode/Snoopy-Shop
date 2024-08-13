@@ -6,6 +6,7 @@
 .header .inner-logo img {
   width: 125px;
   max-width: 100%;
+  scale: 1.5;
 }
 
 .header .inner-menu > ul {
