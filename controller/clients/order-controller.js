@@ -96,8 +96,43 @@ module.exports.payment = async (req, res) => {
   });
 
   console.log(record);
+  console.log(record.id);
   record.save();
-
   await Cart.updateOne({ _id: cartId }, { products: [] });
-  res.redirect("/order/success");
+  res.redirect(`/order/success/${record.id}`);
+};
+
+// [GET] /order/success
+module.exports.success = async (req, res) => {
+  const orderId = req.params.id;
+  console.log(orderId);
+
+  const order = await Order.findOne({ _id: orderId });
+
+  for (const item of order.products) {
+    const product = await Products.findOne({ _id: item.product_id });
+    item.thumbnail = product.thumbnail;
+    item.title = product.title;
+
+    // Tính tổng tiền từng loại sản phẩm
+    const newPrice = Math.round(
+      (item.price * (100 - item.discountPercentage)) / 100
+    );
+    item.newPrice = newPrice;
+
+    const totalPrice = item.newPrice * item.quantity;
+    item.totalPrice = totalPrice;
+    //end
+  }
+
+  order.fullPrice = order.products.reduce((sum, item) => {
+    return sum + item.totalPrice;
+  }, 0);
+
+  console.log(order);
+
+  res.render("client/pages/order/success", {
+    pageTitle: "Đặt hàng thành công",
+    order: order,
+  });
 };

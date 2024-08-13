@@ -1,2 +1,4 @@
 mixin FormatDate(item)
   p #{moment(item).format('DD/MM/YYYY')}
+mixin FormatDeliverDate(item)
+  p Giao vào #{moment(item).add(5, 'days').format('DD/MM/YYYY')}

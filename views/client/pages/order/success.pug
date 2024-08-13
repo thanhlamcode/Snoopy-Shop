@@ -1,0 +1,31 @@
+extends ../../layouts/defaults.pug
+include ../../mixins/box-head.pug
+include ../../mixins/alert.pug
+include ../../mixins/formatTime.pug
+
+block main
+  .container.my-3.success-payment
+    .row
+      .col-12
+        +box-head("Đặt hàng thành công")
+    .row 
+      .col-12 
+        .inner-image
+          img(src="https://static.vecteezy.com/system/resources/previews/003/781/092/non_2x/green-tick-checkbox-vector.jpg" alt="tick icon")
+        h3 Cảm ơn #{order.userInfo.fullName}!
+        h3 Đặt hàng thành công!
+        .totalPrice 
+          div Vui lòng chuẩn bị số tiền cần thanh toán 
+          .price #{order.fullPrice}$
+        b Mã đơn hàng: #{order.id}
+        br
+        +FormatDeliverDate(item)
+        each item in order.products 
+          .item-product 
+            .row
+              .col-4
+                .image
+                  img(src=item.thumbnail)
+              .col-8
+                .title 
+                  h4 #{item.title}

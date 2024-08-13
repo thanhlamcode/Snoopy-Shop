@@ -459,3 +459,40 @@
 }
 
 /* END BLOG */
+
+/* SUCCESS PAGE */
+.success-payment {
+  text-align: center;
+}
+
+.success-payment .inner-image {
+  width: 20%;
+  margin: 0 auto;
+}
+
+.success-payment .inner-image img {
+  width: 100%;
+}
+
+.success-payment .totalPrice .price {
+  font-size: 25px;
+  font-weight: 700;
+  color: #28a745;
+}
+
+.success-payment .item-product {
+  margin-bottom: 10px;
+}
+
+.success-payment .item-product img {
+  width: 30%;
+}
+
+.success-payment .title {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+/* END SUCCESS PAGE */
