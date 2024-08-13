@@ -27,8 +27,13 @@ header.header
           .col-5
             .inner-menu
               ul
-                li
+                li.sub-menu
                   a(href="/") Trang chủ
+                  ul 
+                    li
+                      a(href="/") Trang chủ
+                    li
+                      a(href="/") Trang chủ
                 li.sub-menu
                   -const pathProduct= "/products"
                   a(href=pathProduct) Sản phẩm
