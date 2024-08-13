@@ -18,14 +18,24 @@ block main
           div Vui lòng chuẩn bị số tiền cần thanh toán 
           .price #{order.fullPrice}$
         b Mã đơn hàng: #{order.id}
-        br
+        p Địa chỉ: <b>#{order.userInfo.address}</b>
+        p Số điện thoại: <b>#{order.userInfo.phone}</b>
         +FormatDeliverDate(item)
-        each item in order.products 
-          .item-product 
-            .row
-              .col-4
-                .image
-                  img(src=item.thumbnail)
-              .col-8
-                .title 
-                  h4 #{item.title}
+        table.table.table-bordered.mt-6
+          thead
+            tr
+              th Ảnh
+              th Tên sản phẩm
+              th Giá
+              th Số lượng
+              th Tổng tiền 
+          tbody
+            each item in order.products 
+              tr 
+                td
+                  img(src=item.thumbnail width="80px")
+                td
+                  .title #{item.title}
+                td #{item.price}$
+                td #{item.quantity}
+                td #{item.totalPrice}$

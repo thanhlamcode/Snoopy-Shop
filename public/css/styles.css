@@ -476,7 +476,7 @@
 }
 
 .success-payment .totalPrice .price {
-  font-size: 25px;
+  font-size: 40px;
   font-weight: 700;
   color: #28a745;
 }
@@ -494,6 +494,10 @@
   display: flex;
   align-items: center;
   text-align: left;
+}
+
+.success-payment p {
+  margin: 0;
 }
 
 /* END SUCCESS PAGE */
