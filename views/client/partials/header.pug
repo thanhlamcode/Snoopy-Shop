@@ -3,10 +3,10 @@ include ../mixins/sub-menu.pug
 header.header
       .container
         .row.align-items-center
-          .col-3.inner-logo
+          .col-2.inner-logo
             a(href='/')
               img(src='/images/Snoopy Shop_transparent-.png', alt='Logo')
-          .col-4
+          .col-5
             .form-search
               form(
                 action="/search"
@@ -27,13 +27,8 @@ header.header
           .col-5
             .inner-menu
               ul
-                li.sub-menu
+                li
                   a(href="/") Trang chủ
-                  ul 
-                    li
-                      a(href="/") Trang chủ
-                    li
-                      a(href="/") Trang chủ
                 li.sub-menu
                   -const pathProduct= "/products"
                   a(href=pathProduct) Sản phẩm
@@ -44,3 +39,10 @@ header.header
                     +sub-menu(layoutBlog, pathBlog)
                 li 
                   a(href="/cart") Giỏ hàng (#{totalQuantity ? (totalQuantity) : 0})
+                li.sub-menu 
+                  a(href="/") More
+                  ul 
+                    li
+                      a(href="/user/login") Đăng nhập
+                    li
+                      a(href="/user/register") Đăng ký

@@ -1,0 +1,25 @@
+extends ../../layouts/defaults.pug
+include ../../mixins/box-head.pug
+include ../../mixins/alert.pug
+include ../../mixins/formatTime.pug
+
+block main
+  .container.my-5
+    .row.justify-content-center
+      .col-8
+        h1.text-center Đăng ký tài khoản
+        form(action="/user/register" method="POST")
+          .form-group
+            label(for="fullName") Họ và tên
+            input.form-control(type="text" id="fullName" name="fullName" required)
+          
+          .form-group
+            label(for="email") Email
+            input.form-control(type="email" id="email" name="email" required)
+          
+          .form-group
+            label(for="password") Mật khẩu
+            input.form-control(type="password" id="password" name="password" required)
+          
+          .form-group
+            button.btn.btn-primary.btn-block(type="submit") Đăng ký
