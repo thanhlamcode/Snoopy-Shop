@@ -10,13 +10,14 @@ module.exports.login = async (req, res) => {
   });
 };
 
-// [POST] /user/register
+// [GET] /user/register
 module.exports.register = async (req, res) => {
   res.render("client/pages/user/register", {
     pageTitle: "Trang đăng ký",
   });
 };
 
+// [POST] /user/register
 module.exports.registerPost = async (req, res) => {
   console.log(req.body);
 
@@ -33,6 +34,29 @@ module.exports.registerPost = async (req, res) => {
   const user = new User(req.body);
   await user.save();
 
+  res.cookie("tokenUser", user.tokenUser);
+
   req.flash("success", `Đăng ký tài khoản thành công!!`);
-  res.redirect(`/user/login`);
+  res.redirect(`/`);
+};
+
+// [POST] /user/login
+module.exports.loginPost = async (req, res) => {
+  console.log(req.body);
+
+  req.body.password = md5(req.body.password);
+
+  const existingUser = await User.findOne({
+    email: req.body.email,
+    password: req.body.password,
+  });
+
+  if (existingUser) {
+    req.flash("success", "Đăng nhập thành công!");
+    res.cookie("tokenUser", existingUser.tokenUser);
+    return res.redirect("/");
+  } else {
+    req.flash("success", "Đăng nhập thất bại!");
+    return res.redirect("back");
+  }
 };
