@@ -17,7 +17,6 @@ const userSchema = new mongoose.Schema(
     phone: String,
     thumbnail: String,
     role_id: String,
-    status: String,
     deleted: {
       type: Boolean,
       default: false,

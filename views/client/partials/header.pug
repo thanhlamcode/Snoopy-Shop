@@ -39,10 +39,14 @@ header.header
                     +sub-menu(layoutBlog, pathBlog)
                 li 
                   a(href="/cart") Giỏ hàng (#{totalQuantity ? (totalQuantity) : 0})
-                li.sub-menu 
-                  a(href="/") More
-                  ul 
-                    li
-                      a(href="/user/login") Đăng nhập
-                    li
-                      a(href="/user/register") Đăng ký
+                if(userInfo)
+                  li
+                    a(href="/user/logout" id="logout-link") Đăng xuất
+                else
+                  li.sub-menu 
+                    a(href="/") More
+                    ul 
+                      li
+                        a(href="/user/login") Đăng nhập
+                      li
+                        a(href="/user/register") Đăng ký

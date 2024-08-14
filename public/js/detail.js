@@ -11,3 +11,17 @@ if (stock) {
     result.innerHTML = `$${price * quantity}`;
   });
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  var logoutLink = document.getElementById("logout-link");
+
+  logoutLink.addEventListener("click", function (event) {
+    // Hiển thị hộp thoại xác nhận
+    var confirmed = confirm("Bạn có chắc chắn muốn đăng xuất?");
+
+    // Nếu người dùng chọn "Cancel", ngăn chặn hành động mặc định
+    if (!confirmed) {
+      event.preventDefault();
+    }
+  });
+});

@@ -49,14 +49,28 @@ module.exports.loginPost = async (req, res) => {
   const existingUser = await User.findOne({
     email: req.body.email,
     password: req.body.password,
+    deleted: false,
   });
 
   if (existingUser) {
+    if (existingUser.status == "inactive") {
+      req.flash("error", "Tài khoản đã bị khóa!");
+      res.redirect("back");
+      return;
+    }
+
     req.flash("success", "Đăng nhập thành công!");
     res.cookie("tokenUser", existingUser.tokenUser);
     return res.redirect("/");
   } else {
-    req.flash("success", "Đăng nhập thất bại!");
+    req.flash("error", "Đăng nhập thất bại!");
     return res.redirect("back");
   }
+};
+
+// [GET] /user/logout
+module.exports.logout = async (req, res) => {
+  res.clearCookie("tokenUser");
+  req.flash("success", "Đăng xuất thành công!");
+  res.redirect("/");
 };
