@@ -85,7 +85,6 @@ module.exports.forgotPassword = async (req, res) => {
 // [POST] /user/password/forgotPassword
 module.exports.forgotPasswordPost = async (req, res) => {
   const email = req.body.email;
-  console.log(email);
 
   const user = await User.findOne({
     email: email,
@@ -103,8 +102,8 @@ module.exports.forgotPasswordPost = async (req, res) => {
   });
 
   if (checkOtpExist) {
-    req.flash("error", "MÃ OTP ĐÃ ĐƯỢC GỬI! VUI LÒNG THỬ LẠI SAU 3 PHÚT!");
-    res.redirect("back");
+    req.flash("success", "MÃ OTP ĐÃ ĐƯỢC GỬI");
+    res.redirect(`/user/password/otpPassword?email=${email}`);
     return;
   }
 
@@ -119,5 +118,67 @@ module.exports.forgotPasswordPost = async (req, res) => {
   });
   record.save();
 
-  res.send("ok");
+  // Nếu tồn tại email thì gửi mã otp
+
+  res.redirect(`/user/password/otpPassword?email=${email}`);
+};
+
+// [GET] /user/password/otpPassword
+module.exports.otpPassword = async (req, res) => {
+  const email = req.query.email;
+
+  res.render("client/pages/user/otpPassword", {
+    pageTitle: "Xác thực OTP",
+    email: email,
+  });
+};
+
+// [POST] /user/password/otp
+module.exports.otpPost = async (req, res) => {
+  const otp = req.body.otp;
+  const email = req.body.email;
+
+  const checkOTP = await ForgotPassword.findOne({
+    otp: otp,
+    email: email,
+  });
+
+  if (!checkOTP) {
+    req.flash("error", "Mã OTP sai!");
+    res.redirect("back");
+    return;
+  }
+
+  const user = await User.findOne({
+    email: email,
+  });
+
+  res.cookie("tokenUser", user.tokenUser);
+  res.redirect("/user/password/reset");
+};
+
+// [GET] /user/password/reset
+module.exports.resetPassword = async (req, res) => {
+  res.render("client/pages/user/resetPassword", {
+    pageTitle: "Đổi mật khẩu",
+  });
+};
+
+// [POST] /user/password/reset
+module.exports.resetPasswordPost = async (req, res) => {
+  const password = req.body.password;
+
+  const tokenUser = req.cookies.tokenUser;
+
+  await User.updateOne(
+    {
+      tokenUser: tokenUser,
+    },
+    {
+      password: md5(password),
+    }
+  );
+
+  req.flash("success", "Đổi mật khẩu thành công");
+  res.redirect(`/`);
 };

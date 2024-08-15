@@ -25,3 +25,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+// Đảm bảo nhập 8 kí tự
+function validateOtp(input) {
+  // Chỉ cho phép nhập số
+  input.value = input.value.replace(/\D/g, "");
+
+  // Giới hạn tối đa 8 ký tự
+  if (input.value.length > 8) {
+    input.value = input.value.slice(0, 8);
+  }
+}
