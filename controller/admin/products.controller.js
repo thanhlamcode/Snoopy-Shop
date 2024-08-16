@@ -6,7 +6,7 @@ const paginationObject = require("../../helpers/pagination");
 const systemAdmin = require("../../config/systems");
 const treeHelper = require("../../helpers/createTree");
 
-// [GET /admin/products]
+// [GET] /admin/products
 module.exports.products = async (req, res) => {
   // filter
   const filter = filterStatus(req);

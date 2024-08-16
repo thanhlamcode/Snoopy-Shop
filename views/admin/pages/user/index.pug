@@ -1,0 +1,121 @@
+extends ../../layouts/defaults.pug
+include ../../mixins/filterButton.pug
+include ../../mixins/search.pug
+include ../../mixins/pagination.pug
+include ../../mixins/form-change-multi.pug
+include ../../mixins/alert.pug
+include ../../mixins/formatTime.pug
+
+block main
+  if(roles.permissions.includes("products_view"))
+    .card-header <h1>Danh sách tài khoản khách hàng<h1>
+    +alert-success()
+    
+    .card.mb-3
+    .card-header Bộ lọc và Tìm kiếm
+    .card-body
+      .row 
+        .col-6
+          +filterButton(button)
+        .col-6
+          form#form-search
+            +Search(keyword)
+
+    .card.mb-3
+    .card-header Sắp xếp
+    .card-body
+      .row
+        .col-6
+          div(sort)
+            select.form-control(name="sort" sort-select)
+              option(value="createdAt-desc") Tài khoản mới nhất
+              option(value="createdAt-asc") Tài khoản cũ nhất
+              option(value="fullName-asc") Tiêu đề A - Z
+              option(value="fullName-desc") Tiêu đề Z - A
+        .col-6
+          button.btn.btn-danger(sort-clear) Clear
+
+    .card.mb-3
+    
+    .card-body
+      .row 
+        if(roles.permissions.includes("products_edit"))
+          .col-8 
+            +form-change-multi(`${prefitAdmin}/products/change-multi?_method=PATCH`)
+      table(
+        class="table table-hover table-sm"
+        checkbox-multi
+      )
+        thead
+          tr
+            th 
+              input(type="checkbox" name="checkall")
+            th STT
+            th Tên tài khoản
+            th Email
+            th Trạng thái
+            th Ngày tạo tài khoản
+            th Hành động
+        tbody
+          each item, index in products
+            tr
+              td
+                input(type="checkbox" name="id" value=item.id)
+              td #{pagination.limit*(pagination.currentPage-1)+(index+1)}
+              td #{item.fullName}
+              td #{item.email}
+              td
+                if item.status === "active"
+                  a(
+                  href="javascript:" 
+                  data-status=item.status
+                  data-id=item.id 
+                  button-change-status
+                  class="badge badge-success"
+                  ) Hoạt động
+                else
+                  a(
+                    href="javascript:" 
+                    data-status=item.status
+                    data-id=item.id 
+                    button-change-status
+                    class="badge badge-danger"
+                  ) Dừng hoạt động
+              td
+                +CreateTimeUser(item.createdAt)
+              td
+                a(
+                  class="btn btn-success btn-sm mr-1"
+                  href=`${prefitAdmin}/products/detail/${item.id}`
+                  ) Chi tiết
+                if(roles.permissions.includes("products_delete"))
+                  button(
+                    class="btn btn-danger btn-sm ml-1"
+                    button-delete
+                    id-delete=item.id
+                    ) Xóa
+
+
+    +pagination(pagination)
+
+    form(
+      action="" 
+      method="POST"
+      id="form-change-status"
+      data-path=`${prefitAdmin}/user/change-status`
+      ) 
+    form(
+      action="" 
+      method="POST"
+      id="form-delete-item"
+      data-path=`${prefitAdmin}/products/delete`
+    ) 
+
+
+    script(src="/admin/js/products.js") 
+  else 
+    h1 Bạn không có quyền xem mục này
+
+
+
+    

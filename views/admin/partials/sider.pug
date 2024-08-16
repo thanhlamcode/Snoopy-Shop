@@ -40,6 +40,11 @@ nav.main-menu
         i.fa.fa-home.fa-2x
         span.nav-text
           | Trang Tổng Quan
+    li.has-subnav 
+      a(href="")
+        i.fa.fa-2x
+        span.nav-text.color
+          | SẢN PHẨM
     if(roles.permissions.includes("products-category_view"))
       li.has-subnav
         a(href=`${prefitAdmin}/products-category`)
@@ -58,6 +63,11 @@ nav.main-menu
           i.fa.fa-2x.fa-solid.fa-recycle
           span.nav-text
             | Khôi phục sản phẩm
+    li.has-subnav 
+      a(href="")
+        i.fa.fa-2x
+        span.nav-text.color
+          | BÀI VIẾT
     if(roles.permissions.includes("blog-category_view"))
       li
         a(href=`${prefitAdmin}/blog-category`)
@@ -76,6 +86,11 @@ nav.main-menu
           i.fa.fa-2x.fa-solid.fa-recycle
           span.nav-text
             | Khôi phục bài viết
+    li.has-subnav 
+      a(href="")
+        i.fa.fa-2x
+        span.nav-text.color
+          | CÀI ĐẶT CHUNG
     if(roles.permissions.includes("roles_view"))
       li
         a(href=`${prefitAdmin}/roles`)
@@ -94,3 +109,14 @@ nav.main-menu
           i.fa.fa-2x.fa-solid.fa-user-group
           span.nav-text
             | Danh sách tài khoản
+    li.has-subnav 
+      a(href="")
+        i.fa.fa-2x
+        span.nav-text.color
+          | QUẢN LÝ KHÁCH HÀNG
+    if(roles.permissions.includes("roles_view"))
+      li
+        a(href=`${prefitAdmin}/user`)
+          i.fa.fa-2x.fa-solid.fa-people-line
+          span.nav-text
+            | Tài khoản

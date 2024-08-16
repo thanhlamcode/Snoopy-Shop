@@ -2,3 +2,5 @@ mixin CreateTime(item)
   p #{moment(item.createBy.createAt).format('DD/MM/YYYY, hh:mm:ss a')}
 mixin UpdateTime(item)
   p #{moment(item).format('DD/MM/YYYY, hh:mm:ss a')}
+mixin CreateTimeUser(item)
+  p #{moment(item).format('DD/MM/YYYY, hh:mm:ss a')}

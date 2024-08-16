@@ -239,6 +239,10 @@ nav.main-menu.expanded {
   z-index: 1000;
 }
 
+.main-menu .has-subnav .color {
+  color: wheat;
+}
+
 .main-menu > ul {
   margin: 7px 0;
 }
