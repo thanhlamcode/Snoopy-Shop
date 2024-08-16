@@ -24,5 +24,7 @@ router.post(
   controller.resetPasswordPost
 );
 router.get("/info", userMiddle.requireAuth, controller.userInfo);
+router.get("/info/edit", userMiddle.requireAuth, controller.userInfoEdit);
+router.post("/info/edit", userMiddle.requireAuth, controller.userInfoEditPost);
 
 module.exports = router;

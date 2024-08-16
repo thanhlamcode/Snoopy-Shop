@@ -1,0 +1,26 @@
+extends ../../layouts/defaults.pug
+include ../../mixins/box-head.pug
+include ../../mixins/alert.pug
+include ../../mixins/formatTime.pug
+
+block main
+  .container.my-5
+    .row.justify-content-center
+      .col-12.text-center
+        //- h1.text-center Thông tin cá nhân
+        img(src="/images/Snoopy Shop_transparent-.png" width="200px")
+      .col-8
+        form(action="/user/info/edit" method="POST")
+          .form-group
+            label(for="fullName") Họ và tên
+            input.form-control(type="text" id="fullName" name="fullName" required value=user.fullName )
+          
+          .form-group
+            label(for="email") Email
+            input.form-control(type="email" id="email" name="email" required value=user.email )
+          
+          .form-group
+            label(for="password") Mật khẩu
+            input.form-control(type="password" id="password" name="password" )
+          .form-group
+            button.btn.btn-primary.btn-block(type="submit") Cập nhập

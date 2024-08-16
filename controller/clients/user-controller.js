@@ -215,3 +215,41 @@ module.exports.userInfo = async (req, res) => {
     pageTitle: "Thông tin cá nhân",
   });
 };
+
+// [GET] /user/info/edit
+module.exports.userInfoEdit = async (req, res) => {
+  const user = await User.findOne({
+    tokenUser: req.cookies.tokenUser,
+  });
+
+  res.render("client/pages/user/infoEdit", {
+    pageTitle: "Chỉnh sửa thông tin cá nhân",
+    user: user,
+  });
+};
+
+// [POST] /user/info/edit
+module.exports.userInfoEditPost = async (req, res) => {
+  console.log(req.body);
+
+  const tokenUser = req.cookies.tokenUser;
+
+  if (req.body.password) {
+    const password = md5(req.body.password);
+
+    req.body.password = password;
+
+    await User.updateOne({ tokenUser: tokenUser }, req.body);
+  } else {
+    await User.updateOne(
+      { tokenUser: tokenUser },
+      {
+        email: req.body.email,
+        fullName: req.body.fullName,
+      }
+    );
+  }
+
+  req.flash("success", "Cập nhập thông tin tài khoản thành công");
+  res.redirect(`/user/info`);
+};
