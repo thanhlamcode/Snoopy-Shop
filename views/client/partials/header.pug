@@ -40,8 +40,11 @@ header.header
                 li 
                   a(href="/cart") Giỏ hàng (#{totalQuantity ? (totalQuantity) : 0})
                 if(userInfo)
-                  li
-                    a(href="/user/logout" id="logout-link") Đăng xuất
+                  li.sub-menu
+                    a(href="/user/info") #{userInfo.fullName}
+                    ul
+                      li
+                        a(href="/user/logout" id="logout-link") Đăng xuất
                 else
                   li.sub-menu 
                     a(href="/") More
