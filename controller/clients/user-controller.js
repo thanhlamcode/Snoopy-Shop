@@ -1,6 +1,8 @@
 const User = require("../../models/users.model");
 const ForgotPassword = require("../../models/forgot-password.model");
 const generateHelper = require("../../helpers/generate");
+const sendMailHelper = require("../../helpers/sendMail");
+const htmlHelper = require("../../helpers/html");
 const md5 = require("md5");
 
 // [GET] /user/login
@@ -119,6 +121,11 @@ module.exports.forgotPasswordPost = async (req, res) => {
   record.save();
 
   // Nếu tồn tại email thì gửi mã otp
+  const subject = "MÃ OTP XÁC MINH LẤY LẠI MẬT KHẨU";
+  const html = htmlHelper.html(otp);
+  // console.log(html);
+
+  sendMailHelper.sendMail(email, subject, html);
 
   res.redirect(`/user/password/otpPassword?email=${email}`);
 };
