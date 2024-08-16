@@ -43,7 +43,7 @@ module.exports.index = async (req, res) => {
   if (req.query.sortKey && req.query.sortValue) {
     sort[req.query.sortKey] = req.query.sortValue;
   } else {
-    sort.createdAt = "desc";
+    sort.position = "desc";
   }
   // END SORT
 
@@ -66,8 +66,59 @@ module.exports.changeStatus = async (req, res) => {
   const status = req.params.status;
   const id = req.params.id;
 
-  await User.updateOne({ _id: id }, { status: status });
+  const updatedBy = {
+    account_id: res.locals.user.id,
+    updatedAt: new Date(),
+  };
+
+  await User.updateOne(
+    { _id: id },
+    { status: status, $push: { updatedBy: updatedBy } }
+  );
   req.flash("success", "Cập nhập trạng thái thành công!");
 
   res.redirect("back");
+};
+
+// [PATCH] /admin/user/change-multi
+module.exports.changeMulti = async (req, res) => {
+  const type = req.body.type;
+  const ids = req.body.ids.split(",");
+
+  const updatedBy = {
+    account_id: res.locals.user.id,
+    updatedAt: new Date(),
+  };
+
+  if (ids.length > 0) {
+    if (type == "delete-all") {
+      await User.updateMany(
+        { _id: { $in: ids } },
+        {
+          $set: {
+            deleted: true,
+            deletedBy: {
+              account_id: res.locals.user.id,
+              deletedAt: new Date(),
+            },
+          },
+        }
+      );
+      req.flash("success", `Xóa thành công ${ids.length} tài khoản !`);
+      res.redirect("back");
+    } else if (type == undefined) {
+      // return;
+      res.redirect("back");
+    } else {
+      await User.updateMany(
+        { _id: { $in: ids } },
+        { $set: { status: type }, $push: { updatedBy: updatedBy } }
+      );
+      req.flash(
+        "success",
+        `Cập nhập trạng thái thành công ${ids.length} tài khoản !`
+      );
+      res.redirect("back");
+    }
+  }
 };

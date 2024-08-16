@@ -41,7 +41,7 @@ block main
       .row 
         if(roles.permissions.includes("products_edit"))
           .col-8 
-            +form-change-multi(`${prefitAdmin}/products/change-multi?_method=PATCH`)
+            +form-change-multi-user(`${prefitAdmin}/user/change-multi?_method=PATCH`)
       table(
         class="table table-hover table-sm"
         checkbox-multi
