@@ -7,7 +7,7 @@ include ../../mixins/alert.pug
 include ../../mixins/formatTime.pug
 
 block main
-  if(roles.permissions.includes("products_view"))
+  if(roles.permissions.includes("order_view"))
     .card-header <h1>Danh sách đơn đặt hàng<h1>
     +alert-success()
     

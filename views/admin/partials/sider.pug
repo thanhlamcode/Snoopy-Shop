@@ -90,6 +90,23 @@ nav.main-menu
       a(href="")
         i.fa.fa-2x
         span.nav-text.color
+          | QUẢN LÝ KHÁCH HÀNG
+    if(roles.permissions.includes("user_view"))
+      li
+        a(href=`${prefitAdmin}/user`)
+          i.fa.fa-2x.fa-solid.fa-user-plus
+          span.nav-text
+            | Tài khoản
+    if(roles.permissions.includes("order_view"))
+      li
+        a(href=`${prefitAdmin}/user/order`)
+          i.fa.fa-2x.fa-solid.fa-truck-arrow-right
+          span.nav-text
+            | Đơn đặt hàng
+    li.has-subnav 
+      a(href="")
+        i.fa.fa-2x
+        span.nav-text.color
           | CÀI ĐẶT CHUNG
     if(roles.permissions.includes("roles_view"))
       li
@@ -109,20 +126,4 @@ nav.main-menu
           i.fa.fa-2x.fa-solid.fa-user-group
           span.nav-text
             | Danh sách tài khoản
-    li.has-subnav 
-      a(href="")
-        i.fa.fa-2x
-        span.nav-text.color
-          | QUẢN LÝ KHÁCH HÀNG
-    if(roles.permissions.includes("roles_view"))
-      li
-        a(href=`${prefitAdmin}/user`)
-          i.fa.fa-2x.fa-solid.fa-user-plus
-          span.nav-text
-            | Tài khoản
-    if(roles.permissions.includes("roles_view"))
-      li
-        a(href=`${prefitAdmin}/user/order`)
-          i.fa.fa-2x.fa-solid.fa-truck-arrow-right
-          span.nav-text
-            | Đơn đặt hàng
+    

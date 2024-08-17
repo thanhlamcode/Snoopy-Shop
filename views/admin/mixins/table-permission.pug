@@ -321,3 +321,27 @@ mixin table-permission(records)
         td.text-center
           input(type="checkbox" checked=false)
   //- Khôi phục sản phẩm
+
+  //- Quản lý khách hàng
+  tr
+    td(colspan="4")
+      b Quản lý khách hàng
+  tr(data-name="user_view")
+    td Tài khoản
+    each item in records 
+      if (item.permissions.includes("user_view"))
+        td.text-center
+          input(type="checkbox" checked=true)
+      else 
+        td.text-center
+          input(type="checkbox" checked=false)
+  tr(data-name="order_view")
+    td Quản lý đơn hàng
+    each item in records 
+      if (item.permissions.includes("order_view"))
+        td.text-center
+          input(type="checkbox" checked=true)
+      else 
+        td.text-center
+          input(type="checkbox" checked=false)
+  //-End  Quản lý khách hàng
