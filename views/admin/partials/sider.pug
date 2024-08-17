@@ -117,6 +117,12 @@ nav.main-menu
     if(roles.permissions.includes("roles_view"))
       li
         a(href=`${prefitAdmin}/user`)
-          i.fa.fa-2x.fa-solid.fa-people-line
+          i.fa.fa-2x.fa-solid.fa-user-plus
           span.nav-text
             | Tài khoản
+    if(roles.permissions.includes("roles_view"))
+      li
+        a(href=`${prefitAdmin}/user/order`)
+          i.fa.fa-2x.fa-solid.fa-truck-arrow-right
+          span.nav-text
+            | Đơn đặt hàng
