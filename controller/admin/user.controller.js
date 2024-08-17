@@ -145,14 +145,14 @@ module.exports.deleteItem = async (req, res) => {
 // [GET] /admin/user/order
 module.exports.order = async (req, res) => {
   // filter
-  const filter = filterStatus(req);
+  const filter = filterStatus.order(req);
 
   let find = {
     deleted: false,
   };
 
-  if (req.query.status) {
-    find.status = req.query.status;
+  if (req.query.status_payment) {
+    find.status_payment = req.query.status_payment;
   }
 
   let keyword = "";

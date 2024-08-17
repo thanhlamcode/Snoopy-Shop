@@ -45,6 +45,30 @@ buttonActive.forEach((button) => {
 
 // END FILTER PRODUCT
 
+// FILTER ORDER
+
+const buttonActiveOrder = document.querySelectorAll(".buttonFilterOrder");
+
+buttonActiveOrder.forEach((button) => {
+  button.addEventListener("click", () => {
+    const value = button.getAttribute("button_active");
+    // console.log(value);
+
+    const currentUrl = new URL(window.location.href);
+
+    if (value) {
+      currentUrl.searchParams.set("status_payment", value);
+      currentUrl.searchParams.set("page", 1);
+    } else {
+      currentUrl.searchParams.delete("status_payment");
+    }
+
+    window.location.href = currentUrl;
+  });
+});
+
+// END FILTER ORDER
+
 // FORM SEARCH
 
 const formSearch = document.querySelector("#form-search");
