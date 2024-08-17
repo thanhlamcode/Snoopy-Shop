@@ -15,10 +15,15 @@ block main
     .card-header Bộ lọc và Tìm kiếm
     .card-body
       .row 
-        .col-6
+        .col-3
           +filterButtonOrder(button)
+        .col-3 
+          select.form-control(name="typeSearch")
+              option(value="fullName") Tìm theo tên
+              option(value="address") Tìm theo địa chỉ
+              option(value="phone") Tìm theo số điện thoại
         .col-6
-          form#form-search
+          form#form-search-order
             +Search(keyword)
 
     .card.mb-3

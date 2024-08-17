@@ -155,13 +155,29 @@ module.exports.order = async (req, res) => {
     find.status_payment = req.query.status_payment;
   }
 
+  console.log(req.query.typeSearch);
+
   let keyword = "";
 
   if (req.query.keyword) {
     keyword = req.query.keyword;
     const regex = new RegExp(keyword, "i");
-    find.userInfo.fullName = regex;
+    switch (req.query.typeSearch) {
+      case "fullName":
+        find["userInfo.fullName"] = regex;
+        break;
+      case "address":
+        find["userInfo.address"] = regex;
+        break;
+      case "phone":
+        find["userInfo.phone"] = regex;
+        break;
+      default:
+        find["userInfo.fullName"] = regex;
+        break;
+    }
   }
+
   //filter
 
   // PAGINATION

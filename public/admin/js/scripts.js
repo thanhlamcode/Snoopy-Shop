@@ -172,3 +172,38 @@ if (clearSort) {
 }
 
 // END SORT
+
+// TYPE SEARCH
+const typeSearch = document.querySelector("select[name='typeSearch']");
+
+if (typeSearch) {
+  const formSearchOrder = document.querySelector("#form-search-order");
+
+  if (formSearchOrder) {
+    formSearchOrder.addEventListener("submit", (e) => {
+      const url = new URL(window.location.href);
+      const type = typeSearch.value;
+      url.searchParams.set("typeSearch", type);
+
+      e.preventDefault();
+      const keyword = e.target.elements.keyword.value;
+
+      if (keyword) {
+        url.searchParams.set("keyword", keyword);
+      } else {
+        url.searchParams.delete("keyword");
+      }
+
+      window.location.href = url;
+    });
+
+    let url = new URL(window.location.href);
+    const value = url.searchParams.get("typeSearch");
+    if (value == "") {
+      typeSearch.value = "fullName";
+    } else {
+      typeSearch.value = value;
+    }
+  }
+}
+// END TYPE SEARCH
