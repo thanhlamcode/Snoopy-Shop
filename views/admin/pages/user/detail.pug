@@ -1,0 +1,32 @@
+extends ../../layouts/defaults.pug
+include ../../mixins/alert.pug
+include ../../mixins/formatTime.pug
+
+block main
+  .container.my-3.detail-order
+    .row 
+      .col-12 
+        h3 Khách hàng: <span class="fullName" >#{order.userInfo.fullName}! </span>
+        .totalPrice 
+          div Tổng giá trị đơn hàng: <span class="fullPrice"> #{order.fullPrice}$ </span>
+        p Mã đơn hàng: <b>#{order.id}</b>
+        p Địa chỉ: <b>#{order.userInfo.address}</b>
+        p.sdt Số điện thoại: <b>#{order.userInfo.phone}</b>
+        table.table.table-bordered.mt-6
+          thead
+            tr
+              th Ảnh
+              th Tên sản phẩm
+              th Giá
+              th Số lượng
+              th Tổng tiền 
+          tbody
+            each item in order.products 
+              tr 
+                td
+                  img(src=item.thumbnail width="80px")
+                td
+                  .title #{item.title}
+                td #{item.price}$
+                td #{item.quantity}
+                td #{item.totalPrice}$

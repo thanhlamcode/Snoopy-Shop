@@ -1,5 +1,6 @@
 const User = require("../../models/users.model");
 const Order = require("../../models/order.model");
+const Products = require("../../models/products.model");
 const filterStatus = require("../../helpers/filterStatus");
 const paginationObject = require("../../helpers/pagination");
 
@@ -216,4 +217,38 @@ module.exports.changeStatusOrder = async (req, res) => {
   req.flash("success", "Cập nhập trạng thái đơn hàng thành công!");
 
   res.redirect("back");
+};
+
+//[GET] admin/user/order/detail/:id
+module.exports.detail = async (req, res) => {
+  const orderId = req.params.id;
+
+  const order = await Order.findOne({ _id: orderId });
+
+  for (const item of order.products) {
+    const product = await Products.findOne({ _id: item.product_id });
+    item.thumbnail = product.thumbnail;
+    item.title = product.title;
+
+    // Tính tổng tiền từng loại sản phẩm
+    const newPrice = Math.round(
+      (item.price * (100 - item.discountPercentage)) / 100
+    );
+    item.newPrice = newPrice;
+
+    const totalPrice = item.newPrice * item.quantity;
+    item.totalPrice = totalPrice;
+    //end
+  }
+
+  order.fullPrice = order.products.reduce((sum, item) => {
+    return sum + item.totalPrice;
+  }, 0);
+
+  console.log(order);
+
+  res.render("admin/pages/user/detail", {
+    pageTitle: "Chi tiết đơn hàng",
+    order: order,
+  });
 };

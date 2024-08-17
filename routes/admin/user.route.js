@@ -11,5 +11,6 @@ router.patch("/change-multi", controller.changeMulti);
 router.delete("/delete/:id", controller.deleteItem);
 router.get("/order", controller.order);
 router.patch("/order/change-status/:status/:id", controller.changeStatusOrder);
+router.get("/order/detail/:id", controller.detail);
 
 module.exports = router;

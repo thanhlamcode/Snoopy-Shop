@@ -339,3 +339,24 @@ nav.main-menu li.active > a,
 }
 
 /* END SIDER  */
+
+/* DETAIL ORDER */
+.detail-order .fullPrice {
+  color: #2ab34b;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.detail-order .fullName {
+  color: #16a2f9;
+}
+
+.detail-order p {
+  margin: 0;
+}
+
+.detail-order .sdt {
+  margin-bottom: 10px;
+}
+
+/* END DETAIL ORDER */
