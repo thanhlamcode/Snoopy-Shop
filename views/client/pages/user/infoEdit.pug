@@ -20,6 +20,14 @@ block main
             input.form-control(type="email" id="email" name="email" required value=user.email )
           
           .form-group
+            label(for="phone") Số điện thoại
+            input.form-control(type="text" id="phone" name="phone" required value=user.phone )
+
+          .form-group
+            label(for="address") Địa chỉ
+            input.form-control(type="text" id="address" name="address" required value=user.address )
+          
+          .form-group
             label(for="password") Mật khẩu
             input.form-control(type="password" id="password" name="password" )
           .form-group

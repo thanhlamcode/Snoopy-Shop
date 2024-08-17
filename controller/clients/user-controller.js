@@ -246,6 +246,8 @@ module.exports.userInfoEditPost = async (req, res) => {
       {
         email: req.body.email,
         fullName: req.body.fullName,
+        phone: req.body.phone,
+        address: req.body.address,
       }
     );
   }

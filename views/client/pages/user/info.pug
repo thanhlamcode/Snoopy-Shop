@@ -18,4 +18,12 @@ block main
           .form-group
             label(for="email") Email
             input.form-control(type="email" id="email" name="email" required value=user.email readonly)
+
+          .form-group
+            label(for="phone") Số điện thoại
+            input.form-control(type="text" id="phone" name="phone" required value=user.phone readonly)
+
+          .form-group
+            label(for="address") Địa chỉ
+            input.form-control(type="text" id="address" name="address" required value=user.address readonly)
         a(href="/user/info/edit") Bạn muốn chỉnh sửa thông tin?

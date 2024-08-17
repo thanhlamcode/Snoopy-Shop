@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema(
       default: "active",
     },
     phone: String,
+    address: String,
     thumbnail: String,
     role_id: String,
     deleted: {
