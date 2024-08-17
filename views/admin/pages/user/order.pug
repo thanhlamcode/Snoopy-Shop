@@ -71,22 +71,18 @@ block main
               td
                 +CreateTimeUser(item.createdAt)
               td
-                if item.status === "active"
+                if item.status_payment === true
                   a(
-                  href="javascript:" 
-                  data-status=item.status
-                  data-id=item.id 
-                  button-change-status
                   class="badge badge-success"
-                  ) Hoạt động
+                  ) Đã thanh toán
                 else
                   a(
                     href="javascript:" 
-                    data-status=item.status
+                    data-status=item.status_payment
                     data-id=item.id 
                     button-change-status
                     class="badge badge-danger"
-                  ) Dừng hoạt động
+                  ) Chưa thanh toán
               td
                 a(
                   class="btn btn-success btn-sm mr-1"
@@ -99,7 +95,7 @@ block main
       action="" 
       method="POST"
       id="form-change-status"
-      data-path=`${prefitAdmin}/products/change-status`
+      data-path=`${prefitAdmin}/user/order/change-status`
       ) 
     form(
       action="" 
