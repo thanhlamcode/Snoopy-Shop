@@ -155,7 +155,7 @@ module.exports.order = async (req, res) => {
     find.status_payment = req.query.status_payment;
   }
 
-  console.log(req.query.typeSearch);
+  // console.log(req.query.typeSearch);
 
   let keyword = "";
 
@@ -199,7 +199,7 @@ module.exports.order = async (req, res) => {
   if (req.query.sortKey && req.query.sortValue) {
     sort[req.query.sortKey] = req.query.sortValue;
   } else {
-    sort.position = "desc";
+    sort.createdAt = "desc";
   }
   // END SORT
 

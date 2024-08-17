@@ -33,22 +33,18 @@ block main
         .col-6
           div(sort)
             select.form-control(name="sort" sort-select)
-              option(value="position-desc") Vị trí giảm dần
-              option(value="position-asc") Vị trí tăng dần
-              option(value="price-desc") Giá giảm dần
-              option(value="price-asc") Giá tăng dần
-              option(value="title-asc") Tiêu đề A - Z
-              option(value="title-desc") Tiêu đề Z - A
+              option(value="createdAt-desc") Ngày đặt hàng mới nhất
+              option(value="createdAt-asc") Ngày đặt hàng xa nhất
+              option(value="fullPrice-desc") Tổng giá trị cao nhất
+              option(value="fullPrice-asc") Tổng giá trị thấp nhất
+              option(value="userInfo.fullName-asc") Tiêu đề A - Z
+              option(value="userInfo.fullName-desc") Tiêu đề Z - A
         .col-6
           button.btn.btn-danger(sort-clear) Clear
 
     .card.mb-3
     
     .card-body
-      .row 
-        if(roles.permissions.includes("products_edit"))
-          .col-8 
-            +form-change-multi(`${prefitAdmin}/products/change-multi?_method=PATCH`)
       table(
         class="table table-hover table-sm"
         checkbox-multi
@@ -62,6 +58,7 @@ block main
             th Địa chỉ
             th Số điện thoại
             th Ngày đặt hàng
+            th Tổng giá trị
             th Trạng thái thanh toán
             th Hành động
         tbody
@@ -75,6 +72,7 @@ block main
               td #{item.userInfo.phone}
               td
                 +CreateTimeUser(item.createdAt)
+              td #{item.fullPrice}$
               td
                 if item.status_payment === true
                   a(

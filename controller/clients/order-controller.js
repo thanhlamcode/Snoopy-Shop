@@ -129,7 +129,9 @@ module.exports.success = async (req, res) => {
     return sum + item.totalPrice;
   }, 0);
 
-  console.log(order);
+  // Cập nhập lại với fullPrice
+
+  await Order.updateOne({ _id: orderId }, { fullPrice: order.fullPrice });
 
   res.render("client/pages/order/success", {
     pageTitle: "Đặt hàng thành công",

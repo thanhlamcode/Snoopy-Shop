@@ -12,6 +12,7 @@ const orderSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    fullPrice: Number,
     products: [
       {
         product_id: String,
