@@ -10,5 +10,6 @@ router.patch("/change-status/:status/:id", controller.changeStatus);
 router.patch("/change-multi", controller.changeMulti);
 router.delete("/delete/:id", controller.deleteItem);
 router.get("/order", controller.order);
+router.patch("/order/change-status/:status/:id", controller.changeStatusOrder);
 
 module.exports = router;

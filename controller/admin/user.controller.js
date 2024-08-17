@@ -199,3 +199,21 @@ module.exports.order = async (req, res) => {
     pagination: pagination,
   });
 };
+
+// [PATCH] /admin/user/order/change-status/:status/:id
+module.exports.changeStatusOrder = async (req, res) => {
+  const id = req.params.id;
+
+  const updatedBy = {
+    account_id: res.locals.user.id,
+    updatedAt: new Date(),
+  };
+
+  await Order.updateOne(
+    { _id: id },
+    { status_payment: true, $push: { updatedBy: updatedBy } }
+  );
+  req.flash("success", "Cập nhập trạng thái đơn hàng thành công!");
+
+  res.redirect("back");
+};
