@@ -126,4 +126,10 @@ nav.main-menu
           i.fa.fa-2x.fa-solid.fa-user-group
           span.nav-text
             | Danh sách tài khoản
+    if(roles.permissions.includes("setting-genaral_view"))
+      li
+        a(href=`${prefitAdmin}/setting/general`)
+          i.fa.fa-2x.fa-solid.fa-gear
+          span.nav-text
+            | Cài đặt chung
     

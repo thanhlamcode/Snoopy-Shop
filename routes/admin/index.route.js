@@ -9,6 +9,7 @@ const myaccountRouter = require("./my-account.route");
 const blogRouter = require("./blog.route");
 const userRouter = require("./user.route");
 const authRouter = require("./auth.route");
+const settingRouter = require("./setting.route");
 const authMiddleware = require("../../middleware/admin/require.middleware");
 
 module.exports = (app) => {
@@ -45,6 +46,7 @@ module.exports = (app) => {
     myaccountRouter
   );
   app.use(PATCH_ADMIN + "/user", authMiddleware.requireAuth, userRouter);
+  app.use(PATCH_ADMIN + "/setting", authMiddleware.requireAuth, settingRouter);
   app.use(PATCH_ADMIN + "/auth", authRouter);
   app.use(PATCH_ADMIN + "/blog", authMiddleware.requireAuth, blogRouter);
 };

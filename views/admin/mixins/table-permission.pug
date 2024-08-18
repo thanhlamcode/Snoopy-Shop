@@ -344,4 +344,13 @@ mixin table-permission(records)
       else 
         td.text-center
           input(type="checkbox" checked=false)
+  tr(data-name="setting-genaral_view")
+    td Cài đặt chung
+    each item in records 
+      if (item.permissions.includes("setting-genaral_view"))
+        td.text-center
+          input(type="checkbox" checked=true)
+      else 
+        td.text-center
+          input(type="checkbox" checked=false)
   //-End  Quản lý khách hàng
