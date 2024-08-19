@@ -54,6 +54,25 @@ module.exports.index = async (req, res) => {
     .limit(pagination.limit)
     .skip(pagination.skip);
 
+  for (const item of products) {
+    const totalOrder = await Order.countDocuments({
+      "userInfo.fullName": item.fullName,
+    });
+
+    const fullPrice = await Order.find({
+      "userInfo.fullName": item.fullName,
+    });
+    let sum = 0;
+
+    fullPrice.forEach((item) => {
+      sum += item.fullPrice;
+    });
+
+    item.fullPrice = sum;
+
+    item.totalOrder = totalOrder;
+  }
+
   res.render("admin/pages/user/index", {
     pageTitle: "Trang Sản phẩm",
     products: products,

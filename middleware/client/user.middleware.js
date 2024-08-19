@@ -7,7 +7,7 @@ module.exports.infoUser = async (req, res, next) => {
         tokenUser: req.cookies.tokenUser,
       });
 
-      console.log(user);
+      // console.log(user);
 
       res.locals.userInfo = user;
     }

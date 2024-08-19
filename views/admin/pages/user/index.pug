@@ -54,6 +54,8 @@ block main
             th Tên tài khoản
             th Email
             th Trạng thái
+            th Đơn đặt hàng
+            th Tổng giá trị
             th Ngày tạo tài khoản
             th Hành động
         tbody
@@ -81,6 +83,8 @@ block main
                     button-change-status
                     class="badge badge-danger"
                   ) Dừng hoạt động
+              td #{item.totalOrder} đơn hàng
+              td #{item.fullPrice}$
               td
                 +CreateTimeUser(item.createdAt)
               td
