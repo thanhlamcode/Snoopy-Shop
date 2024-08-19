@@ -41,6 +41,12 @@ app.set("view engine", "pug");
 routes(app);
 routeAdmin(app);
 
+app.get("*", (req, res) => {
+  res.render("client/pages/error/404", {
+    pageTitle: "404 NOT FOUND",
+  });
+});
+
 // App Local Varialble -  Tạo ra biến toàn cục - file pug nào cũng dùng được
 app.locals.prefitAdmin = systemConfig.prefitAdmin;
 app.locals.moment = moment;
