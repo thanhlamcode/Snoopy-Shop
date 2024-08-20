@@ -554,10 +554,11 @@
 }
 
 .chat input {
-  width: 95%;
+  width: 90%;
   border: 1px solid #cccccc;
   border-radius: 15px;
   padding: 10px;
+  margin-right: 10px;
 }
 
 .chat input:focus {
@@ -575,3 +576,32 @@
 }
 
 /* END CHAT */
+
+/* emoji */
+
+.chat .button-icon {
+  background: #fe5ca0;
+  padding: 10px;
+  border-radius: 15px;
+  color: white;
+}
+
+.chat .button-icon:hover {
+  cursor: pointer;
+}
+
+.tooltip {
+  display: none;
+}
+
+.tooltip:not(.shown) {
+  display: block;
+  opacity: 1;
+}
+
+emoji-picker {
+  position: absolute;
+  bottom: 50px;
+  right: -25px;
+}
+/* emoji */
