@@ -8,6 +8,8 @@ const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
 require("dotenv").config();
 const moment = require("moment");
+const http = require("http");
+const { Server } = require("socket.io");
 
 const database = require("./config/database");
 const routes = require("./routes/clients/index-routes");
@@ -16,6 +18,14 @@ const systemConfig = require("./config/systems");
 const port = process.env.PORT;
 
 database.connect();
+
+// Socket IO
+const server = http.createServer(app);
+const io = new Server(server);
+io.on("connection", (socket) => {
+  console.log("A user connected:", socket.id);
+});
+// END Socket IO
 
 // FLASH
 app.use(cookieParser("keyboard cat"));
@@ -51,6 +61,6 @@ app.get("*", (req, res) => {
 app.locals.prefitAdmin = systemConfig.prefitAdmin;
 app.locals.moment = moment;
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
