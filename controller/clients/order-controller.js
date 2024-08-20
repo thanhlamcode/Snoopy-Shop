@@ -95,8 +95,8 @@ module.exports.payment = async (req, res) => {
     products: products,
   });
 
-  console.log(record);
-  console.log(record.id);
+  // console.log(record);
+  // console.log(record.id);
   record.save();
   await Cart.updateOne({ _id: cartId }, { products: [] });
   res.redirect(`/order/success/${record.id}`);

@@ -1,0 +1,49 @@
+extends ../../layouts/defaults.pug
+include ../../mixins/box-head.pug
+include ../../mixins/alert.pug
+
+block main
+  .container.my-3.cart
+    .row
+      .col-12
+        +box-head("Chat")
+
+    .row
+      .col-12.chat
+        //- Inner Head
+        //- .inner-avatar Charlie
+        //- .inner-name Charlie Brown
+        .inner-body
+          //- Incoming Message
+          .inner-incoming
+            .inner-name Charlie Brown
+            .inner-content
+              | Hi Snoopy, hôm nay chúng ta có thể đi dạo trong công viên không?
+
+          //- Outgoing Message
+          .inner-outgoing
+            .inner-content
+              | Chắc chắn rồi, Charlie! Tôi rất vui khi đi dạo với bạn.
+
+          //- Incoming Message
+          .inner-incoming
+            .inner-name Charlie Brown
+            .inner-content
+              | Thật tuyệt! Chúng ta có thể đi qua khu vườn hoa không?
+
+          //- Outgoing Message
+          .inner-outgoing
+            .inner-content
+              | Tất nhiên rồi! Tôi rất thích khu vườn hoa. Chúng ta sẽ có một ngày tuyệt vời!
+
+          //- Incoming Message
+          .inner-incoming
+            .inner-name Charlie Brown
+            .inner-content
+              | Tuyệt vời! Tôi không thể chờ đợi thêm nữa.
+
+        //- Message Input Form
+        .inner-foot
+          form.inner-form(action='')
+            input(type='text', placeholder='Nhập nội dung...', name='content')
+            button(type='submit', class='fa-solid fa-paper-plane')
