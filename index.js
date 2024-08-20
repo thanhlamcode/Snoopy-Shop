@@ -22,9 +22,7 @@ database.connect();
 // Socket IO
 const server = http.createServer(app);
 const io = new Server(server);
-io.on("connection", (socket) => {
-  console.log("A user connected:", socket.id);
-});
+global._io = io;
 // END Socket IO
 
 // FLASH
