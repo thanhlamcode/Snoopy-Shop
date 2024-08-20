@@ -4,6 +4,7 @@ const User = require("../../models/users.model");
 // [GET] /chat
 module.exports.index = async (req, res) => {
   const userId = res.locals.userInfo.id;
+  const fullName = res.locals.userInfo.fullName;
 
   _io.once("connection", (socket) => {
     socket.on("CLIENT_SEND_MESSAGE", async (content) => {
@@ -13,6 +14,12 @@ module.exports.index = async (req, res) => {
       });
 
       await chat.save();
+
+      _io.emit("SERVER_RETURN_MESSAGE", {
+        userId: userId,
+        fullName: fullName,
+        content: content,
+      });
     });
   });
 

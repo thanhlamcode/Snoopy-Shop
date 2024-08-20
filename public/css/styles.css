@@ -515,6 +515,11 @@
   padding: 20px;
 }
 
+.chat .inner-body {
+  max-height: 450px;
+  overflow-y: scroll;
+}
+
 .chat .inner-name {
   font-weight: 700;
 }
