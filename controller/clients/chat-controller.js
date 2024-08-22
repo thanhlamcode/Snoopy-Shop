@@ -20,6 +20,15 @@ module.exports.index = async (req, res) => {
         fullName: fullName,
         content: content,
       });
+
+      // Server-side: Xử lý sự kiện typing từ client
+      socket.on("CLIENT_SEND_TYPING", async (type) => {
+        socket.broadcast.emit("SERVER_RETURN_TYPING", {
+          userId: userId,
+          fullName: fullName,
+          type: type,
+        });
+      });
     });
   });
 

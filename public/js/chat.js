@@ -9,6 +9,7 @@ formSendData.addEventListener("submit", (e) => {
   if (content) {
     socket.emit("CLIENT_SEND_MESSAGE", content);
     e.target.elements.content.value = "";
+    socket.emit("CLIENT_SEND_TYPING", "hidden");
   }
 });
 // END CLIENT_SEND_MESSAGE
@@ -34,7 +35,9 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
   <div class="inner-content">${data.content}</div>
   `;
 
-  body.appendChild(div);
+  const listTyping = document.querySelector(".inner-list-typing");
+
+  body.insertBefore(div, listTyping);
   body.scrollTop = body.scrollHeight;
 });
 
@@ -60,6 +63,21 @@ if (button) {
 }
 //END EMOJI
 
+// show Typing
+
+const showTyping = () => {
+  let timeOut;
+  socket.emit("CLIENT_SEND_TYPING", "show");
+
+  clearTimeout(timeOut);
+
+  timeOut = setTimeout(() => {
+    socket.emit("CLIENT_SEND_TYPING", "hidden");
+  }, 3000);
+};
+
+// end show Typing
+
 // emoji to input
 const emoji = document.querySelector("emoji-picker");
 if (emoji) {
@@ -67,7 +85,54 @@ if (emoji) {
     console.log(event.detail);
     const input = document.querySelector(".chat input[name='content']");
     input.value = input.value + event.detail.unicode;
+
+    const end = input.value.length;
+    input.setSelectionRange(end, end);
+    input.focus();
+
+    showTyping();
   });
 }
 
 // end emoji to input
+
+// Client-side: Phát hiện người dùng đang gõ
+const inputChat = document.querySelector(".chat input[name='content']");
+
+inputChat.addEventListener("keyup", () => {
+  showTyping();
+});
+
+const listTyping = document.querySelector(".inner-list-typing");
+if (listTyping) {
+  socket.on("SERVER_RETURN_TYPING", (data) => {
+    if (data.type === "show") {
+      // Sử dụng '===' để so sánh
+      const existBox = document.querySelector(`[user-id="${data.userId}"]`);
+      const body = document.querySelector(".chat .inner-body");
+
+      if (!existBox) {
+        let boxTyping = document.createElement("div");
+        boxTyping.classList.add("box-typing");
+        boxTyping.setAttribute("user-id", data.userId);
+        boxTyping.innerHTML = `
+            <div class="inner-name">${data.fullName}</div>
+            <div class="inner-dots">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+      `;
+        listTyping.appendChild(boxTyping);
+        body.scrollTop = body.scrollHeight;
+      }
+    } else {
+      const existBox = document.querySelector(`[user-id="${data.userId}"]`);
+      console.log(existBox);
+      if (existBox) {
+        // Kiểm tra nếu tồn tại trước khi xóa
+        listTyping.removeChild(existBox);
+      }
+    }
+  });
+}
