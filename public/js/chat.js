@@ -40,6 +40,12 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
   image.classList.add("inner-images");
 
   if (data.userId == id) {
+    image.classList.add("image-right");
+  } else {
+    image.classList.add("image-left");
+  }
+
+  if (data.userId == id) {
     div.classList.add("inner-outgoing");
   } else {
     div.classList.add("inner-incoming");
