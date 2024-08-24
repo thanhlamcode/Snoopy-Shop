@@ -74,6 +74,7 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
 
   body.insertBefore(div, listTyping);
   body.insertBefore(image, listTyping);
+  const gallery = new Viewer(image);
   body.scrollTop = body.scrollHeight;
 });
 
@@ -172,3 +173,11 @@ if (listTyping) {
     }
   });
 }
+
+// viewer js
+const bodyImage = document.querySelector(".chat .inner-body");
+if (bodyImage) {
+  const gallery = new Viewer(bodyImage);
+}
+
+// end viewer js

@@ -13,6 +13,8 @@ html
     link(rel='icon' type='image/x-icon' href="/images/icon.webp")
     //- file-upload-with-preview
     link( rel="stylesheet" type="text/css" href="https://unpkg.com/file-upload-with-preview/dist/style.css")
+    //- viewer 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.min.css" integrity="sha512-za6IYQz7tR0pzniM/EAkgjV1gf1kWMlVJHBHavKIvsNoUMKWU99ZHzvL6lIobjiE2yKDAKMDSSmcMAxoiWgoWA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   body
     +alert-success()
     +alert-error()
@@ -35,6 +37,9 @@ html
     script(src="/js/socket.io.js") 
     script(type="module" src="/js/chat.js") 
     //- end SocketIo
+
+    //- Viewerjs
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.min.js" integrity="sha512-EC3CQ+2OkM+ZKsM1dbFAB6OGEPKRxi6EDRnZW9ys8LghQRAq6cXPUgXCCujmDrXdodGXX9bqaaCRtwj4h4wgSQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     //- file-upload-with-preview
     script(src="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.iife.js")
