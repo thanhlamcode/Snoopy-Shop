@@ -19,13 +19,21 @@ block main
             div(class=(item.userInfo.id == userInfo.id ? "inner-outgoing" : "inner-incoming" ))
               if(item.userInfo.id!=userInfo.id)
                 .inner-name #{item.userInfo.fullName}
-              .inner-content #{item.content}
+              if(item.content)
+                .inner-content #{item.content}
+            if(item.images)
+              .inner-images
+                each image in item.images 
+                  img(src=image)
           div.inner-list-typing
-
+        .inner-preview-images
+          div(class="custom-file-container" data-upload-id="my-unique-id" id="upload-image")
         //- Message Input Form
         .inner-foot
           form.inner-form(action='')
             input(type='text', placeholder='Nhập nội dung...', name='content')
+            label(for="file-upload-with-preview-my-unique-id" class="btn btn-light")
+              i(class="fa-solid fa-image")
             span(class="button-icon fa-solid fa-icons")
             button(type='submit', class='fa-solid fa-paper-plane')
 
