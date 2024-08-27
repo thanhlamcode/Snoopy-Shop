@@ -4,13 +4,19 @@ include ../../mixins/alert.pug
 include ../../mixins/formatTime.pug
 
 block main
-  .container.my-5
+  .container.my-5.infoEdit
     .row.justify-content-center
       .col-12.text-center
         //- h1.text-center Thông tin cá nhân
         img(src=settingGeneral.logo width="200px")
       .col-8
-        form(action="/user/info/edit" method="POST")
+        form(action="/user/info/edit" method="POST" enctype="multipart/form-data")
+          div(class="form-group" upload-image)
+            label(for="thumbnail") Ảnh
+            input(type="file" upload-image-input class="form-control-file", id="thumbnail", name="thumbnail" accept="image/*" )
+            .wrap-image 
+              img(upload-image-preview src=(user.thumbnail ? `${user.thumbnail}` : "/images/user-avatar.jpg") class="upload-preview")
+
           .form-group
             label(for="fullName") Họ và tên
             input.form-control(type="text" id="fullName" name="fullName" required value=user.fullName )
@@ -32,3 +38,5 @@ block main
             input.form-control(type="password" id="password" name="password" )
           .form-group
             button.btn.btn-primary.btn-block(type="submit") Cập nhập
+
+  script(src="/admin/js/create.js")

@@ -1,0 +1,24 @@
+extends ../../layouts/defaults.pug
+include ../../mixins/box-head.pug
+include ../../mixins/products-grid.pug
+include ../../mixins/blog-famous.pug
+
+block main
+  .container.my-3
+    include ../../partials/list-btn-users.pug
+    .row
+      .col-12
+        +box-head("Danh sách người dùng")
+    .row
+      .col-6
+        div.box-user
+          div.inner-avatar
+            img(
+              src="https://robohash.org/hicveldicta.png"
+              alt="Le Van A"
+            )
+          div.inner-info
+            div.inner-name Le Van A
+            div.inner-buttons
+              button(btn-add-friend).btn.btn-sm.btn-primary.mr-1.mt-1 Kết bạn
+              button(btn-cancel-friend).btn.btn-sm.btn-secondary.mr-1.mt-1 Hủy

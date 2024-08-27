@@ -4,13 +4,16 @@ include ../../mixins/alert.pug
 include ../../mixins/formatTime.pug
 
 block main
-  .container.my-5
+  .container.my-5.infoEdit
     .row.justify-content-center
       .col-12.text-center
         //- h1.text-center Thông tin cá nhân
         img(src=settingGeneral.logo width="200px")
       .col-8
         form
+          .form-group
+            .wrap-image
+              img(src=(user.thumbnail ? user.thumbnail  : "/images/user-avatar.jpg"))
           .form-group
             label(for="fullName") Họ và tên
             input.form-control(type="text" id="fullName" name="fullName" required value=user.fullName readonly)

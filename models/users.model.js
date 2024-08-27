@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: generate.generateRandomString(20),
     },
+    thumbnail: String,
     status: {
       type: String,
       default: "active",

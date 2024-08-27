@@ -4,17 +4,14 @@ include ../../mixins/alert.pug
 
 block main
   .container.my-3.cart
+    include ../../partials/list-btn-users.pug
     .row
       .col-12
         +box-head("Chat")
 
     .row
       .col-12.chat(my-id=userInfo.id)
-        //- Inner Head
-        //- .inner-avatar Charlie
-        //- .inner-name Charlie Brown
         .inner-body
-          //- Incoming Message
           each item in chats 
             div(class=(item.userInfo.id == userInfo.id ? "inner-outgoing" : "inner-incoming" ))
               if(item.userInfo.id!=userInfo.id)
