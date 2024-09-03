@@ -1,13 +1,8 @@
 import * as Popper from "https://cdn.jsdelivr.net/npm/@popperjs/core@^2/dist/esm/index.js";
 
-document.addEventListener("DOMContentLoaded", function () {
-  const upload = new FileUploadWithPreview.FileUploadWithPreview(
-    "my-unique-id",
-    {
-      multiple: true,
-      maxFileCount: 6,
-    }
-  );
+const upload = new FileUploadWithPreview.FileUploadWithPreview("my-unique-id", {
+  multiple: true,
+  maxFileCount: 6,
 });
 
 // CLIENT_SEND_MESSAGE
