@@ -751,6 +751,7 @@ emoji-picker {
   display: flex;
   border: 1px solid #d1d7dd;
   border-radius: 20px;
+  margin-bottom: 20px;
 }
 
 .box-user .inner-avatar {

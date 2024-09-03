@@ -19,6 +19,14 @@ const userSchema = new mongoose.Schema(
     address: String,
     thumbnail: String,
     role_id: String,
+    requestFriend: Array,
+    acceptFriend: Array,
+    friendList: [
+      {
+        user_id: String,
+        room_chat_id: String,
+      },
+    ],
     deleted: {
       type: Boolean,
       default: false,
