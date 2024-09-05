@@ -16,6 +16,8 @@ if (btnAddFriend.length > 0) {
       } else {
         boxUser.classList.add("add");
       }
+
+      socket.emit("CLIENT_ADD_FRIEND", id);
     });
   });
 }
