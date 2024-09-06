@@ -37,3 +37,55 @@ module.exports.notFriend = async (req, res) => {
     user: user,
   });
 };
+
+// [GET] /users/request
+module.exports.request = async (req, res) => {
+  const userId = res.locals.userInfo.id;
+
+  // socket
+  usersSocket(res);
+  // end socket
+
+  const userInfo = await User.findOne({
+    _id: userId,
+  });
+
+  const requestFriend = userInfo.requestFriend;
+
+  const user = await User.find({
+    _id: { $in: requestFriend },
+    status: "active",
+    deleted: false,
+  });
+
+  res.render("client/pages/users/request", {
+    pageTitle: "Lời mời đã gửi",
+    user: user,
+  });
+};
+
+// [GET] /users/accept
+module.exports.accept = async (req, res) => {
+  const userId = res.locals.userInfo.id;
+
+  // socket
+  usersSocket(res);
+  // end socket
+
+  const userInfo = await User.findOne({
+    _id: userId,
+  });
+
+  const acceptFriend = userInfo.acceptFriend;
+
+  const user = await User.find({
+    _id: { $in: acceptFriend },
+    status: "active",
+    deleted: false,
+  });
+
+  res.render("client/pages/users/accept", {
+    pageTitle: "Lời mời đã gửi",
+    user: user,
+  });
+};

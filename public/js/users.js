@@ -1,5 +1,6 @@
 console.log("ok");
 
+// Gửi và xóa lời mời kết bạn
 const btnAddFriend = document.querySelectorAll("[btn-add-friend]");
 const btnCancelFriend = document.querySelectorAll("[btn-cancel-friend]");
 
@@ -40,3 +41,36 @@ if (btnCancelFriend.length > 0) {
     });
   });
 }
+
+// Xử lý trang Chấp nhận kết bạn
+const btnAcceptFriend = document.querySelectorAll("[btn-add-friend-accept]");
+const btnDeclineFriend = document.querySelectorAll(
+  "[btn-cancel-friend-accept]"
+);
+const acceptBtn = document.querySelectorAll(".accept");
+const declineBtn = document.querySelectorAll(".decline");
+
+btnAcceptFriend.forEach((item, index) => {
+  item.addEventListener("click", () => {
+    const id = item.getAttribute("button-add");
+
+    const wrapbtn = item.closest(".inner-buttons");
+    wrapbtn.classList.add("none");
+    acceptBtn[index].classList.add("display");
+
+    socket.emit("CLIENT_SEND_ACCEPT", id);
+    console.log("Gửi thành công!");
+  });
+});
+
+btnDeclineFriend.forEach((item, index) => {
+  item.addEventListener("click", () => {
+    const id = item.getAttribute("button-cancel");
+
+    const wrapbtn = item.closest(".inner-buttons");
+    wrapbtn.classList.add("none");
+    declineBtn[index].classList.add("display");
+
+    socket.emit("CLIENT_SEND_DECLINE", id);
+  });
+});

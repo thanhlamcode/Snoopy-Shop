@@ -1,0 +1,31 @@
+mixin list-friend(user, add="")
+  each item in user
+    .col-6
+      div(class=add).box-user
+        div.inner-avatar
+          img(
+            src=(item.thumbnail ? item.thumbnail : "/images/user-avatar.jpg")
+            alt=item.fullName
+          )
+        div.inner-info
+          div.inner-name #{item.fullName}
+          div.inner-buttons
+            button(btn-add-friend button-add=item.id class="btn btn-sm btn-primary mr-1 mt-1") Kết bạn
+            button(btn-cancel-friend button-cancel=item.id class="btn btn-sm btn-secondary mr-1 mt-1") Hủy
+
+mixin list-accept(user)
+  each item in user
+    .col-6
+      div().box-user
+        div.inner-avatar
+          img(
+            src=(item.thumbnail ? item.thumbnail : "/images/user-avatar.jpg")
+            alt=item.fullName
+          )
+        div.inner-info
+          div.inner-name #{item.fullName}
+          div.inner-buttons
+            button(btn-add-friend-accept button-add=item.id class="btn btn-sm btn-primary mr-1 mt-1") Đồng ý
+            button(btn-cancel-friend-accept button-cancel=item.id class="btn btn-sm btn-secondary mr-1 mt-1") Xóa
+          p.accept Đã chấp nhận lời mời kết bạn
+          p.decline Đã xóa lời mời kết bạn

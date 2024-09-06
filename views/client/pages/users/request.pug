@@ -9,9 +9,9 @@ block main
     include ../../partials/list-btn-users.pug
     .row
       .col-12
-        +box-head("Danh sách người dùng")
+        +box-head("Lời mời đã gửi")
     .row
-      +list-friend(user)
+      +list-friend(user, "add")
 
 block script
   script(src="/js/users.js") 

@@ -812,3 +812,18 @@ emoji-picker {
 .list-box {
   text-align: center;
 }
+
+.inner-buttons.none {
+  display: none;
+}
+
+.accept,
+.decline {
+  font-weight: 700;
+  display: none;
+}
+
+.accept.display,
+.decline.display {
+  display: block;
+}
