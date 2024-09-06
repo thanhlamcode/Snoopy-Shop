@@ -78,3 +78,37 @@ if (btnDeclineFriend.length > 0) {
     });
   });
 }
+
+// Xóa kết bạn
+
+const btnDeleteFriend = document.querySelectorAll("button[data-delete-friend]");
+console.log(btnDeleteFriend);
+
+const deleteFriend = document.querySelectorAll(".delete-friend");
+console.log(deleteFriend);
+
+if (btnDeleteFriend.length > 0) {
+  btnDeleteFriend.forEach((item, index) => {
+    item.addEventListener("click", () => {
+      const confirmDelete = window.confirm(
+        "Bạn có chắc chắn muốn hủy kết bạn với người này không?"
+      );
+
+      if (confirmDelete) {
+        const wrapbtn = item.closest(".inner-buttons");
+
+        if (wrapbtn) {
+          wrapbtn.classList.add("none");
+        }
+
+        if (deleteFriend[index]) {
+          deleteFriend[index].classList.add("display");
+        }
+
+        const id = item.getAttribute("button-add");
+
+        socket.emit("CLIENT_SEND_DELETE_FRIEND", id);
+      }
+    });
+  });
+}

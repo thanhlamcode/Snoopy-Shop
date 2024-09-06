@@ -149,5 +149,24 @@ module.exports = async (res) => {
         }
       );
     });
+
+    socket.on("CLIENT_SEND_DELETE_FRIEND", async (userId) => {
+      const myUserId = res.locals.userInfo.id;
+      console.log("Vào đây");
+
+      await User.updateOne(
+        { _id: myUserId },
+        {
+          $pull: { friendList: { user_id: userId } },
+        }
+      );
+
+      await User.updateOne(
+        { _id: userId },
+        {
+          $pull: { friendList: { user_id: myUserId } },
+        }
+      );
+    });
   });
 };

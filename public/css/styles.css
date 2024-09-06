@@ -809,6 +809,7 @@ emoji-picker {
 
 /*END  BOX USER */
 
+/* FRIEND */
 .list-box {
   text-align: center;
 }
@@ -827,3 +828,12 @@ emoji-picker {
 .decline.display {
   display: block;
 }
+
+.delete-friend {
+  display: none;
+}
+
+.delete-friend.display {
+  display: block;
+}
+/* END FRIEND */
