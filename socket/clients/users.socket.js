@@ -74,25 +74,53 @@ module.exports = async (res) => {
       console.log("Id được kết bạn: ", userId);
       console.log("Id tài khoản gốc: ", myUserId);
 
-      // xóa B khỏi requestFriend của A
-      // await User.updateOne(
-      //   {
-      //     _id: myUserId,
-      //   },
-      //   {
-      //     $pull: { requestFriend: userId },
-      //   }
-      // );
+      // Thêm B vào friendList của A và xóa B ra khỏi acceptFriend của A
+      await User.updateOne(
+        {
+          _id: myUserId,
+        },
+        {
+          $push: {
+            friendList: {
+              user_id: userId,
+              // room_chat_id:
+            },
+          },
+        }
+      );
 
-      // xóa A khỏi acceptFriend của B
-      // await User.updateOne(
-      //   {
-      //     _id: userId,
-      //   },
-      //   {
-      //     $pull: { acceptFriend: myUserId },
-      //   }
-      // );
+      await User.updateOne(
+        {
+          _id: myUserId,
+        },
+        {
+          $pull: { acceptFriend: userId },
+        }
+      );
+
+      // Thêm A vào friendList của B
+      await User.updateOne(
+        {
+          _id: userId,
+        },
+        {
+          $push: {
+            friendList: {
+              user_id: myUserId,
+              // room_chat_id:
+            },
+          },
+        }
+      );
+
+      await User.updateOne(
+        {
+          _id: userId,
+        },
+        {
+          $pull: { requestFriend: myUserId },
+        }
+      );
     });
 
     socket.on("CLIENT_SEND_DECLINE", async (userId) => {
@@ -101,25 +129,25 @@ module.exports = async (res) => {
       console.log("Id được xóa kết bạn: ", userId);
       console.log("Id tài khoản gốc: ", myUserId);
 
-      // xóa B khỏi requestFriend của A
-      // await User.updateOne(
-      //   {
-      //     _id: myUserId,
-      //   },
-      //   {
-      //     $pull: { requestFriend: userId },
-      //   }
-      // );
+      // Xóa B khỏi acceptFriend của A
+      await User.updateOne(
+        {
+          _id: myUserId,
+        },
+        {
+          $pull: { acceptFriend: userId },
+        }
+      );
 
-      // xóa A khỏi acceptFriend của B
-      // await User.updateOne(
-      //   {
-      //     _id: userId,
-      //   },
-      //   {
-      //     $pull: { acceptFriend: myUserId },
-      //   }
-      // );
+      // xóa A khỏi requestFriend của B
+      await User.updateOne(
+        {
+          _id: userId,
+        },
+        {
+          $pull: { requestFriend: myUserId },
+        }
+      );
     });
   });
 };

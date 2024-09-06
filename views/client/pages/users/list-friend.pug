@@ -1,0 +1,17 @@
+extends ../../layouts/defaults.pug
+include ../../mixins/box-head.pug
+include ../../mixins/products-grid.pug
+include ../../mixins/blog-famous.pug
+include ../../mixins/list-friend.pug
+
+block main
+  .container.my-3
+    include ../../partials/list-btn-users.pug
+    .row
+      .col-12
+        +box-head("Danh sách bạn bè")
+    .row
+      +list-friend(user)
+
+block script
+  script(src="/js/users.js") 
