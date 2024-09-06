@@ -16,7 +16,7 @@ module.exports.notFriend = async (req, res) => {
   const requestFriend = userInfo.requestFriend;
   const acceptFriend = userInfo.acceptFriend;
 
-  console.log(userInfo);
+  // console.log(userInfo);
 
   const user = await User.find({
     $and: [

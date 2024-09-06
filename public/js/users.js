@@ -25,7 +25,7 @@ if (btnAddFriend.length > 0) {
 if (btnCancelFriend.length > 0) {
   btnCancelFriend.forEach((item) => {
     item.addEventListener("click", () => {
-      const id = item.getAttribute("button-add");
+      const id = item.getAttribute("button-cancel");
       console.log(id);
       const boxUser = item.closest(".box-user");
       console.log(boxUser);
@@ -35,6 +35,8 @@ if (btnCancelFriend.length > 0) {
       } else {
         boxUser.classList.add("add");
       }
+
+      socket.emit("CLIENT_CANCEL_FRIEND", id);
     });
   });
 }

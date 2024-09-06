@@ -40,5 +40,32 @@ module.exports = async (res) => {
         );
       }
     });
+
+    socket.on("CLIENT_CANCEL_FRIEND", async (userId) => {
+      const myUserId = res.locals.userInfo.id;
+
+      console.log(userId);
+      console.log(myUserId);
+
+      // xóa B khỏi requestFriend của A
+      await User.updateOne(
+        {
+          _id: myUserId,
+        },
+        {
+          $pull: { requestFriend: userId },
+        }
+      );
+
+      // xóa A khỏi acceptFriend của B
+      await User.updateOne(
+        {
+          _id: userId,
+        },
+        {
+          $pull: { acceptFriend: myUserId },
+        }
+      );
+    });
   });
 };
