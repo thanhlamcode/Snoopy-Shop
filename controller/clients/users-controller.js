@@ -1,5 +1,6 @@
 const User = require("../../models/users.model");
 const usersSocket = require("../../socket/clients/users.socket");
+const listFriendHelper = require("../../helpers/listFriend");
 
 // [GET] /users/not-friend
 module.exports.notFriend = async (req, res) => {
@@ -16,6 +17,7 @@ module.exports.notFriend = async (req, res) => {
   const requestFriend = userInfo.requestFriend;
   const acceptFriend = userInfo.acceptFriend;
 
+  const friendList = listFriendHelper.listFriend(userInfo);
   // console.log(userInfo);
 
   const user = await User.find({
@@ -26,6 +28,9 @@ module.exports.notFriend = async (req, res) => {
       },
       {
         _id: { $nin: acceptFriend },
+      },
+      {
+        _id: { $nin: friendList },
       },
     ],
     status: "active",
@@ -85,7 +90,7 @@ module.exports.accept = async (req, res) => {
   });
 
   res.render("client/pages/users/accept", {
-    pageTitle: "Lời mời đã gửi",
+    pageTitle: "Lời mời kết bạn",
     user: user,
   });
 };
@@ -102,13 +107,7 @@ module.exports.listFriend = async (req, res) => {
     _id: userId,
   });
 
-  let friendList = [];
-
-  userInfo.friendList.forEach((item) => {
-    friendList.push(item.user_id);
-  });
-
-  console.log(userInfo);
+  const friendList = listFriendHelper.listFriend(userInfo);
 
   const user = await User.find({
     _id: { $in: friendList },

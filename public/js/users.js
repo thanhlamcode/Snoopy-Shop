@@ -50,27 +50,31 @@ const btnDeclineFriend = document.querySelectorAll(
 const acceptBtn = document.querySelectorAll(".accept");
 const declineBtn = document.querySelectorAll(".decline");
 
-btnAcceptFriend.forEach((item, index) => {
-  item.addEventListener("click", () => {
-    const id = item.getAttribute("button-add");
+if (btnAcceptFriend.length > 0) {
+  btnAcceptFriend.forEach((item, index) => {
+    item.addEventListener("click", () => {
+      const id = item.getAttribute("button-add");
 
-    const wrapbtn = item.closest(".inner-buttons");
-    wrapbtn.classList.add("none");
-    acceptBtn[index].classList.add("display");
+      const wrapbtn = item.closest(".inner-buttons");
+      wrapbtn.classList.add("none");
+      acceptBtn[index].classList.add("display");
 
-    socket.emit("CLIENT_SEND_ACCEPT", id);
-    console.log("Gửi thành công!");
+      socket.emit("CLIENT_SEND_ACCEPT", id);
+      console.log("Gửi thành công!");
+    });
   });
-});
+}
 
-btnDeclineFriend.forEach((item, index) => {
-  item.addEventListener("click", () => {
-    const id = item.getAttribute("button-cancel");
+if (btnDeclineFriend.length > 0) {
+  btnDeclineFriend.forEach((item, index) => {
+    item.addEventListener("click", () => {
+      const id = item.getAttribute("button-cancel");
 
-    const wrapbtn = item.closest(".inner-buttons");
-    wrapbtn.classList.add("none");
-    declineBtn[index].classList.add("display");
+      const wrapbtn = item.closest(".inner-buttons");
+      wrapbtn.classList.add("none");
+      declineBtn[index].classList.add("display");
 
-    socket.emit("CLIENT_SEND_DECLINE", id);
+      socket.emit("CLIENT_SEND_DECLINE", id);
+    });
   });
-});
+}

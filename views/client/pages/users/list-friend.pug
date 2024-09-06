@@ -11,7 +11,21 @@ block main
       .col-12
         +box-head("Danh sách bạn bè")
     .row
-      +list-friend(user)
+      if(user.length>0)
+        each item in user
+          .col-6
+            div(class=add).box-user
+              div.inner-avatar
+                img(
+                  src=(item.thumbnail ? item.thumbnail : "/images/user-avatar.jpg")
+                  alt=item.fullName
+                )
+              div.inner-info
+                div.inner-name #{item.fullName}
+                div.inner-buttons
+                  button(btn-delete-friend button-add=item.id class="btn btn-sm btn-primary mr-1 mt-1") Hủy kết bạn
+      else 
+        h1(style="width: 100%;").text-center Bạn không có người bạn nào
 
 block script
   script(src="/js/users.js") 

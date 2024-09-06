@@ -11,7 +11,10 @@ block main
       .col-12
         +box-head("Lời mời kết bạn")
     .row
-      +list-accept(user)
+      if(user.length>0)
+        +list-accept(user)
+      else 
+        h1(style="width: 100%;").text-center Không có lời mời kết bạn nào
 
 block script
   script(src="/js/users.js") 

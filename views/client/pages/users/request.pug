@@ -11,7 +11,10 @@ block main
       .col-12
         +box-head("Lời mời đã gửi")
     .row
-      +list-friend(user, "add")
+      if(user.length>0)
+        +list-friend(user, "add")
+      else 
+        h1(style="width: 100%;").text-center Bạn chưa gửi lời mời kết bạn nào
 
 block script
   script(src="/js/users.js") 
