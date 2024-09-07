@@ -198,6 +198,14 @@ if (iconStatus) {
       }
     });
   });
+  socket.on("SERVER_RETURN_OFFLINE", (userId) => {
+    iconStatus.forEach((item) => {
+      const id = item.getAttribute("data-id");
+      if (id == userId) {
+        item.setAttribute("status", "offline");
+      }
+    });
+  });
 }
 
 // END TAG ONLINE

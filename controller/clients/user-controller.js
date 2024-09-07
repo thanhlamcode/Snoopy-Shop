@@ -109,9 +109,16 @@ module.exports.logout = async (req, res) => {
     }
   );
 
+  const user = await User.findOne({ tokenUser: req.cookies.tokenUser });
+
   res.clearCookie("tokenUser");
   res.clearCookie("cartId");
   req.flash("success", "Đăng xuất thành công!");
+  // Socket
+  _io.once("connection", (socket) => {
+    socket.broadcast.emit("SERVER_RETURN_OFFLINE", user.id);
+  });
+  //End Socket
   res.redirect("/");
 };
 
