@@ -135,6 +135,18 @@ module.exports = async (req, res) => {
           $pull: { requestFriend: myUserId },
         }
       );
+
+      // Xử lý hiển thị thông báo
+
+      const userA = await User.findOne({ _id: myUserId });
+      const userB = await User.findOne({ _id: userId });
+
+      socket.broadcast.emit("SERVER_SEND_SUCCESS_ADD_FRIEND", {
+        fullName: userA.fullName,
+        userId: userId,
+        length: userB.friendList.length,
+      });
+      // End Xử lý hiển thị thông báo
     });
 
     socket.on("CLIENT_SEND_DECLINE", async (userId) => {

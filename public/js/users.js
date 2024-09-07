@@ -166,3 +166,23 @@ function createNotification(type, message) {
     notification.remove();
   }, 5000);
 }
+
+// HIỂN THỊ THÔNG BÁO KẾT BẠN THÀNH CÔNG
+const badgeFriend = document.querySelector("[badge-users-friendList]");
+
+if (badgeFriend) {
+  socket.on("SERVER_SEND_SUCCESS_ADD_FRIEND", (data) => {
+    const id = badgeFriend.getAttribute("badge-users-friendList");
+
+    if (id == data.userId) {
+      console.log(id);
+      badgeFriend.innerHTML = data.length;
+
+      // Đoạn mã tạo thông báo
+      createNotification(
+        "success",
+        `${data.fullName} đã chấp nhận lời mởi kết bạn của bạn.`
+      );
+    }
+  });
+}
