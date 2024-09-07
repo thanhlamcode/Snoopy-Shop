@@ -8,9 +8,9 @@ if (btnAddFriend.length > 0) {
   btnAddFriend.forEach((item) => {
     item.addEventListener("click", () => {
       const id = item.getAttribute("button-add");
-      console.log(id);
+      // console.log(id);
       const boxUser = item.closest(".box-user");
-      console.log(boxUser);
+      // console.log(boxUser);
 
       if (boxUser.classList.contains("add")) {
         boxUser.classList.remove("add");
@@ -27,9 +27,9 @@ if (btnCancelFriend.length > 0) {
   btnCancelFriend.forEach((item) => {
     item.addEventListener("click", () => {
       const id = item.getAttribute("button-cancel");
-      console.log(id);
+      // console.log(id);
       const boxUser = item.closest(".box-user");
-      console.log(boxUser);
+      // console.log(boxUser);
 
       if (boxUser.classList.contains("add")) {
         boxUser.classList.remove("add");
@@ -82,10 +82,10 @@ if (btnDeclineFriend.length > 0) {
 // Xóa kết bạn
 
 const btnDeleteFriend = document.querySelectorAll("button[data-delete-friend]");
-console.log(btnDeleteFriend);
+// console.log(btnDeleteFriend);
 
 const deleteFriend = document.querySelectorAll(".delete-friend");
-console.log(deleteFriend);
+// console.log(deleteFriend);
 
 if (btnDeleteFriend.length > 0) {
   btnDeleteFriend.forEach((item, index) => {
@@ -111,4 +111,58 @@ if (btnDeleteFriend.length > 0) {
       }
     });
   });
+}
+
+// Tăng số lượng tức thời
+const badgeAccept = document.querySelector("[badge-users-accept]");
+if (badgeAccept) {
+  socket.on("SERVER_RETURN_ADD_FRIEND", (data) => {
+    const id = badgeAccept.getAttribute("badge-users-accept");
+
+    if (id == data.userId) {
+      console.log(id);
+      badgeAccept.innerHTML = data.lengthAcceptFriend;
+
+      // Đoạn mã tạo thông báo
+      createNotification("success", "Bạn đã nhận được 1 lời mời kết bạn mới!");
+    }
+  });
+  socket.on("SERVER_RETURN_CANCEL_FRIEND", (data) => {
+    const id = badgeAccept.getAttribute("badge-users-accept");
+
+    if (id == data.userId) {
+      console.log(id);
+      badgeAccept.innerHTML = data.lengthAcceptFriend;
+    }
+  });
+}
+
+// Hàm tạo thông báo
+function createNotification(type, message) {
+  const notificationContainer = document.getElementById(
+    "notification-container"
+  );
+
+  // Tạo phần tử thông báo
+  const notification = document.createElement("div");
+  notification.classList.add("notification", `notification-${type}`);
+  notification.innerHTML = `
+    <span>${message}</span>
+    <button class="close-notification">x</button>
+  `;
+
+  // Thêm thông báo vào container
+  notificationContainer.appendChild(notification);
+
+  // Đóng thông báo khi nhấn nút "x"
+  notification
+    .querySelector(".close-notification")
+    .addEventListener("click", () => {
+      notification.remove();
+    });
+
+  // Tự động ẩn sau 5 giây
+  setTimeout(() => {
+    notification.remove();
+  }, 5000);
 }

@@ -1,6 +1,6 @@
 const User = require("../../models/users.model");
 
-module.exports = async (res) => {
+module.exports = async (req, res) => {
   _io.once("connection", (socket) => {
     socket.on("CLIENT_ADD_FRIEND", async (userId) => {
       const myUserId = res.locals.userInfo.id;
@@ -39,13 +39,20 @@ module.exports = async (res) => {
           }
         );
       }
+
+      const userB = await User.findOne({ _id: userId });
+
+      socket.broadcast.emit("SERVER_RETURN_ADD_FRIEND", {
+        userId: userB.id,
+        lengthAcceptFriend: userB.acceptFriend.length,
+      });
     });
 
     socket.on("CLIENT_CANCEL_FRIEND", async (userId) => {
       const myUserId = res.locals.userInfo.id;
 
-      console.log(userId);
-      console.log(myUserId);
+      // console.log(userId);
+      // console.log(myUserId);
 
       // xóa B khỏi requestFriend của A
       await User.updateOne(
@@ -66,6 +73,13 @@ module.exports = async (res) => {
           $pull: { acceptFriend: myUserId },
         }
       );
+
+      const userB = await User.findOne({ _id: userId });
+
+      socket.broadcast.emit("SERVER_RETURN_CANCEL_FRIEND", {
+        userId: userB.id,
+        lengthAcceptFriend: userB.acceptFriend.length,
+      });
     });
 
     socket.on("CLIENT_SEND_ACCEPT", async (userId) => {

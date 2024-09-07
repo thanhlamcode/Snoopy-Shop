@@ -7,7 +7,7 @@ module.exports.notFriend = async (req, res) => {
   const userId = res.locals.userInfo.id;
 
   // socket
-  usersSocket(res);
+  usersSocket(req, res);
   // end socket
 
   const userInfo = await User.findOne({
@@ -48,7 +48,7 @@ module.exports.request = async (req, res) => {
   const userId = res.locals.userInfo.id;
 
   // socket
-  usersSocket(res);
+  usersSocket(req, res);
   // end socket
 
   const userInfo = await User.findOne({
@@ -74,7 +74,7 @@ module.exports.accept = async (req, res) => {
   const userId = res.locals.userInfo.id;
 
   // socket
-  usersSocket(res);
+  usersSocket(req, res);
   // end socket
 
   const userInfo = await User.findOne({
@@ -100,7 +100,7 @@ module.exports.listFriend = async (req, res) => {
   const userId = res.locals.userInfo.id;
 
   // socket
-  usersSocket(res);
+  usersSocket(req, res);
   // end socket
 
   const userInfo = await User.findOne({

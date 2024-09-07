@@ -2,5 +2,8 @@
   .col-12.mb-5.list-box
     a.btn.btn-primary.m-1(href="/users/not-friend") Danh sách người dùng
     a.btn.btn-primary.m-1(href="/users/friends") Danh sách bạn bè
+      span(badge-users-friendList=userInfo.id).badge.badge-light.ml-1 #{userInfo.friendList.length}
     a.btn.btn-primary.m-1(href="/users/request") Lời mời đã gửi
-    a.btn.btn-primary.m-1(href="/users/accept") Lời mời kết bạn
+      span(badge-users-request=userInfo.id).badge.badge-light.ml-1 #{userInfo.requestFriend.length}
+    a.btn.btn-primary.m-1(href="/users/accept") Lời mời kết bạn 
+      span(badge-users-accept=userInfo.id).badge.badge-light.ml-1 #{userInfo.acceptFriend.length}
