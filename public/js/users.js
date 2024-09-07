@@ -186,3 +186,18 @@ if (badgeFriend) {
     }
   });
 }
+
+// TAG ONLINE
+const iconStatus = document.querySelectorAll(".inner-status");
+if (iconStatus) {
+  socket.on("SERVER_RETURN_ONLINE", (userId) => {
+    iconStatus.forEach((item) => {
+      const id = item.getAttribute("data-id");
+      if (id == userId) {
+        item.setAttribute("status", "online");
+      }
+    });
+  });
+}
+
+// END TAG ONLINE

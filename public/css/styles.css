@@ -794,6 +794,16 @@ emoji-picker {
   display: inline-block;
 }
 
+.box-user .inner-status {
+  font-size: 12px;
+  color: #00d800; /* Green color */
+  opacity: 0; /* Initially hidden */
+}
+
+.box-user .inner-status[status="online"] {
+  opacity: 1; /* Visible when status is 'online' */
+}
+
 .infoEdit .wrap-image {
   width: 100%;
   text-align: center;
@@ -812,6 +822,11 @@ emoji-picker {
 /* FRIEND */
 .list-box {
   text-align: center;
+}
+
+.inner-buttons {
+  display: flex;
+  align-items: center;
 }
 
 .inner-buttons.none {

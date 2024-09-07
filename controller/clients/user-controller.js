@@ -79,6 +79,18 @@ module.exports.loginPost = async (req, res) => {
       );
     }
 
+    await User.updateOne(
+      { _id: existingUser.id },
+      {
+        statusOnline: "online",
+      }
+    );
+
+    // Socket
+    _io.once("connection", (socket) => {
+      socket.broadcast.emit("SERVER_RETURN_ONLINE", existingUser.id);
+    });
+    //End Socket
     req.flash("success", "Đăng nhập thành công!");
     res.cookie("tokenUser", existingUser.tokenUser);
     return res.redirect("/");
@@ -90,6 +102,13 @@ module.exports.loginPost = async (req, res) => {
 
 // [GET] /user/logout
 module.exports.logout = async (req, res) => {
+  await User.updateOne(
+    { tokenUser: req.cookies.tokenUser },
+    {
+      statusOnline: "offline",
+    }
+  );
+
   res.clearCookie("tokenUser");
   res.clearCookie("cartId");
   req.flash("success", "Đăng xuất thành công!");

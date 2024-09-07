@@ -23,6 +23,8 @@ block main
                 div.inner-name #{item.fullName}
                 div.inner-buttons
                   button(button-add=item.id class="btn btn-sm btn-primary mr-1 mt-1" data-delete-friend) Hủy kết bạn
+                  div.inner-status(status=item.statusOnline data-id=item.id)
+                    i.fa-solid.fa-circle
                 p.delete-friend <b>Hủy kết bạn thành công</b>
       else 
         h1(style="width: 100%;").text-center Bạn không có người bạn nào
