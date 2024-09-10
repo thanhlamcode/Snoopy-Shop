@@ -1,13 +1,15 @@
 const Chat = require("../../models/chat.model");
 const uploadToCloudDinary = require("../../helpers/uploadCloudDinary");
 
-module.exports = (res) => {
+module.exports = (req, res) => {
   const userId = res.locals.userInfo.id;
   const fullName = res.locals.userInfo.fullName;
 
+  const roomChatId = req.params.roomChat;
+
   _io.once("connection", (socket) => {
+    socket.join(roomChatId);
     socket.on("CLIENT_SEND_MESSAGE", async (data) => {
-      socket.join("public");
       let images = [];
 
       for (const image of data.images) {
@@ -21,12 +23,12 @@ module.exports = (res) => {
         user_id: userId,
         content: data.content,
         images: images,
-        room_chat_id: "public",
+        room_chat_id: roomChatId,
       });
 
       await chat.save();
 
-      _io.to("public").emit("SERVER_RETURN_MESSAGE", {
+      _io.to(roomChatId).emit("SERVER_RETURN_MESSAGE", {
         userId: userId,
         fullName: fullName,
         content: data.content,
@@ -35,7 +37,7 @@ module.exports = (res) => {
 
       // Server-side: Xử lý sự kiện typing từ client
       socket.on("CLIENT_SEND_TYPING", async (type) => {
-        socket.broadcast.to("public").emit("SERVER_RETURN_TYPING", {
+        socket.broadcast.to(roomChatId).emit("SERVER_RETURN_TYPING", {
           userId: userId,
           fullName: fullName,
           type: type,

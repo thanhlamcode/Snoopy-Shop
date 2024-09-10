@@ -1,4 +1,5 @@
 const User = require("../../models/users.model");
+const RoomChat = require("../../models/room-chat.model");
 
 module.exports = async (req, res) => {
   _io.once("connection", (socket) => {
@@ -88,6 +89,23 @@ module.exports = async (req, res) => {
       console.log("Id được kết bạn: ", userId);
       console.log("Id tài khoản gốc: ", myUserId);
 
+      const dataRoom = {
+        typeRoom: "friend",
+        users: [
+          {
+            user_id: userId,
+            role: "superAdmin",
+          },
+          {
+            user_id: myUserId,
+            role: "superAdmin",
+          },
+        ],
+      };
+
+      const roomChat = new RoomChat(dataRoom);
+      await roomChat.save();
+
       // Thêm B vào friendList của A và xóa B ra khỏi acceptFriend của A
       await User.updateOne(
         {
@@ -97,7 +115,7 @@ module.exports = async (req, res) => {
           $push: {
             friendList: {
               user_id: userId,
-              // room_chat_id:
+              room_chat_id: roomChat.id,
             },
           },
         }
@@ -121,7 +139,7 @@ module.exports = async (req, res) => {
           $push: {
             friendList: {
               user_id: myUserId,
-              // room_chat_id:
+              room_chat_id: roomChat.id,
             },
           },
         }

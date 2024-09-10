@@ -115,6 +115,13 @@ module.exports.listFriend = async (req, res) => {
     deleted: false,
   });
 
+  for (const item of user) {
+    const friend = item.friendList.find((object) => object.user_id === userId);
+    if (friend) {
+      item.room_chat_id = friend.room_chat_id;
+    }
+  }
+
   res.render("client/pages/users/list-friend", {
     pageTitle: "Danh sách bạn bè",
     user: user,
