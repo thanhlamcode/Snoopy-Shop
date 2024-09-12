@@ -32,7 +32,7 @@ module.exports.roomChat = async (req, res) => {
   //end socket
 
   const roomChat = req.params.roomChat;
-  console.log(roomChat);
+  // console.log(roomChat);
 
   const chats = await Chat.find({ deleted: false, room_chat_id: roomChat });
 
