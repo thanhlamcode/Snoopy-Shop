@@ -8,8 +8,10 @@ block main
     .row
       .col-12
         +box-head(nameRoomChat)
+      .col-12
+        a(href=`/chat/chatGroup/setting/${roomChatId}`).btn.btn-primary.btn-block() Cài đặt chung về nhóm chat
 
-    .row
+    .row 
       .col-12.chat(my-id=userInfo.id)
         .inner-body
           each item in chats 

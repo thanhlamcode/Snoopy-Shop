@@ -25,8 +25,8 @@ module.exports.isAccess = async (req, res, next) => {
 
 module.exports.isAccessGroup = async (req, res, next) => {
   try {
-    console.log(res.locals.userInfo.id);
-    console.log(req.params.id);
+    // console.log(res.locals.userInfo.id);
+    // console.log(req.params.id);
 
     const roomChat = await RoomChat.findOne({
       _id: req.params.id,

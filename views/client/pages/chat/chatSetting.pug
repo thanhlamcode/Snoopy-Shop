@@ -1,0 +1,44 @@
+extends ../../layouts/defaults.pug
+include ../../mixins/box-head.pug
+include ../../mixins/products-grid.pug
+include ../../mixins/blog-famous.pug
+include ../../mixins/list-friend.pug
+
+block main
+  .container.my-3.infoEdit
+    include ../../partials/list-btn-users.pug
+    .row
+      .col-12
+        +box-head("Cài đặt chung")
+    .row.justify-content-center
+      form(action="/users/create-room-chat" method="POST" enctype="multipart/form-data")
+        .form-group
+          label(for="title") Tiêu đề phòng chat
+          input.form-control(type="text" id="title" name="title" value=roomChat.title required)
+
+        .form-group
+          .custom-dropdown
+            .dropdown-btn Danh sách thành viên
+            .dropdown-menu
+              each item in member
+                label
+                  div(name="users" class="fullName" value=item.user_id) #{item.info.fullName}
+                    div.inner-status(status=item.info.statusOnline data-id=item.id)
+                  .dropdown-btn.bar More
+                    .dropdown-menu
+                      label.sub(href='') Nhắn tin
+                      label.sub(href='#') Chỉ định làm quản trị viên
+                      label.sub(href='#') Xóa thành viên
+
+        
+        div(class="form-group" upload-image)
+          label(for="thumbnail") Ảnh phòng chat
+          input(type="file" upload-image-input class="form-control-file", id="thumbnail", name="thumbnail" accept="image/*" )
+          .wrap-image 
+            img(upload-image-preview src=(roomChat.thumbnail ? roomChat.thumbnail : "/images/user-avatar.jpg") class="upload-preview")
+
+        .form-group
+          button.btn.btn-primary.btn-block(type="submit") Tạo phòng
+block script
+  script(src="/js/users.js") 
+  script(src="/admin/js/create.js")

@@ -77,5 +77,38 @@ module.exports.chatGroup = async (req, res) => {
     pageTitle: "Chat",
     chats: chats,
     nameRoomChat: roomChat.title,
+    roomChatId: roomChat.id,
+  });
+};
+
+// [GET] /chat/chatGroup/:id
+module.exports.chatSetting = async (req, res) => {
+  const userId = res.locals.userInfo.id;
+  const idGroupChat = req.params.id;
+
+  const user = await User.findOne({ _id: userId });
+  const roomChat = await RoomChat.findOne({ deleted: false, _id: idGroupChat });
+
+  for (const item of roomChat.users) {
+    const userItem = await User.findOne({
+      deleted: false,
+      _id: item.user_id,
+    });
+
+    item.info = userItem;
+  }
+
+  console.log(roomChat.users);
+
+  for (const item of user.friendList) {
+    const info = await User.findOne({ _id: item.user_id });
+
+    item.fullName = info.fullName;
+  }
+
+  res.render("client/pages/chat/chatSetting", {
+    pageTitle: "Cài đặt chung phòng chat",
+    member: roomChat.users,
+    roomChat: roomChat,
   });
 };

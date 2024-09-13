@@ -84,25 +84,31 @@ if (tableCart) {
 
 // DROP DOWN
 document.addEventListener("DOMContentLoaded", function () {
-  var dropdownBtn = document.getElementById("dropdown-btn");
-  var dropdownMenu = document.getElementById("dropdown-menu");
+  var dropdownBtns = document.querySelectorAll(".dropdown-btn");
 
-  if (dropdownBtn && dropdownMenu) {
-    dropdownBtn.addEventListener("click", function (event) {
-      // Toggle the dropdown menu
-      dropdownMenu.classList.toggle("show");
-      event.stopPropagation(); // Ngăn sự kiện này lan ra ngoài
-    });
+  dropdownBtns.forEach(function (dropdownBtn) {
+    var dropdownMenu = dropdownBtn.nextElementSibling;
 
-    // Prevent dropdown from closing when clicking inside the menu
-    dropdownMenu.addEventListener("click", function (event) {
-      event.stopPropagation(); // Ngăn sự kiện này làm đóng dropdown khi click vào menu
-    });
+    if (dropdownBtn && dropdownMenu) {
+      dropdownBtn.addEventListener("click", function (event) {
+        // Toggle the dropdown menu
+        dropdownMenu.classList.toggle("show");
+        event.stopPropagation(); // Ngăn sự kiện này lan ra ngoài
+      });
 
-    // Close the dropdown if clicked outside the dropdown button or menu
-    window.addEventListener("click", function (event) {
+      // Prevent dropdown from closing when clicking inside the menu
+      dropdownMenu.addEventListener("click", function (event) {
+        event.stopPropagation(); // Ngăn sự kiện này làm đóng dropdown khi click vào menu
+      });
+    }
+  });
+
+  // Close the dropdown if clicked outside the dropdown button or menu
+  window.addEventListener("click", function (event) {
+    dropdownBtns.forEach(function (dropdownBtn) {
+      var dropdownMenu = dropdownBtn.nextElementSibling;
       if (
-        !event.target.matches("#dropdown-btn") &&
+        !event.target.matches(".dropdown-btn") &&
         !dropdownMenu.contains(event.target)
       ) {
         if (dropdownMenu.classList.contains("show")) {
@@ -110,6 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
     });
-  }
+  });
 });
+
 // END DROP DOWN

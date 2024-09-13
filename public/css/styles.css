@@ -961,6 +961,14 @@ emoji-picker {
   display: block;
   margin: 5px 0;
   font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dropdown-menu .fullName {
+  display: flex;
+  align-items: center;
 }
 
 .dropdown-menu input[type="checkbox"] {
@@ -983,3 +991,28 @@ emoji-picker {
 }
 
 /* END LIST ROOM CHAT  */
+
+/* GROUP CHAT  */
+.dropdown-menu.show .inner-status {
+  font-size: 12px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #00d800; /* Green color */
+  opacity: 0; /* Initially hidden */
+  margin-left: 8px;
+}
+
+.dropdown-menu.show .inner-status[status="online"] {
+  opacity: 1; /* Visible when status is 'online' */
+}
+
+.dropdown-menu .bar {
+  font-size: 15px;
+  position: relative;
+  cursor: pointer;
+  width: 60px;
+  height: 40px;
+}
+
+/* END GROUP CHAT  */
