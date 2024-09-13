@@ -22,13 +22,16 @@ block main
             .dropdown-menu
               each item in member
                 label
-                  div(name="users" class="fullName" value=item.user_id) #{item.info.fullName}
+                  div(name="users" class="fullName" value=item.user_id) 
+                    p #{item.info.fullName}
                     div.inner-status(status=item.info.statusOnline data-id=item.id)
-                  .dropdown-btn.bar More
+                  .custom-dropdown
+                    .dropdown-btn.bar More
                     .dropdown-menu
                       label.sub(href='') Nhắn tin
                       label.sub(href='#') Chỉ định làm quản trị viên
                       label.sub(href='#') Xóa thành viên
+
 
         
         div(class="form-group" upload-image)

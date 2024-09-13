@@ -84,36 +84,41 @@ if (tableCart) {
 
 // DROP DOWN
 document.addEventListener("DOMContentLoaded", function () {
-  var dropdownBtns = document.querySelectorAll(".dropdown-btn");
+  // Dropdown cho "Danh sách thành viên"
+  var memberDropdownBtn = document.querySelector(".dropdown-btn:not(.bar)");
+  var memberDropdownMenu = memberDropdownBtn.nextElementSibling;
 
-  dropdownBtns.forEach(function (dropdownBtn) {
-    var dropdownMenu = dropdownBtn.nextElementSibling;
+  if (memberDropdownBtn && memberDropdownMenu) {
+    memberDropdownBtn.addEventListener("click", function (event) {
+      memberDropdownMenu.classList.toggle("show");
+      event.stopPropagation();
+    });
+  }
 
-    if (dropdownBtn && dropdownMenu) {
-      dropdownBtn.addEventListener("click", function (event) {
-        // Toggle the dropdown menu
-        dropdownMenu.classList.toggle("show");
-        event.stopPropagation(); // Ngăn sự kiện này lan ra ngoài
-      });
+  // Dropdown cho "More"
+  var moreDropdownBtns = document.querySelectorAll(".dropdown-btn.bar");
 
-      // Prevent dropdown from closing when clicking inside the menu
-      dropdownMenu.addEventListener("click", function (event) {
-        event.stopPropagation(); // Ngăn sự kiện này làm đóng dropdown khi click vào menu
+  moreDropdownBtns.forEach(function (moreDropdownBtn) {
+    var moreDropdownMenu = moreDropdownBtn.nextElementSibling;
+
+    if (moreDropdownBtn && moreDropdownMenu) {
+      moreDropdownBtn.addEventListener("click", function (event) {
+        moreDropdownMenu.classList.toggle("show");
+        event.stopPropagation();
       });
     }
   });
 
-  // Close the dropdown if clicked outside the dropdown button or menu
-  window.addEventListener("click", function (event) {
-    dropdownBtns.forEach(function (dropdownBtn) {
-      var dropdownMenu = dropdownBtn.nextElementSibling;
-      if (
-        !event.target.matches(".dropdown-btn") &&
-        !dropdownMenu.contains(event.target)
-      ) {
-        if (dropdownMenu.classList.contains("show")) {
-          dropdownMenu.classList.remove("show");
-        }
+  // Đóng tất cả dropdowns nếu nhấn bên ngoài
+  window.addEventListener("click", function () {
+    if (memberDropdownMenu && memberDropdownMenu.classList.contains("show")) {
+      memberDropdownMenu.classList.remove("show");
+    }
+
+    moreDropdownBtns.forEach(function (moreDropdownBtn) {
+      var moreDropdownMenu = moreDropdownBtn.nextElementSibling;
+      if (moreDropdownMenu && moreDropdownMenu.classList.contains("show")) {
+        moreDropdownMenu.classList.remove("show");
       }
     });
   });
