@@ -1,0 +1,41 @@
+extends ../../layouts/defaults.pug
+include ../../mixins/box-head.pug
+include ../../mixins/alert.pug
+
+block main
+  .container.my-3.cart
+    include ../../partials/list-btn-users.pug
+    .row
+      .col-12
+        +box-head(nameRoomChat)
+
+    .row
+      .col-12.chat(my-id=userInfo.id)
+        .inner-body
+          each item in chats 
+            div(class=(item.userInfo.id == userInfo.id ? "inner-outgoing" : "inner-incoming" ))
+              if(item.userInfo.id!=userInfo.id)
+                .inner-name #{item.userInfo.fullName}
+              if(item.content)
+                .inner-content #{item.content}
+            if(item.images)
+              .inner-images(class=(item.userInfo.id == userInfo.id ? "image-right" : "image-left" ))
+                each image in item.images 
+                  img(src=image)
+          div.inner-list-typing
+        .inner-preview-images
+          div(class="custom-file-container" data-upload-id="my-unique-id" id="upload-image")
+        //- Message Input Form
+        .inner-foot
+          form.inner-form(action='')
+            input(type='text', placeholder='Nhập nội dung...', name='content')
+            label(for="file-upload-with-preview-my-unique-id" class="btn btn-light")
+              i(class="fa-solid fa-image")
+            span(class="button-icon fa-regular fa-face-smile btn btn-light")
+            button(type='submit', class='fa-solid fa-paper-plane')
+
+  div(class="tooltip" role="tooltip")
+    emoji-picker(class="light")
+
+  block script 
+    script(type="module" src="/js/chat.js") 
