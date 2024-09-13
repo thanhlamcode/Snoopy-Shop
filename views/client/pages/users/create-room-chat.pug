@@ -1,0 +1,38 @@
+extends ../../layouts/defaults.pug
+include ../../mixins/box-head.pug
+include ../../mixins/products-grid.pug
+include ../../mixins/blog-famous.pug
+include ../../mixins/list-friend.pug
+
+block main
+  .container.my-3.infoEdit
+    include ../../partials/list-btn-users.pug
+    .row
+      .col-12
+        +box-head("Tạo phòng chat mới")
+    .row.justify-content-center
+      form(action="/users/create-room-chat" method="POST" enctype="multipart/form-data")
+        .form-group
+          label(for="title") Tiêu đề phòng chat
+          input.form-control(type="text" id="title" name="title" required)
+
+        .form-group
+          .custom-dropdown
+            #dropdown-btn.dropdown-btn Chọn Thành Viên
+            #dropdown-menu.dropdown-menu
+              each item in friendList
+                label
+                  input(type='checkbox' name="users" value=item.user_id)
+                  |  #{item.fullName}
+        
+        div(class="form-group" upload-image)
+          label(for="thumbnail") Ảnh phòng chat
+          input(type="file" upload-image-input class="form-control-file", id="thumbnail", name="thumbnail" accept="image/*" )
+          .wrap-image 
+            img(upload-image-preview src=(user.thumbnail ? `${user.thumbnail}` : "/images/user-avatar.jpg") class="upload-preview")
+
+        .form-group
+          button.btn.btn-primary.btn-block(type="submit") Tạo phòng
+block script
+  script(src="/js/users.js") 
+  script(src="/admin/js/create.js")

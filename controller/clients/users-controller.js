@@ -1,4 +1,5 @@
 const User = require("../../models/users.model");
+const RoomChat = require("../../models/room-chat.model");
 const usersSocket = require("../../socket/clients/users.socket");
 const listFriendHelper = require("../../helpers/listFriend");
 
@@ -126,4 +127,76 @@ module.exports.listFriend = async (req, res) => {
     pageTitle: "Danh sách bạn bè",
     user: user,
   });
+};
+
+// [GET] /users/room-chat
+module.exports.roomChat = async (req, res) => {
+  const userId = res.locals.userInfo.id;
+
+  // socket
+  usersSocket(req, res);
+  // end socket
+
+  res.render("client/pages/users/room-chat", {
+    pageTitle: "Nhóm chat",
+    // user: user,
+  });
+};
+
+// [GET] /users/create-room-chat
+module.exports.createRoomChat = async (req, res) => {
+  const userId = res.locals.userInfo.id;
+
+  // socket
+  usersSocket(req, res);
+  // end socket
+
+  const user = await User.findOne({ _id: userId });
+
+  for (const item of user.friendList) {
+    const info = await User.findOne({ _id: item.user_id });
+
+    item.fullName = info.fullName;
+  }
+
+  res.render("client/pages/users/create-room-chat", {
+    pageTitle: "Tạo phòng chat mới",
+    friendList: user.friendList,
+  });
+};
+
+// [POST] /users/create-room-chat
+module.exports.postCreateRoomChat = async (req, res) => {
+  try {
+    const user_id = res.locals.userInfo.id;
+
+    let users = [];
+
+    users.push({
+      user_id: user_id,
+      role: "superAdmin",
+    });
+
+    req.body.users.forEach((item) => {
+      users.push({
+        user_id: item,
+        role: "user",
+      });
+    });
+
+    req.body.users = users;
+    req.body.status = "active";
+    req.body.typeRoom = "group";
+
+    const roomChat = new RoomChat(req.body);
+    await roomChat.save();
+
+    console.log(req.body);
+
+    req.flash("success", `Tạo phòng chat mới thành công !`);
+    res.redirect("back");
+  } catch (error) {
+    req.flash("error", `Tạo phòng chat mới thất bại !`);
+    res.redirect("back");
+  }
 };

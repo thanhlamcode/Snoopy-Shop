@@ -921,3 +921,54 @@ emoji-picker {
 }
 
 /*END  ALERT  */
+
+/* DROP DOWN */
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+.dropdown-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.dropdown-btn:focus {
+  outline: none;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 10px;
+  width: 100%;
+}
+
+.dropdown-menu label {
+  display: block;
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.dropdown-menu input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+/* Show the dropdown when clicking on the button */
+.custom-dropdown.show .dropdown-menu {
+  display: block;
+}
+/* END DROP DOWN */
