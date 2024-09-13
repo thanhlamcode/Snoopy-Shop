@@ -13,6 +13,18 @@ block main
     .row
       .col-4
         a.btn.btn-outline-success(href=`/users/create-room-chat`) Tạo mới phòng chat
+    .row.list-room-chat 
+      each item in roomChat
+        .col-12.mt-2
+          div(class=add).box-user
+            div.inner-avatar
+              img(
+                src=(item.thumbnail ? item.thumbnail : "/images/user-avatar.jpg")
+              )
+            div.inner-info
+              div.inner-name Phòng Chat: #{item.title}
+              div.inner-buttons
+                a(href=`/chat/chatGroup/${item.id}` class="btn btn-sm btn-success mr-1 mt-1") Nhắn tin
 
 block script
   script(src="/js/users.js") 

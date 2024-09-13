@@ -972,3 +972,14 @@ emoji-picker {
   display: block;
 }
 /* END DROP DOWN */
+
+/* LIST ROOM CHAT  */
+.list-room-chat .inner-avatar {
+  width: 20%;
+}
+
+.list-room-chat .btn {
+  width: 100%;
+}
+
+/* END LIST ROOM CHAT  */

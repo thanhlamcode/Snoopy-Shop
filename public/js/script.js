@@ -87,31 +87,29 @@ document.addEventListener("DOMContentLoaded", function () {
   var dropdownBtn = document.getElementById("dropdown-btn");
   var dropdownMenu = document.getElementById("dropdown-menu");
 
-  if (dropdownBtn) {
+  if (dropdownBtn && dropdownMenu) {
     dropdownBtn.addEventListener("click", function (event) {
       // Toggle the dropdown menu
       dropdownMenu.classList.toggle("show");
       event.stopPropagation(); // Ngăn sự kiện này lan ra ngoài
     });
-  }
 
-  if (dropdownMenu) {
     // Prevent dropdown from closing when clicking inside the menu
     dropdownMenu.addEventListener("click", function (event) {
       event.stopPropagation(); // Ngăn sự kiện này làm đóng dropdown khi click vào menu
     });
-  }
 
-  // Close the dropdown if clicked outside the dropdown button or menu
-  window.addEventListener("click", function (event) {
-    if (
-      !event.target.matches("#dropdown-btn") &&
-      !dropdownMenu.contains(event.target)
-    ) {
-      if (dropdownMenu.classList.contains("show")) {
-        dropdownMenu.classList.remove("show");
+    // Close the dropdown if clicked outside the dropdown button or menu
+    window.addEventListener("click", function (event) {
+      if (
+        !event.target.matches("#dropdown-btn") &&
+        !dropdownMenu.contains(event.target)
+      ) {
+        if (dropdownMenu.classList.contains("show")) {
+          dropdownMenu.classList.remove("show");
+        }
       }
-    }
-  });
+    });
+  }
 });
 // END DROP DOWN

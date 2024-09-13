@@ -49,3 +49,28 @@ module.exports.roomChat = async (req, res) => {
     chats: chats,
   });
 };
+
+// [GET] /chat/chatGroup/:id
+module.exports.chatGroup = async (req, res) => {
+  //socket
+  chatGroupSocket(req, res);
+  //end socket
+
+  const roomChat = req.params.roomChat;
+  // console.log(roomChat);
+
+  const chats = await Chat.find({ deleted: false, room_chat_id: roomChat });
+
+  for (const item of chats) {
+    const userInfo = await User.findOne({
+      _id: item.user_id,
+    });
+
+    item.userInfo = userInfo;
+  }
+
+  res.render("client/pages/chat/index", {
+    pageTitle: "Chat",
+    chats: chats,
+  });
+};

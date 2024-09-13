@@ -137,9 +137,16 @@ module.exports.roomChat = async (req, res) => {
   usersSocket(req, res);
   // end socket
 
+  const roomChat = await RoomChat.find({
+    typeRoom: "group",
+    "users.user_id": userId,
+  });
+
+  // console.log(roomChat);
+
   res.render("client/pages/users/room-chat", {
     pageTitle: "Nhóm chat",
-    // user: user,
+    roomChat: roomChat,
   });
 };
 
@@ -194,9 +201,9 @@ module.exports.postCreateRoomChat = async (req, res) => {
     console.log(req.body);
 
     req.flash("success", `Tạo phòng chat mới thành công !`);
-    res.redirect("back");
+    res.redirect("/users/room-chat");
   } catch (error) {
     req.flash("error", `Tạo phòng chat mới thất bại !`);
-    res.redirect("back");
+    res.redirect("/users/room-chat");
   }
 };

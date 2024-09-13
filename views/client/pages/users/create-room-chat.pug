@@ -29,7 +29,7 @@ block main
           label(for="thumbnail") Ảnh phòng chat
           input(type="file" upload-image-input class="form-control-file", id="thumbnail", name="thumbnail" accept="image/*" )
           .wrap-image 
-            img(upload-image-preview src=(user.thumbnail ? `${user.thumbnail}` : "/images/user-avatar.jpg") class="upload-preview")
+            img(upload-image-preview src=("/images/user-avatar.jpg") class="upload-preview")
 
         .form-group
           button.btn.btn-primary.btn-block(type="submit") Tạo phòng
