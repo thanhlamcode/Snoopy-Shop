@@ -18,5 +18,9 @@ router.get(
   chatMiddleware.isAccessGroup,
   controller.chatSetting
 );
+router.post(
+  "/chatGroup/addMember/:roomChatId",
+  controller.chatSettingAddMember
+);
 
 module.exports = router;

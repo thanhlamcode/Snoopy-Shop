@@ -951,7 +951,7 @@ emoji-picker {
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1;
   border-radius: 5px;
-  max-height: 200px;
+  max-height: 500px;
   padding: 10px;
   width: 100%;
 }
@@ -1033,4 +1033,18 @@ emoji-picker {
 
 .custom-dropdown .show {
   display: block;
+}
+
+.dropdown-menu.show .sub:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.dropdown-menu .fullName p {
+  margin-right: 3px;
+}
+
+.add-member {
+  width: 100%;
+  background-color: #4caf50;
 }

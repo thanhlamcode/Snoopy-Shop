@@ -11,7 +11,7 @@ block main
       .col-12
         +box-head("Cài đặt chung")
     .row.justify-content-center
-      form(action="/users/create-room-chat" method="POST" enctype="multipart/form-data")
+      form(action=`/chat/chatGroup/setting/${roomChat.id}` method="POST" enctype="multipart/form-data")
         .form-group
           label(for="title") Tiêu đề phòng chat
           input.form-control(type="text" id="title" name="title" value=roomChat.title required)
@@ -24,11 +24,14 @@ block main
                 label
                   div(name="users" class="fullName" value=item.user_id) 
                     p #{item.info.fullName}
+                    if(item.role=="superAdmin")
+                      p (Quản trị viên)
                     div.inner-status(status=item.info.statusOnline data-id=item.id)
                   .custom-dropdown
                     .dropdown-btn.bar More
                     .dropdown-menu
-                      label.sub(href='') Nhắn tin
+                      if(userInfo.id!=item.info.id)
+                        label.sub(href='#' data-message=item.info.id) Nhắn tin
                       label.sub(href='#') Chỉ định làm quản trị viên
                       label.sub(href='#') Xóa thành viên
 
@@ -41,7 +44,35 @@ block main
             img(upload-image-preview src=(roomChat.thumbnail ? roomChat.thumbnail : "/images/user-avatar.jpg") class="upload-preview")
 
         .form-group
-          button.btn.btn-primary.btn-block(type="submit") Tạo phòng
+          // Button trigger modal
+          button.btn.btn-primary(type='button' data-toggle='modal' data-target='#exampleModal' class="add-member")
+            | Thêm thành viên mới
+          // Modal
+          #exampleModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
+            .modal-dialog(role='document')
+              .modal-content
+                .modal-header
+                  h5#exampleModalLabel.modal-title Thêm thành viên mới
+                  button.close(type='button' data-dismiss='modal' aria-label='Close')
+                    span(aria-hidden='true') &times;
+                .modal-body
+                    each item in listCanIn
+                      div
+                        input(type="checkbox" class="mr-2" data-id=item.id id=item.id)
+                        label(for=item.id) #{item.fullName}
+                      br
+                .modal-footer
+                  button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+                  button.btn.btn-primary(type='button' id="btn-submit-add") Thêm thành viên
+        
+
+        .form-group
+          button.btn.btn-primary.btn-block(type="submit") Cập nhập
+
+      form(action=`/chat/chatGroup/addMember/${roomChat.id}` method="POST" id="form-add-member")
+        input(name="ids" type="text" class="d-none")
+    
 block script
   script(src="/js/users.js") 
   script(src="/admin/js/create.js")
+  script(src="/js/chatSetting.js") 
