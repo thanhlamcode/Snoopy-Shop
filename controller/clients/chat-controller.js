@@ -102,6 +102,14 @@ module.exports.chatSetting = async (req, res) => {
     peopleInGroupChat.push(item.user_id);
 
     item.info = userItem;
+    // Kiểm tra nếu userId có trong friendList
+    const isFriend = userItem.friendList.some(
+      (friend) => friend.user_id === userId
+    );
+
+    if (isFriend) {
+      item.addFriend = true;
+    }
   }
 
   // Lấy ra danh sách bạn bè
@@ -133,12 +141,32 @@ module.exports.chatSetting = async (req, res) => {
   }
 
   // console.log(listCanIn);
+  const isAdmin = await RoomChat.findOne({
+    typeRoom: "group",
+    users: {
+      $elemMatch: {
+        user_id: userId,
+        role: "superAdmin",
+      },
+    },
+  });
+
+  // console.log(user.friendList);
+  let friendListId = [];
+
+  user.friendList.forEach((item) => {
+    friendListId.push(item.user_id);
+  });
+
+  console.log(friendListId);
 
   res.render("client/pages/chat/chatSetting", {
     pageTitle: "Cài đặt chung phòng chat",
     member: roomChat.users, // Thành viên trong đoạn chat
     roomChat: roomChat,
     listCanIn: listCanIn,
+    isAdmin: isAdmin,
+    friendListId: friendListId,
   });
 };
 

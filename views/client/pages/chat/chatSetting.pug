@@ -28,14 +28,23 @@ block main
                       p (Quản trị viên)
                     div.inner-status(status=item.info.statusOnline data-id=item.id)
                   .custom-dropdown
-                    .dropdown-btn.bar More
-                    .dropdown-menu
-                      if(userInfo.id!=item.info.id)
-                        label.sub(href='#' data-message=item.info.id) Nhắn tin
-                      label.sub(href='#') Chỉ định làm quản trị viên
-                      label.sub(href='#') Xóa thành viên
-
-
+                    if(isAdmin)
+                      .dropdown-btn.bar More
+                      .dropdown-menu
+                        if(userInfo.id!=item.info.id && item.addFriend == true)
+                          label.sub(href='#' data-message=item.info.id) Nhắn tin
+                        else 
+                          if(userInfo.id!=item.info.id)
+                            label.sub(href='#' data-message=item.info.id) Kết bạn
+                        if(item.role!="superAdmin")
+                          label.sub(href='#') Chỉ định làm quản trị viên
+                        label.sub(href='#') Xóa thành viên
+                    else
+                      if(item.addFriend == true)
+                        label.sub.btn.btn-success(href='#' data-message=item.info.id) Nhắn tin
+                      else 
+                        if(userInfo.id!=item.info.id)
+                          label.sub.btn.btn-success(href='#' data-message=item.info.id) Kết bạn
         
         div(class="form-group" upload-image)
           label(for="thumbnail") Ảnh phòng chat
@@ -45,8 +54,9 @@ block main
 
         .form-group
           // Button trigger modal
-          button.btn.btn-primary(type='button' data-toggle='modal' data-target='#exampleModal' class="add-member")
-            | Thêm thành viên mới
+          if(isAdmin)
+            button.btn.btn-primary(type='button' data-toggle='modal' data-target='#exampleModal' class="add-member")
+              | Thêm thành viên mới
           // Modal
           #exampleModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
             .modal-dialog(role='document')
