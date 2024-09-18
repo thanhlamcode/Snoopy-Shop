@@ -20,6 +20,7 @@ router.get(
 );
 router.post(
   "/chatGroup/addMember/:roomChatId",
+  chatMiddleware.isAdminAccess,
   controller.chatSettingAddMember
 );
 
