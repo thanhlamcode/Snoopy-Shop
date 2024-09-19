@@ -107,12 +107,17 @@ module.exports.chatSetting = async (req, res) => {
       (friend) => friend.user_id === userId
     );
 
-    // console.log(isFriend);
-
     if (isFriend) {
       item.addFriend = true;
       item.roomChatId = isFriend.room_chat_id;
     }
+
+    const requestFriend = user.requestFriend.some(
+      (request) => request == item.user_id
+    );
+
+    console.log(requestFriend);
+    item.request = requestFriend;
   }
 
   // Lấy ra danh sách bạn bè
@@ -161,7 +166,7 @@ module.exports.chatSetting = async (req, res) => {
     friendListId.push(item.user_id);
   });
 
-  console.log(friendListId);
+  // console.log(friendListId);
 
   res.render("client/pages/chat/chatSetting", {
     pageTitle: "Cài đặt chung phòng chat",

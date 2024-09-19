@@ -207,3 +207,40 @@ module.exports.postCreateRoomChat = async (req, res) => {
     res.redirect("/users/room-chat");
   }
 };
+
+// [GET] /users/addFriend/:id
+module.exports.addFriend = async (req, res) => {
+  try {
+    const userId = res.locals.userInfo.id;
+    const friendIdid = req.params.id;
+    console.log(friendIdid);
+
+    // Thêm friendId vào request của người gửi
+    await User.updateOne(
+      { _id: userId },
+      {
+        $push: {
+          requestFriend: friendIdid,
+        },
+      }
+    );
+
+    // Thêm friendId vào request của người gửi
+    await User.updateOne(
+      { _id: friendIdid },
+      {
+        $push: {
+          acceptFriend: userId,
+        },
+      }
+    );
+
+    // res.send("ok");
+
+    req.flash("success", `Gửi lời mời kết bạn thành công !`);
+    res.redirect("back");
+  } catch (error) {
+    req.flash("error", `Gửi lời mời thất bại !`);
+    res.redirect("back");
+  }
+};

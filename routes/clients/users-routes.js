@@ -17,5 +17,6 @@ router.post(
   uploadCloud.upload,
   controller.postCreateRoomChat
 );
+router.get("/addFriend/:id", controller.addFriend);
 
 module.exports = router;
