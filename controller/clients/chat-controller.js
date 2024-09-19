@@ -103,12 +103,15 @@ module.exports.chatSetting = async (req, res) => {
 
     item.info = userItem;
     // Kiểm tra nếu userId có trong friendList
-    const isFriend = userItem.friendList.some(
+    const isFriend = userItem.friendList.find(
       (friend) => friend.user_id === userId
     );
 
+    // console.log(isFriend);
+
     if (isFriend) {
       item.addFriend = true;
+      item.roomChatId = isFriend.room_chat_id;
     }
   }
 
