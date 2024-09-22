@@ -244,3 +244,29 @@ module.exports.addFriend = async (req, res) => {
     res.redirect("back");
   }
 };
+
+// [GET] /users/admin/:roomChat/:userId
+module.exports.addAdmin = async (req, res) => {
+  try {
+    const roomChat = req.params.roomChat;
+    const userId = req.params.userId;
+
+    console.log("roomChat:", roomChat);
+    console.log("userId:", userId);
+
+    await RoomChat.updateOne(
+      { _id: roomChat, "users.user_id": userId }, // Tìm phòng chat và người dùng dựa trên user_id
+      {
+        $set: {
+          "users.$.role": "superAdmin", // Cập nhật vai trò của người dùng được tìm thấy thành superAdmin
+        },
+      }
+    );
+
+    req.flash("success", `Cập nhập vai trò thành công !`);
+    res.redirect("back");
+  } catch (error) {
+    req.flash("error", `Cập nhập vai trò thất bại !`);
+    res.redirect("back");
+  }
+};

@@ -18,5 +18,6 @@ router.post(
   controller.postCreateRoomChat
 );
 router.get("/addFriend/:id", controller.addFriend);
+router.get("/admin/:roomChat/:userId", controller.addAdmin);
 
 module.exports = router;

@@ -33,14 +33,16 @@ block main
                       .dropdown-menu
                         if(userInfo.id!=item.info.id && item.addFriend == true)
                           a.sub(href=`/chat/${item.roomChatId}` data-message=item.info.id) Nhắn tin
+                          br
                         else 
                           if(userInfo.id!=item.info.id)
                             if(item.request)
                               b Đã gửi lời mời kết bạn
+                              br
                             else
                               a.sub(href=`/users/addFriend/${item.info.id}` data-message=item.info.id) Kết bạn
                         if(item.role!="superAdmin")
-                          label.sub(href='#') Chỉ định làm quản trị viên
+                          a.sub(href=`/users/admin/${roomChat.id}/${item.info.id}`) Chỉ định làm quản trị viên
                         label.sub(href='#') Xóa thành viên
                     else
                       if(item.addFriend == true)
@@ -49,6 +51,7 @@ block main
                         if(userInfo.id!=item.info.id)
                           if(item.request)
                             b Đã gửi lời mời kết bạn
+                            br
                           else
                             a.sub.btn.btn-success(href=`/users/addFriend/${item.info.id}` data-message=item.info.id) Kết bạn
         

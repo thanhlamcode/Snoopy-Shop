@@ -116,7 +116,7 @@ module.exports.chatSetting = async (req, res) => {
       (request) => request == item.user_id
     );
 
-    console.log(requestFriend);
+    // console.log(requestFriend);
     item.request = requestFriend;
   }
 
