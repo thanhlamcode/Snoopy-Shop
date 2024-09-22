@@ -43,7 +43,8 @@ block main
                               a.sub(href=`/users/addFriend/${item.info.id}` data-message=item.info.id) Kết bạn
                         if(item.role!="superAdmin")
                           a.sub(href=`/users/admin/${roomChat.id}/${item.info.id}`) Chỉ định làm quản trị viên
-                        label.sub(href='#') Xóa thành viên
+                          br
+                        a.sub(href=`/users/deleteMember/${roomChat.id}/${item.info.id}`) Xóa thành viên
                     else
                       if(item.addFriend == true)
                         a.sub.btn.btn-success(href=`/chat/${item.roomChatId}` data-message=item.info.id) Nhắn tin

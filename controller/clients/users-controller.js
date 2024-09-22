@@ -270,3 +270,27 @@ module.exports.addAdmin = async (req, res) => {
     res.redirect("back");
   }
 };
+
+// [GET] /users/deleteMember/:roomChat/:userId
+module.exports.deleteMember = async (req, res) => {
+  try {
+    const roomChat = req.params.roomChat;
+    const userId = req.params.userId;
+
+    console.log("roomChat:", roomChat);
+    console.log("userId:", userId);
+
+    await RoomChat.updateOne(
+      { _id: roomChat }, // Tìm phòng chat dựa trên roomChat
+      {
+        $pull: { users: { user_id: userId } }, // Xóa người dùng dựa trên user_id trong mảng users
+      }
+    );
+
+    req.flash("success", `Xóa thành viên thành công!`);
+    res.redirect("back");
+  } catch (error) {
+    req.flash("error", `Xóa thành viên thất bại!`);
+    res.redirect("back");
+  }
+};

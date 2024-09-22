@@ -19,5 +19,6 @@ router.post(
 );
 router.get("/addFriend/:id", controller.addFriend);
 router.get("/admin/:roomChat/:userId", controller.addAdmin);
+router.get("/deleteMember/:roomChat/:userId", controller.deleteMember);
 
 module.exports = router;
