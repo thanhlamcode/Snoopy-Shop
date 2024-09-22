@@ -23,5 +23,12 @@ router.post(
   chatMiddleware.isAdminAccess,
   controller.chatSettingAddMember
 );
+router.post(
+  "/chatGroup/setting/:roomChatId",
+  upload.single("thumbnail"),
+  uploadCloud.upload,
+  chatMiddleware.isAdminAccess,
+  controller.updateInfoChat
+);
 
 module.exports = router;

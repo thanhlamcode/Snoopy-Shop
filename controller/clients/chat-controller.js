@@ -206,3 +206,21 @@ module.exports.chatSettingAddMember = async (req, res) => {
     res.redirect("back");
   }
 };
+
+// [POST] /chat/chatGroup/setting/:roomChatId
+module.exports.updateInfoChat = async (req, res) => {
+  console.log(req.body);
+  const roomChatId = req.params.roomChatId;
+  console.log(roomChatId);
+
+  await RoomChat.updateOne(
+    { _id: roomChatId },
+    {
+      title: req.body.title,
+      thumbnail: req.body.thumbnail,
+    }
+  );
+
+  req.flash("success", "Cập nhập thông tin nhóm chat thành công!");
+  res.redirect("back");
+};
