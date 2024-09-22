@@ -248,7 +248,7 @@ module.exports.addFriend = async (req, res) => {
 // [GET] /users/admin/:roomChat/:userId
 module.exports.addAdmin = async (req, res) => {
   try {
-    const roomChat = req.params.roomChat;
+    const roomChat = req.params.roomChatId;
     const userId = req.params.userId;
 
     console.log("roomChat:", roomChat);
@@ -274,7 +274,7 @@ module.exports.addAdmin = async (req, res) => {
 // [GET] /users/deleteMember/:roomChat/:userId
 module.exports.deleteMember = async (req, res) => {
   try {
-    const roomChat = req.params.roomChat;
+    const roomChat = req.params.roomChatId;
     const userId = req.params.userId;
 
     console.log("roomChat:", roomChat);

@@ -4,6 +4,7 @@ const controller = require("../../controller/clients/users-controller");
 const multer = require("multer");
 const upload = multer();
 const uploadCloud = require("../../middleware/admin/upload.middleware");
+const adminMiddleware = require("../../middleware/client/chat.middleware");
 
 router.get("/not-friend", controller.notFriend);
 router.get("/request", controller.request);
@@ -17,8 +18,20 @@ router.post(
   uploadCloud.upload,
   controller.postCreateRoomChat
 );
-router.get("/addFriend/:id", controller.addFriend);
-router.get("/admin/:roomChat/:userId", controller.addAdmin);
-router.get("/deleteMember/:roomChat/:userId", controller.deleteMember);
+router.get(
+  "/addFriend/:id",
+  adminMiddleware.isAdminAccess,
+  controller.addFriend
+);
+router.get(
+  "/admin/:roomChatId/:userId",
+  adminMiddleware.isAdminAccess,
+  controller.addAdmin
+);
+router.get(
+  "/deleteMember/:roomChatId/:userId",
+  adminMiddleware.isAdminAccess,
+  controller.deleteMember
+);
 
 module.exports = router;

@@ -59,7 +59,7 @@ module.exports.isAdminAccess = async (req, res, next) => {
     if (!roomChat) {
       req.flash(
         "error",
-        "Không tìm thấy phòng hoặc người dùng không thuộc phòng này"
+        "Không tìm thấy phòng hoặc người dùng thuộc phòng này"
       );
       return res.redirect("/"); // Chuyển hướng nếu không tìm thấy room
     }
