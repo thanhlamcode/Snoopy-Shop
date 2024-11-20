@@ -11,7 +11,6 @@
 - **Tích hợp giỏ hàng**: Cho phép người dùng thêm sản phẩm vào giỏ và thanh toán.
 - **Quản lý người dùng**: Hỗ trợ đăng ký, đăng nhập và bảo mật tài khoản.
 - **Kết nối thời gian thực**: Tích hợp WebSocket để cập nhật giỏ hàng và trạng thái đơn hàng ngay lập tức.
-- **Hỗ trợ thanh toán**: Tích hợp thanh toán trực tuyến với các cổng thanh toán phổ biến.
 - **Tìm kiếm và lọc sản phẩm**: Dễ dàng tìm kiếm và sắp xếp sản phẩm theo nhu cầu.
 - **Quản trị viên**: Giao diện quản trị riêng để quản lý đơn hàng, khách hàng và dữ liệu sản phẩm.
 
