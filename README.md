@@ -60,14 +60,17 @@ npm start
 Ứng dụng sẽ chạy tại http://localhost:3000.
 
 ## 🧪 Kiểm thử
-Tạo người dùng mới
-Thêm sản phẩm vào giỏ hàng
-Kiểm tra giao diện quản trị viên
-Thực hiện thanh toán thử nghiệm
+- **Tạo người dùng mới**
+- **Thêm sản phẩm vào giỏ hàng**
+- **Kiểm tra giao diện quản trị viên**
+- **Thực hiện thanh toán thử nghiệm**
 
 ## 📄 Giấy phép
-Dự án này được cấp phép dưới MIT License.
+Dự án này được cấp phép dưới [MIT License](https://opensource.org/licenses/MIT).
 
 ## 🌟 Tác giả
-Đoàn Thanh Lâm
-Nếu bạn cần thêm thông tin, hãy liên hệ qua email hoặc tạo issue trên GitHub. Cảm ơn đã ghé thăm! 🎉
+
+**Đoàn Thanh Lâm**  
+Nếu bạn cần thêm thông tin, hãy liên hệ qua email hoặc tạo issue trên [GitHub](https://github.com/thanhlamcode/Snoopy-Shop).  
+✨ Cảm ơn đã ghé thăm! 🎉
+
