@@ -49,7 +49,7 @@ Snoopy-Shop/
 ├── package.json     # Quản lý phụ thuộc dự án
 └── README.md        # File mô tả dự án
 ```
-📦 Cách cài đặt
+## 📦 Cách cài đặt
 1. Clone dự án
 git clone https://github.com/thanhlamcode/Snoopy-Shop.git
 cd Snoopy-Shop
@@ -59,15 +59,15 @@ npm install
 npm start
 Ứng dụng sẽ chạy tại http://localhost:3000.
 
-🧪 Kiểm thử
+## 🧪 Kiểm thử
 Tạo người dùng mới
 Thêm sản phẩm vào giỏ hàng
 Kiểm tra giao diện quản trị viên
 Thực hiện thanh toán thử nghiệm
 
-📄 Giấy phép
+## 📄 Giấy phép
 Dự án này được cấp phép dưới MIT License.
 
-🌟 Tác giả
+## 🌟 Tác giả
 Đoàn Thanh Lâm
 Nếu bạn cần thêm thông tin, hãy liên hệ qua email hoặc tạo issue trên GitHub. Cảm ơn đã ghé thăm! 🎉
