@@ -48,7 +48,7 @@ Snoopy-Shop/
 ├── app.js           # File khởi động ứng dụng
 ├── package.json     # Quản lý phụ thuộc dự án
 └── README.md        # File mô tả dự án
-
+```
 📦 Cách cài đặt
 1. Clone dự án
 git clone https://github.com/thanhlamcode/Snoopy-Shop.git
